@@ -616,6 +616,84 @@
       </div>
       <div class="add-button" onclick="showModal('accountModal')">+</div>
     </div>
+    
+    <!-- Chits Page -->
+    <div class="page" id="chitsPage">
+      <h2>Chits</h2>
+      <div class="card">
+        <div class="card-header">
+          <h3>All Chits</h3>
+        </div>
+        <div class="card-body">
+          <table class="table" id="chitsTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Monthly Amount</th>
+                <th>Current Value</th>
+                <th>Maturity Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Family Chit</td>
+                <td>₹5,000</td>
+                <td>₹60,000</td>
+                <td>Jun 2025 (14 months left)</td>
+                <td>
+                  <button onclick="editChit(1)">Edit</button>
+                  <button onclick="deleteChit(1)">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Friends Chit</td>
+                <td>₹2,500</td>
+                <td>₹10,000</td>
+                <td>Apr 2026 (24 months left)</td>
+                <td>
+                  <button onclick="editChit(2)">Edit</button>
+                  <button onclick="deleteChit(2)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>Upcoming Chit Releases</h3>
+        </div>
+        <div class="card-body">
+          <table class="table" id="chitsReleaseTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Expected Value</th>
+                <th>Release Date</th>
+                <th>Months Left</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Family Chit</td>
+                <td>₹120,000</td>
+                <td>Jun 2025</td>
+                <td>14</td>
+              </tr>
+              <tr>
+                <td>Friends Chit</td>
+                <td>₹60,000</td>
+                <td>Apr 2026</td>
+                <td>24</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="add-button" onclick="showModal('chitModal')">+</div>
+    </div>
   </main>
   
   <!-- Tab Navigation -->
@@ -639,6 +717,10 @@
     <a href="#" class="tab" onclick="switchPage('budgetsPage')">
       <span class="tab-icon">💰</span>
       <span>Budgets</span>
+    </a>
+    <a href="#" class="tab" onclick="switchPage('chitsPage')">
+      <span class="tab-icon">🔄</span>
+      <span>Chits</span>
     </a>
     <a href="#" class="tab" onclick="switchPage('accountsPage')">
       <span class="tab-icon">🏦</span>
@@ -679,6 +761,60 @@
     </div>
   </div>
   
+  <!-- Chit Modal -->
+  <div class="modal" id="chitModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="chitModalTitle">Add Chit</h3>
+        <button class="close-modal" onclick="hideModal('chitModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="chitForm">
+          <input type="hidden" id="chitId">
+          <div class="form-group">
+            <label class="form-label" for="chitName">Chit Name</label>
+            <input type="text" id="chitName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="chitAmount">Monthly Amount (₹)</label>
+            <input type="number" id="chitAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="chitStartMonth">Start Month</label>
+            <select id="chitStartMonth" class="form-input" required>
+              <option value="">Select Month</option>
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="chitStartYear">Start Year</label>
+            <input type="number" id="chitStartYear" class="form-input" required min="2020" max="2050" value="2025">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="chitDuration">Duration (Months)</label>
+            <input type="number" id="chitDuration" class="form-input" required min="1" max="120">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="chitDescription">Description (Optional)</label>
+            <input type="text" id="chitDescription" class="form-input">
+          </div>
+          <button type="submit" class="button">Save Chit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
   <script>
     // Register service worker
     if ('serviceWorker' in navigator) {
@@ -699,7 +835,9 @@
       PAYABLES: 'finance_payables',
       INVESTMENTS: 'finance_investments',
       BUDGETS: 'finance_budgets',
-      ACCOUNTS: 'finance_accounts'
+      ACCOUNTS: 'finance_accounts',
+      CHITS: 'finance_chits',
+      LAST_SYNC: 'finance_last_sync'
     };
     
     // DOM Elements
@@ -728,6 +866,28 @@
         // Save the form data (This would normally save to localStorage)
         alert('Receivable saved successfully!');
         hideModal('receivableModal');
+      });
+      
+      // Setup chit form
+      document.getElementById('chitForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const id = document.getElementById('chitId').value;
+        const name = document.getElementById('chitName').value;
+        const amount = document.getElementById('chitAmount').value;
+        const startMonth = document.getElementById('chitStartMonth').value;
+        const startYear = document.getElementById('chitStartYear').value;
+        const duration = document.getElementById('chitDuration').value;
+        const description = document.getElementById('chitDescription').value;
+        
+        // Create start and maturity dates
+        const startDate = new Date(parseInt(startYear), parseInt(startMonth), 1);
+        const maturityDate = new Date(startDate);
+        maturityDate.setMonth(maturityDate.getMonth() + parseInt(duration));
+        
+        // This would normally save to localStorage
+        alert('Chit saved successfully!');
+        hideModal('chitModal');
       });
       
       // Initialize financial data
@@ -781,6 +941,23 @@
     // Show modal
     function showModal(modalId) {
       document.getElementById(modalId).classList.add('active');
+      
+      // For adding a new item, reset the form
+      if (modalId === 'receivableModal') {
+        document.getElementById('receivableModalTitle').textContent = 'Add Receivable';
+        document.getElementById('receivableForm').reset();
+        document.getElementById('receivableId').value = '';
+      } else if (modalId === 'chitModal') {
+        document.getElementById('chitModalTitle').textContent = 'Add Chit';
+        document.getElementById('chitForm').reset();
+        document.getElementById('chitId').value = '';
+        
+        // Set default values for new chit
+        const today = new Date();
+        document.getElementById('chitStartMonth').value = today.getMonth().toString();
+        document.getElementById('chitStartYear').value = today.getFullYear().toString();
+        document.getElementById('chitDuration').value = '24'; // 2 years default
+      }
     }
     
     // Hide modal
@@ -820,6 +997,64 @@
       if (confirm('Are you sure you want to delete this investment?')) {
         alert('Investment deleted!');
       }
+    }
+    
+    // Edit chit details
+    function editChit(id) {
+      // In a real app, this would load data from localStorage
+      document.getElementById('chitModalTitle').textContent = 'Edit Chit';
+      
+      // Dummy data for demonstration
+      document.getElementById('chitId').value = id;
+      document.getElementById('chitName').value = 'Family Chit';
+      document.getElementById('chitAmount').value = '5000';
+      document.getElementById('chitStartMonth').value = '5'; // June
+      document.getElementById('chitStartYear').value = '2024';
+      document.getElementById('chitDuration').value = '24';
+      document.getElementById('chitDescription').value = 'Monthly family chit';
+      
+      showModal('chitModal');
+    }
+    
+    // Delete a chit
+    function deleteChit(id) {
+      if (confirm('Are you sure you want to delete this chit?')) {
+        // In a real app, this would remove from localStorage
+        alert('Chit deleted!');
+      }
+    }
+    
+    // Calculate current chit value based on start date and monthly amount
+    function calculateChitValue(startDate, monthlyAmount, duration) {
+      const today = new Date();
+      startDate = new Date(startDate);
+      
+      // Calculate months elapsed since start
+      const monthsElapsed = (today.getFullYear() - startDate.getFullYear()) * 12 + 
+                          (today.getMonth() - startDate.getMonth());
+      
+      // If started in the future, value is 0
+      if (monthsElapsed < 0) return 0;
+      
+      // Calculate based on months elapsed up to duration
+      const contributingMonths = Math.min(monthsElapsed, duration);
+      return contributingMonths * monthlyAmount;
+    }
+    
+    // Get the remaining months until maturity
+    function getRemainingMonths(maturityDate) {
+      const today = new Date();
+      maturityDate = new Date(maturityDate);
+      
+      return (maturityDate.getFullYear() - today.getFullYear()) * 12 + 
+           (maturityDate.getMonth() - today.getMonth());
+    }
+    
+    // Format date for display (MMM YYYY format)
+    function formatDateMMYYYY(date) {
+      const d = new Date(date);
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      return `${months[d.getMonth()]} ${d.getFullYear()}`;
     }
   </script>
 </body>
