@@ -426,12 +426,20 @@
             <span id="totalReceivables">₹0</span>
           </div>
           <div class="summary-item">
+            <span>Money Lent</span>
+            <span id="totalMoneyLent">₹0</span>
+          </div>
+          <div class="summary-item">
             <span>Total Payables</span>
             <span id="totalPayables">₹0</span>
           </div>
           <div class="summary-item">
             <span>Total Investments</span>
             <span id="totalInvestments">₹0</span>
+          </div>
+          <div class="summary-item">
+            <span>Total Chits</span>
+            <span id="totalChits">₹0</span>
           </div>
           <div class="summary-item">
             <span>Bank Balance</span>
@@ -452,6 +460,27 @@
                 <th>From</th>
                 <th>Amount</th>
                 <th>Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>Money Lent</h3>
+          <a href="#" onclick="switchPage('moneyLentPage')">View All</a>
+        </div>
+        <div class="card-body">
+          <table class="table" id="dashboardMoneyLentTable">
+            <thead>
+              <tr>
+                <th>To</th>
+                <th>Amount</th>
+                <th>Date</th>
               </tr>
             </thead>
             <tbody>
@@ -673,31 +702,56 @@
                 <th>Bank</th>
                 <th>Account Number</th>
                 <th>Balance</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>HDFC Bank</td>
-                <td>****5678</td>
-                <td>₹78,254</td>
-              </tr>
-              <tr>
-                <td>SBI</td>
-                <td>****1234</td>
-                <td>₹35,000</td>
-              </tr>
+              <!-- Will be populated from localStorage -->
             </tbody>
           </table>
+          
+          <div class="add-button-container">
+            <div class="add-button" onclick="showModal('accountModal')">+</div>
+          </div>
         </div>
       </div>
-      <div class="add-button" onclick="showModal('accountModal')">+</div>
+    </div>
+    
+    <!-- Money Lent Page -->
+    <div class="page" id="moneyLentPage">
+      <h2>Money Lent</h2>
+      <div class="card">
+        <div class="card-header">
+          <h3>All Money Lent</h3>
+        </div>
+        <div class="card-body">
+          <table class="table" id="moneyLentTable">
+            <thead>
+              <tr>
+                <th>To</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Notes</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Will be populated from localStorage -->
+            </tbody>
+          </table>
+          
+          <div class="add-button-container">
+            <div class="add-button" onclick="showModal('moneyLentModal')">+</div>
+          </div>
+        </div>
+      </div>
     </div>
     
     <!-- Chits Page -->
     <div class="page" id="chitsPage">
       <div class="page-header">
         <h2>Chits</h2>
-        <button class="add-button" onclick="showModal('chitModal')">+ Add Chit</button>
+        <div class="add-button" onclick="showModal('chitModal')">+</div>
       </div>
       
       <div class="card">
@@ -764,6 +818,70 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Past Expenses Page -->
+    <div class="page" id="pastExpensesPage">
+      <div class="page-header">
+        <h2>Past Expenses</h2>
+        <div class="add-button" onclick="showModal('pastExpenseModal')">+</div>
+      </div>
+      
+      <div class="card">
+        <div class="section-title">
+          <h3>Recent Major Expenses</h3>
+        </div>
+        <div class="item-list" id="pastExpensesList">
+          <!-- Sample past expense items - will be dynamically generated from localStorage -->
+          <div class="list-item" id="pastExpense-1">
+            <div class="item-main">
+              <div class="item-name">New Laptop Purchase</div>
+              <div class="item-details">Apr 2025 • Electronics</div>
+            </div>
+            <div class="item-amount">₹85,000</div>
+            <div class="item-actions">
+              <button class="action-button edit-button" onclick="editPastExpense(1)"><i class="fa fa-edit"></i></button>
+              <button class="action-button delete-button" onclick="deleteItem('pastExpense', 1)"><i class="fa fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="table-footer" id="pastExpensesTotalRow">
+          <span class="total-label">Total</span>
+          <span class="total-amount">₹85,000</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Upcoming Expenses Page -->
+    <div class="page" id="upcomingExpensesPage">
+      <div class="page-header">
+        <h2>Upcoming Expenses</h2>
+        <div class="add-button" onclick="showModal('upcomingExpenseModal')">+</div>
+      </div>
+      
+      <div class="card">
+        <div class="section-title">
+          <h3>Planned Major Expenses</h3>
+        </div>
+        <div class="item-list" id="upcomingExpensesList">
+          <!-- Sample upcoming expense items - will be dynamically generated from localStorage -->
+          <div class="list-item" id="upcomingExpense-1">
+            <div class="item-main">
+              <div class="item-name">Family Vacation</div>
+              <div class="item-details">May 2025 • Travel</div>
+            </div>
+            <div class="item-amount">₹150,000</div>
+            <div class="item-actions">
+              <button class="action-button edit-button" onclick="editUpcomingExpense(1)"><i class="fa fa-edit"></i></button>
+              <button class="action-button delete-button" onclick="deleteItem('upcomingExpense', 1)"><i class="fa fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="table-footer" id="upcomingExpensesTotalRow">
+          <span class="total-label">Total</span>
+          <span class="total-amount">₹150,000</span>
         </div>
       </div>
     </div>
@@ -1016,6 +1134,130 @@
     </div>
   </div>
   
+  <!-- Money Lent Modal -->
+  <div class="modal" id="moneyLentModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="moneyLentModalTitle">Add Money Lent</h3>
+        <button class="close-modal" onclick="hideModal('moneyLentModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="moneyLentForm">
+          <input type="hidden" id="moneyLentId">
+          <div class="form-group">
+            <label class="form-label" for="moneyLentTo">Lent To</label>
+            <input type="text" id="moneyLentTo" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="moneyLentAmount">Amount (₹)</label>
+            <input type="number" id="moneyLentAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="moneyLentDate">Date</label>
+            <input type="date" id="moneyLentDate" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="moneyLentDescription">Description (Optional)</label>
+            <input type="text" id="moneyLentDescription" class="form-input">
+          </div>
+          <button type="submit" class="button">Save Money Lent</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Past Expense Modal -->
+  <div class="modal" id="pastExpenseModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="pastExpenseModalTitle">Add Past Expense</h3>
+        <button class="close-modal" onclick="hideModal('pastExpenseModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="pastExpenseForm">
+          <input type="hidden" id="pastExpenseId">
+          <div class="form-group">
+            <label class="form-label" for="pastExpenseName">Expense Name</label>
+            <input type="text" id="pastExpenseName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="pastExpenseAmount">Amount (₹)</label>
+            <input type="number" id="pastExpenseAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="pastExpenseDate">Date</label>
+            <input type="date" id="pastExpenseDate" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="pastExpenseCategory">Category</label>
+            <select id="pastExpenseCategory" class="form-input">
+              <option value="">Select Category</option>
+              <option value="Car">Car</option>
+              <option value="House">House</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Education">Education</option>
+              <option value="Travel">Travel</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Home Appliances">Home Appliances</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="pastExpenseDescription">Description (Optional)</label>
+            <input type="text" id="pastExpenseDescription" class="form-input">
+          </div>
+          <button type="submit" class="button">Save Past Expense</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Upcoming Expense Modal -->
+  <div class="modal" id="upcomingExpenseModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="upcomingExpenseModalTitle">Add Upcoming Expense</h3>
+        <button class="close-modal" onclick="hideModal('upcomingExpenseModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="upcomingExpenseForm">
+          <input type="hidden" id="upcomingExpenseId">
+          <div class="form-group">
+            <label class="form-label" for="upcomingExpenseName">Expense Name</label>
+            <input type="text" id="upcomingExpenseName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="upcomingExpenseAmount">Amount (₹)</label>
+            <input type="number" id="upcomingExpenseAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="upcomingExpenseDate">Expected Date</label>
+            <input type="date" id="upcomingExpenseDate" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="upcomingExpenseCategory">Category</label>
+            <select id="upcomingExpenseCategory" class="form-input">
+              <option value="">Select Category</option>
+              <option value="Car">Car</option>
+              <option value="House">House</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Education">Education</option>
+              <option value="Travel">Travel</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Home Appliances">Home Appliances</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="upcomingExpenseDescription">Description (Optional)</label>
+            <input type="text" id="upcomingExpenseDescription" class="form-input">
+          </div>
+          <button type="submit" class="button">Save Upcoming Expense</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
   <script>
     // Register service worker
     if ('serviceWorker' in navigator) {
@@ -1038,6 +1280,9 @@
       BUDGETS: 'finance_budgets',
       ACCOUNTS: 'finance_accounts',
       CHITS: 'finance_chits',
+      MONEY_LENT: 'finance_money_lent',
+      PAST_EXPENSES: 'finance_past_expenses',
+      UPCOMING_EXPENSES: 'finance_upcoming_expenses',
       LAST_SYNC: 'finance_last_sync'
     };
     
@@ -1269,6 +1514,109 @@
         hideModal('chitModal');
       });
       
+      // Setup money lent form
+      document.getElementById('moneyLentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const id = document.getElementById('moneyLentId').value;
+        const to = document.getElementById('moneyLentTo').value;
+        const amount = document.getElementById('moneyLentAmount').value;
+        const date = document.getElementById('moneyLentDate').value;
+        const description = document.getElementById('moneyLentDescription').value;
+        
+        // Create or update money lent
+        const moneyLent = {
+          id: id ? parseInt(id) : Date.now(),
+          to,
+          amount: parseFloat(amount),
+          date: new Date(date).toISOString(),
+          description
+        };
+        
+        // Save to localStorage
+        saveToLocalStorage('moneyLent', moneyLent);
+        
+        // Refresh money lent list
+        loadMoneyLent();
+        
+        // Update dashboard
+        updateFinancialSummary();
+        
+        // Close modal
+        hideModal('moneyLentModal');
+      });
+      
+      // Setup past expense form
+      document.getElementById('pastExpenseForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const id = document.getElementById('pastExpenseId').value;
+        const name = document.getElementById('pastExpenseName').value;
+        const amount = document.getElementById('pastExpenseAmount').value;
+        const date = document.getElementById('pastExpenseDate').value;
+        const category = document.getElementById('pastExpenseCategory').value;
+        const description = document.getElementById('pastExpenseDescription').value;
+        
+        // Create or update past expense
+        const pastExpense = {
+          id: id ? parseInt(id) : Date.now(),
+          name,
+          amount: parseFloat(amount),
+          date: new Date(date).toISOString(),
+          category,
+          description
+        };
+        
+        // Save to localStorage
+        saveToLocalStorage('pastExpense', pastExpense);
+        
+        // Refresh past expenses list
+        loadPastExpenses();
+        
+        // Update dashboard
+        updateFinancialSummary();
+        
+        // Close modal
+        hideModal('pastExpenseModal');
+      });
+      
+      // Setup upcoming expense form
+      document.getElementById('upcomingExpenseForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const id = document.getElementById('upcomingExpenseId').value;
+        const name = document.getElementById('upcomingExpenseName').value;
+        const amount = document.getElementById('upcomingExpenseAmount').value;
+        const date = document.getElementById('upcomingExpenseDate').value;
+        const category = document.getElementById('upcomingExpenseCategory').value;
+        const description = document.getElementById('upcomingExpenseDescription').value;
+        
+        // Create or update upcoming expense
+        const upcomingExpense = {
+          id: id ? parseInt(id) : Date.now(),
+          name,
+          amount: parseFloat(amount),
+          date: new Date(date).toISOString(),
+          category,
+          description
+        };
+        
+        // Save to localStorage
+        saveToLocalStorage('upcomingExpense', upcomingExpense);
+        
+        // Refresh upcoming expenses list
+        loadUpcomingExpenses();
+        
+        // Update dashboard
+        updateFinancialSummary();
+        
+        // Close modal
+        hideModal('upcomingExpenseModal');
+      });
+      
       // Initialize financial data
       initializeFinancialData();
     });
@@ -1291,7 +1639,10 @@
         'investment': STORAGE_KEYS.INVESTMENTS,
         'budget': STORAGE_KEYS.BUDGETS,
         'account': STORAGE_KEYS.ACCOUNTS,
-        'chit': STORAGE_KEYS.CHITS
+        'chit': STORAGE_KEYS.CHITS,
+        'moneyLent': STORAGE_KEYS.MONEY_LENT,
+        'pastExpense': STORAGE_KEYS.PAST_EXPENSES,
+        'upcomingExpense': STORAGE_KEYS.UPCOMING_EXPENSES
       };
       
       const storageKey = entityMap[type];
@@ -1331,6 +1682,9 @@
       loadBudgets();
       loadAccounts();
       loadChits();
+      loadMoneyLent();
+      loadPastExpenses();
+      loadUpcomingExpenses();
       updateFinancialSummary();
     }
     
@@ -1615,6 +1969,204 @@
       }
     }
     
+    // Load money lent from localStorage
+    function loadMoneyLent() {
+      try {
+        const moneyLent = JSON.parse(localStorage.getItem(STORAGE_KEYS.MONEY_LENT) || '[]');
+        const tbody = document.querySelector('#moneyLentTable tbody');
+        
+        if (!tbody) return;
+        
+        // Clear existing rows
+        tbody.innerHTML = '';
+        
+        if (moneyLent.length === 0) {
+          // Show empty state
+          tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No money lent yet. Click "+ Add Money Lent" to create one.</td></tr>`;
+          return;
+        }
+        
+        // Sort by date (descending)
+        moneyLent.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        // Calculate total
+        let total = 0;
+        
+        // Add rows
+        moneyLent.forEach((item) => {
+          const lentDate = new Date(item.date);
+          const formattedDate = `${lentDate.toLocaleString('default', { month: 'short' })} ${lentDate.getDate()}, ${lentDate.getFullYear()}`;
+          
+          // Add to total
+          total += parseFloat(item.amount);
+          
+          const row = document.createElement('tr');
+          row.id = `moneyLent-${item.id}`;
+          row.innerHTML = `
+            <td>${item.to}</td>
+            <td>₹${parseFloat(item.amount).toLocaleString()}</td>
+            <td>${formattedDate}</td>
+            <td>${item.description || '-'}</td>
+            <td>
+              <button class="icon-button edit-button" onclick="editMoneyLent(${item.id})" aria-label="Edit">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="icon-button delete-button" onclick="deleteMoneyLent(${item.id})" aria-label="Delete">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          `;
+          
+          tbody.appendChild(row);
+        });
+        
+        // Add total row
+        const totalRow = document.createElement('tr');
+        totalRow.className = 'total-row';
+        totalRow.innerHTML = `
+          <td><strong>Total</strong></td>
+          <td><strong>₹${total.toLocaleString()}</strong></td>
+          <td colspan="3"></td>
+        `;
+        tbody.appendChild(totalRow);
+        
+      } catch (err) {
+        console.error('Error loading money lent:', err);
+      }
+    }
+    
+    // Load past expenses from localStorage
+    function loadPastExpenses() {
+      try {
+        const pastExpenses = JSON.parse(localStorage.getItem(STORAGE_KEYS.PAST_EXPENSES) || '[]');
+        const tbody = document.querySelector('#pastExpensesTable tbody');
+        
+        if (!tbody) return;
+        
+        // Clear existing rows
+        tbody.innerHTML = '';
+        
+        if (pastExpenses.length === 0) {
+          // Show empty state
+          tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No past expenses yet. Click "+ Add Past Expense" to create one.</td></tr>`;
+          return;
+        }
+        
+        // Sort by date (descending - most recent first)
+        pastExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        // Calculate total
+        let total = 0;
+        
+        // Add rows
+        pastExpenses.forEach((expense) => {
+          const expenseDate = new Date(expense.date);
+          const formattedDate = `${expenseDate.toLocaleString('default', { month: 'short' })} ${expenseDate.getDate()}, ${expenseDate.getFullYear()}`;
+          
+          // Add to total
+          total += parseFloat(expense.amount);
+          
+          const row = document.createElement('tr');
+          row.id = `pastExpense-${expense.id}`;
+          row.innerHTML = `
+            <td>${expense.name}</td>
+            <td>₹${parseFloat(expense.amount).toLocaleString()}</td>
+            <td>${formattedDate}</td>
+            <td>${expense.category || '-'}</td>
+            <td>
+              <button class="icon-button edit-button" onclick="editPastExpense(${expense.id})" aria-label="Edit">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="icon-button delete-button" onclick="deletePastExpense(${expense.id})" aria-label="Delete">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          `;
+          
+          tbody.appendChild(row);
+        });
+        
+        // Add total row
+        const totalRow = document.createElement('tr');
+        totalRow.className = 'total-row';
+        totalRow.innerHTML = `
+          <td><strong>Total</strong></td>
+          <td><strong>₹${total.toLocaleString()}</strong></td>
+          <td colspan="3"></td>
+        `;
+        tbody.appendChild(totalRow);
+        
+      } catch (err) {
+        console.error('Error loading past expenses:', err);
+      }
+    }
+    
+    // Load upcoming expenses from localStorage
+    function loadUpcomingExpenses() {
+      try {
+        const upcomingExpenses = JSON.parse(localStorage.getItem(STORAGE_KEYS.UPCOMING_EXPENSES) || '[]');
+        const tbody = document.querySelector('#upcomingExpensesTable tbody');
+        
+        if (!tbody) return;
+        
+        // Clear existing rows
+        tbody.innerHTML = '';
+        
+        if (upcomingExpenses.length === 0) {
+          // Show empty state
+          tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No upcoming expenses yet. Click "+ Add Upcoming Expense" to create one.</td></tr>`;
+          return;
+        }
+        
+        // Sort by date (ascending - soonest first)
+        upcomingExpenses.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        // Calculate total
+        let total = 0;
+        
+        // Add rows
+        upcomingExpenses.forEach((expense) => {
+          const expenseDate = new Date(expense.date);
+          const formattedDate = `${expenseDate.toLocaleString('default', { month: 'short' })} ${expenseDate.getDate()}, ${expenseDate.getFullYear()}`;
+          
+          // Add to total
+          total += parseFloat(expense.amount);
+          
+          const row = document.createElement('tr');
+          row.id = `upcomingExpense-${expense.id}`;
+          row.innerHTML = `
+            <td>${expense.name}</td>
+            <td>₹${parseFloat(expense.amount).toLocaleString()}</td>
+            <td>${formattedDate}</td>
+            <td>${expense.category || '-'}</td>
+            <td>
+              <button class="icon-button edit-button" onclick="editUpcomingExpense(${expense.id})" aria-label="Edit">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="icon-button delete-button" onclick="deleteUpcomingExpense(${expense.id})" aria-label="Delete">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          `;
+          
+          tbody.appendChild(row);
+        });
+        
+        // Add total row
+        const totalRow = document.createElement('tr');
+        totalRow.className = 'total-row';
+        totalRow.innerHTML = `
+          <td><strong>Total</strong></td>
+          <td><strong>₹${total.toLocaleString()}</strong></td>
+          <td colspan="3"></td>
+        `;
+        tbody.appendChild(totalRow);
+        
+      } catch (err) {
+        console.error('Error loading upcoming expenses:', err);
+      }
+    }
+    
     // Initialize financial data
     function initializeFinancialData() {
       // Only use data from localStorage - no dummy data
@@ -1730,11 +2282,14 @@
           <a href="#" class="submenu-item active" onclick="switchSubPage('receivablesPage')">Receivables</a>
           <a href="#" class="submenu-item" onclick="switchSubPage('payablesPage')">Payables</a>
           <a href="#" class="submenu-item" onclick="switchSubPage('accountsPage')">Accounts</a>
+          <a href="#" class="submenu-item" onclick="switchSubPage('moneyLentPage')">Money Lent</a>
         `;
       } else if (group === 'planning') {
         submenu.innerHTML = `
           <a href="#" class="submenu-item active" onclick="switchSubPage('budgetsPage')">Budgets</a>
           <a href="#" class="submenu-item" onclick="switchSubPage('chitsPage')">Chits</a>
+          <a href="#" class="submenu-item" onclick="switchSubPage('pastExpensesPage')">Past Expenses</a>
+          <a href="#" class="submenu-item" onclick="switchSubPage('upcomingExpensesPage')">Upcoming Expenses</a>
         `;
       }
       
@@ -1821,65 +2376,104 @@
         loadBudgets();
       } else if (pageId === 'chitsPage') {
         loadChits();
+      } else if (pageId === 'moneyLentPage') {
+        loadMoneyLent();
+      } else if (pageId === 'pastExpensesPage') {
+        loadPastExpenses();
+      } else if (pageId === 'upcomingExpensesPage') {
+        loadUpcomingExpenses();
       }
     }
     
     // Show modal
-    function showModal(modalId) {
+    function showModal(modalId, skipReset = false) {
       document.getElementById(modalId).classList.add('active');
       
-      // For adding a new item, reset the form
-      if (modalId === 'receivableModal') {
-        document.getElementById('receivableModalTitle').textContent = 'Add Receivable';
-        document.getElementById('receivableForm').reset();
-        document.getElementById('receivableId').value = '';
-        
-        // Set today's date by default
-        const today = new Date();
-        const formattedDate = today.toISOString().split('T')[0];
-        document.getElementById('receivableDueDate').value = formattedDate;
-      } 
-      else if (modalId === 'payableModal') {
-        document.getElementById('payableModalTitle').textContent = 'Add Payable';
-        document.getElementById('payableForm').reset();
-        document.getElementById('payableId').value = '';
-        
-        // Set today's date by default
-        const today = new Date();
-        const formattedDate = today.toISOString().split('T')[0];
-        document.getElementById('payableDueDate').value = formattedDate;
-      }
-      else if (modalId === 'investmentModal') {
-        document.getElementById('investmentModalTitle').textContent = 'Add Investment';
-        document.getElementById('investmentForm').reset();
-        document.getElementById('investmentId').value = '';
-      }
-      else if (modalId === 'budgetModal') {
-        document.getElementById('budgetModalTitle').textContent = 'Add Budget';
-        document.getElementById('budgetForm').reset();
-        document.getElementById('budgetId').value = '';
-        
-        // Set a default deadline date (1 year from now)
-        const oneYearFromNow = new Date();
-        oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-        const formattedDate = oneYearFromNow.toISOString().split('T')[0];
-        document.getElementById('budgetDeadline').value = formattedDate;
-      }
-      else if (modalId === 'accountModal') {
-        document.getElementById('accountModalTitle').textContent = 'Add Bank Account';
-        document.getElementById('accountForm').reset();
-        document.getElementById('accountId').value = '';
-      }
-      else if (modalId === 'chitModal') {
-        document.getElementById('chitModalTitle').textContent = 'Add Chit';
-        document.getElementById('chitForm').reset();
-        document.getElementById('chitId').value = '';
-        
-        // Set default values for new chit
-        const today = new Date();
-        document.getElementById('chitStartMonth').value = today.getMonth().toString();
-        document.getElementById('chitStartYear').value = today.getFullYear().toString();
-        document.getElementById('chitDuration').value = '24'; // 2 years default
+      // Only reset the form if skipReset is false (for new items)
+      if (!skipReset) {
+        if (modalId === 'receivableModal') {
+          document.getElementById('receivableModalTitle').textContent = 'Add Receivable';
+          document.getElementById('receivableForm').reset();
+          document.getElementById('receivableId').value = '';
+          
+          // Set today's date by default
+          const today = new Date();
+          const formattedDate = today.toISOString().split('T')[0];
+          document.getElementById('receivableDueDate').value = formattedDate;
+        } 
+        else if (modalId === 'payableModal') {
+          document.getElementById('payableModalTitle').textContent = 'Add Payable';
+          document.getElementById('payableForm').reset();
+          document.getElementById('payableId').value = '';
+          
+          // Set today's date by default
+          const today = new Date();
+          const formattedDate = today.toISOString().split('T')[0];
+          document.getElementById('payableDueDate').value = formattedDate;
+        }
+        else if (modalId === 'investmentModal') {
+          document.getElementById('investmentModalTitle').textContent = 'Add Investment';
+          document.getElementById('investmentForm').reset();
+          document.getElementById('investmentId').value = '';
+        }
+        else if (modalId === 'budgetModal') {
+          document.getElementById('budgetModalTitle').textContent = 'Add Budget';
+          document.getElementById('budgetForm').reset();
+          document.getElementById('budgetId').value = '';
+          
+          // Set a default deadline date (1 year from now)
+          const oneYearFromNow = new Date();
+          oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+          const formattedDate = oneYearFromNow.toISOString().split('T')[0];
+          document.getElementById('budgetDeadline').value = formattedDate;
+        }
+        else if (modalId === 'accountModal') {
+          document.getElementById('accountModalTitle').textContent = 'Add Bank Account';
+          document.getElementById('accountForm').reset();
+          document.getElementById('accountId').value = '';
+        }
+        else if (modalId === 'chitModal') {
+          document.getElementById('chitModalTitle').textContent = 'Add Chit';
+          document.getElementById('chitForm').reset();
+          document.getElementById('chitId').value = '';
+          
+          // Set default values for new chit
+          const today = new Date();
+          document.getElementById('chitStartMonth').value = today.getMonth().toString();
+          document.getElementById('chitStartYear').value = today.getFullYear().toString();
+          document.getElementById('chitDuration').value = '24'; // 2 years default
+        }
+        else if (modalId === 'moneyLentModal') {
+          document.getElementById('moneyLentModalTitle').textContent = 'Add Money Lent';
+          document.getElementById('moneyLentForm').reset();
+          document.getElementById('moneyLentId').value = '';
+          
+          // Set today's date by default
+          const today = new Date();
+          const formattedDate = today.toISOString().split('T')[0];
+          document.getElementById('moneyLentDate').value = formattedDate;
+        }
+        else if (modalId === 'pastExpenseModal') {
+          document.getElementById('pastExpenseModalTitle').textContent = 'Add Past Expense';
+          document.getElementById('pastExpenseForm').reset();
+          document.getElementById('pastExpenseId').value = '';
+          
+          // Set today's date by default
+          const today = new Date();
+          const formattedDate = today.toISOString().split('T')[0];
+          document.getElementById('pastExpenseDate').value = formattedDate;
+        }
+        else if (modalId === 'upcomingExpenseModal') {
+          document.getElementById('upcomingExpenseModalTitle').textContent = 'Add Upcoming Expense';
+          document.getElementById('upcomingExpenseForm').reset();
+          document.getElementById('upcomingExpenseId').value = '';
+          
+          // Set a default date 30 days from now by default
+          const futureDate = new Date();
+          futureDate.setDate(futureDate.getDate() + 30);
+          const formattedDate = futureDate.toISOString().split('T')[0];
+          document.getElementById('upcomingExpenseDate').value = formattedDate;
+        }
       }
     }
     
@@ -1916,8 +2510,8 @@
         
         document.getElementById('receivableDescription').value = receivable.description || '';
         
-        // Show modal
-        showModal('receivableModal');
+        // Show modal with skipReset=true to prevent form reset
+        showModal('receivableModal', true);
       } catch (err) {
         console.error('Error editing receivable:', err);
         alert('An error occurred while trying to edit the receivable.');
@@ -1951,8 +2545,8 @@
         
         document.getElementById('payableDescription').value = payable.description || '';
         
-        // Show modal
-        showModal('payableModal');
+        // Show modal with skipReset=true to prevent form reset
+        showModal('payableModal', true);
       } catch (err) {
         console.error('Error editing payable:', err);
         alert('An error occurred while trying to edit the payable.');
@@ -1981,8 +2575,8 @@
         document.getElementById('investmentType').value = investment.type || '';
         document.getElementById('investmentDescription').value = investment.description || '';
         
-        // Show modal
-        showModal('investmentModal');
+        // Show modal with skipReset=true to prevent form reset
+        showModal('investmentModal', true);
       } catch (err) {
         console.error('Error editing investment:', err);
         alert('An error occurred while trying to edit the investment.');
@@ -2015,8 +2609,8 @@
         const formattedDate = deadline.toISOString().split('T')[0];
         document.getElementById('budgetDeadline').value = formattedDate;
         
-        // Show modal
-        showModal('budgetModal');
+        // Show modal with skipReset=true to prevent form reset
+        showModal('budgetModal', true);
       } catch (err) {
         console.error('Error editing budget:', err);
         alert('An error occurred while trying to edit the budget.');
@@ -2044,8 +2638,8 @@
         document.getElementById('accountNumber').value = account.accountNumber;
         document.getElementById('accountBalance').value = account.balance;
         
-        // Show modal
-        showModal('accountModal');
+        // Show modal with skipReset=true to prevent form reset
+        showModal('accountModal', true);
       } catch (err) {
         console.error('Error editing account:', err);
         alert('An error occurred while trying to edit the account.');
@@ -2080,11 +2674,115 @@
         document.getElementById('chitDuration').value = chit.duration;
         document.getElementById('chitDescription').value = chit.description || '';
         
-        // Show modal
-        showModal('chitModal');
+        // Show modal with skipReset=true to prevent form reset
+        showModal('chitModal', true);
       } catch (err) {
         console.error('Error editing chit:', err);
         alert('An error occurred while trying to edit the chit.');
+      }
+    }
+    
+    function editMoneyLent(id) {
+      try {
+        // Get all money lent records
+        const moneyLent = JSON.parse(localStorage.getItem(STORAGE_KEYS.MONEY_LENT) || '[]');
+        
+        // Find the specified record
+        const record = moneyLent.find(m => m.id == id);
+        if (!record) {
+          alert('Could not find the money lent record to edit.');
+          return;
+        }
+        
+        // Set modal title
+        document.getElementById('moneyLentModalTitle').textContent = 'Edit Money Lent';
+        
+        // Populate form fields
+        document.getElementById('moneyLentId').value = record.id;
+        document.getElementById('moneyLentTo').value = record.to;
+        document.getElementById('moneyLentAmount').value = record.amount;
+        document.getElementById('moneyLentDescription').value = record.description || '';
+        
+        // Format date for input field (YYYY-MM-DD)
+        const date = new Date(record.date);
+        const formattedDate = date.toISOString().split('T')[0];
+        document.getElementById('moneyLentDate').value = formattedDate;
+        
+        // Show modal with skipReset=true to prevent form reset
+        showModal('moneyLentModal', true);
+      } catch (err) {
+        console.error('Error editing money lent record:', err);
+        alert('An error occurred while trying to edit the money lent record.');
+      }
+    }
+    
+    function editPastExpense(id) {
+      try {
+        // Get all past expenses
+        const pastExpenses = JSON.parse(localStorage.getItem(STORAGE_KEYS.PAST_EXPENSES) || '[]');
+        
+        // Find the specific expense
+        const expense = pastExpenses.find(e => e.id == id);
+        if (!expense) {
+          alert('Could not find the past expense to edit.');
+          return;
+        }
+        
+        // Set modal title
+        document.getElementById('pastExpenseModalTitle').textContent = 'Edit Past Expense';
+        
+        // Populate form fields
+        document.getElementById('pastExpenseId').value = expense.id;
+        document.getElementById('pastExpenseName').value = expense.name;
+        document.getElementById('pastExpenseAmount').value = expense.amount;
+        document.getElementById('pastExpenseCategory').value = expense.category || '';
+        document.getElementById('pastExpenseDescription').value = expense.description || '';
+        
+        // Format date for input field (YYYY-MM-DD)
+        const date = new Date(expense.date);
+        const formattedDate = date.toISOString().split('T')[0];
+        document.getElementById('pastExpenseDate').value = formattedDate;
+        
+        // Show modal with skipReset=true to prevent form reset
+        showModal('pastExpenseModal', true);
+      } catch (err) {
+        console.error('Error editing past expense:', err);
+        alert('An error occurred while trying to edit the past expense.');
+      }
+    }
+    
+    function editUpcomingExpense(id) {
+      try {
+        // Get all upcoming expenses
+        const upcomingExpenses = JSON.parse(localStorage.getItem(STORAGE_KEYS.UPCOMING_EXPENSES) || '[]');
+        
+        // Find the specific expense
+        const expense = upcomingExpenses.find(e => e.id == id);
+        if (!expense) {
+          alert('Could not find the upcoming expense to edit.');
+          return;
+        }
+        
+        // Set modal title
+        document.getElementById('upcomingExpenseModalTitle').textContent = 'Edit Upcoming Expense';
+        
+        // Populate form fields
+        document.getElementById('upcomingExpenseId').value = expense.id;
+        document.getElementById('upcomingExpenseName').value = expense.name;
+        document.getElementById('upcomingExpenseAmount').value = expense.amount;
+        document.getElementById('upcomingExpenseCategory').value = expense.category || '';
+        document.getElementById('upcomingExpenseDescription').value = expense.description || '';
+        
+        // Format date for input field (YYYY-MM-DD)
+        const date = new Date(expense.date);
+        const formattedDate = date.toISOString().split('T')[0];
+        document.getElementById('upcomingExpenseDate').value = formattedDate;
+        
+        // Show modal with skipReset=true to prevent form reset
+        showModal('upcomingExpenseModal', true);
+      } catch (err) {
+        console.error('Error editing upcoming expense:', err);
+        alert('An error occurred while trying to edit the upcoming expense.');
       }
     }
     
@@ -2121,6 +2819,21 @@
           key: STORAGE_KEYS.CHITS, 
           name: 'Chit', 
           loader: loadChits 
+        },
+        'moneyLent': { 
+          key: STORAGE_KEYS.MONEY_LENT, 
+          name: 'Money Lent', 
+          loader: loadMoneyLent 
+        },
+        'pastExpense': {
+          key: STORAGE_KEYS.PAST_EXPENSES,
+          name: 'Past Expense',
+          loader: loadPastExpenses
+        },
+        'upcomingExpense': {
+          key: STORAGE_KEYS.UPCOMING_EXPENSES,
+          name: 'Upcoming Expense',
+          loader: loadUpcomingExpenses
         }
       };
       
@@ -2180,6 +2893,18 @@
       deleteItem('chit', id);
     }
     
+    function deleteMoneyLent(id) {
+      deleteItem('moneyLent', id);
+    }
+    
+    function deletePastExpense(id) {
+      deleteItem('pastExpense', id);
+    }
+    
+    function deleteUpcomingExpense(id) {
+      deleteItem('upcomingExpense', id);
+    }
+    
     // Update financial summary on dashboard
     function updateFinancialSummary() {
       try {
@@ -2189,9 +2914,11 @@
         const investments = JSON.parse(localStorage.getItem(STORAGE_KEYS.INVESTMENTS) || '[]');
         const accounts = JSON.parse(localStorage.getItem(STORAGE_KEYS.ACCOUNTS) || '[]');
         const chits = JSON.parse(localStorage.getItem(STORAGE_KEYS.CHITS) || '[]');
+        const moneyLent = JSON.parse(localStorage.getItem(STORAGE_KEYS.MONEY_LENT) || '[]');
         
         // Calculate totals
         const totalReceivables = receivables.reduce((sum, r) => sum + Number(r.amount), 0);
+        const totalMoneyLent = moneyLent.reduce((sum, m) => sum + Number(m.amount), 0);
         const totalPayables = payables.reduce((sum, p) => sum + Number(p.amount), 0);
         const totalInvestments = investments.reduce((sum, i) => sum + Number(i.amount), 0);
         const totalBankBalance = accounts.reduce((sum, a) => sum + Number(a.balance), 0);
@@ -2204,17 +2931,20 @@
         });
         
         // Calculate net worth
-        const netWorth = totalBankBalance + totalReceivables + totalInvestments + totalChits - totalPayables;
+        const netWorth = totalBankBalance + totalReceivables + totalMoneyLent + totalInvestments + totalChits - totalPayables;
         
         // Update UI
         document.getElementById('totalReceivables').textContent = '₹' + totalReceivables.toLocaleString();
+        document.getElementById('totalMoneyLent').textContent = '₹' + totalMoneyLent.toLocaleString();
         document.getElementById('totalPayables').textContent = '₹' + totalPayables.toLocaleString();
-        document.getElementById('totalInvestments').textContent = '₹' + (totalInvestments + totalChits).toLocaleString();
+        document.getElementById('totalInvestments').textContent = '₹' + totalInvestments.toLocaleString();
+        document.getElementById('totalChits').textContent = '₹' + totalChits.toLocaleString();
         document.getElementById('totalBankBalance').textContent = '₹' + totalBankBalance.toLocaleString();
         document.getElementById('netWorth').textContent = '₹' + netWorth.toLocaleString();
         
         // Update dashboard tables
         updateDashboardReceivables(receivables);
+        updateDashboardMoneyLent(moneyLent);
         updateDashboardPayables(payables);
       } catch (err) {
         console.error('Error updating financial summary:', err);
@@ -2293,6 +3023,42 @@
       });
     }
     
+    // Update dashboard money lent table
+    function updateDashboardMoneyLent(moneyLent) {
+      const table = document.getElementById('dashboardMoneyLentTable').getElementsByTagName('tbody')[0];
+      table.innerHTML = '';
+      
+      // Sort by date (descending - most recent first)
+      moneyLent.sort((a, b) => new Date(b.date) - new Date(a.date));
+      
+      // Take only the first 3 items for dashboard
+      const topMoneyLent = moneyLent.slice(0, 3);
+      
+      if (topMoneyLent.length === 0) {
+        const row = table.insertRow();
+        const cell = row.insertCell(0);
+        cell.colSpan = 3;
+        cell.textContent = 'No money lent found';
+        cell.style.textAlign = 'center';
+        cell.style.padding = '10px';
+        return;
+      }
+      
+      topMoneyLent.forEach(item => {
+        const row = table.insertRow();
+        
+        const toCell = row.insertCell(0);
+        toCell.textContent = item.to;
+        
+        const amountCell = row.insertCell(1);
+        amountCell.textContent = '₹' + Number(item.amount).toLocaleString();
+        
+        const dateCell = row.insertCell(2);
+        const lentDate = new Date(item.date);
+        dateCell.textContent = formatDateMMDD(lentDate);
+      });
+    }
+    
     // Helper function to format date as MMM DD
     function formatDateMMDD(date) {
       const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -2331,6 +3097,134 @@
       
       return (maturityDate.getFullYear() - today.getFullYear()) * 12 + 
            (maturityDate.getMonth() - today.getMonth());
+    }
+    
+    // Load past expenses from localStorage
+    function loadPastExpenses() {
+      try {
+        const pastExpenses = JSON.parse(localStorage.getItem(STORAGE_KEYS.PAST_EXPENSES) || '[]');
+        const pastExpensesList = document.getElementById('pastExpensesList');
+        const totalRow = document.getElementById('pastExpensesTotalRow');
+        
+        if (!pastExpensesList || !totalRow) return;
+        
+        // Clear existing items
+        pastExpensesList.innerHTML = '';
+        
+        if (pastExpenses.length === 0) {
+          // Show empty state
+          pastExpensesList.innerHTML = `<p class="empty-state">No past expenses yet. Click "+ Add Expense" to create one.</p>`;
+          totalRow.innerHTML = `
+            <span class="total-label">Total</span>
+            <span class="total-amount">₹0</span>
+          `;
+          return;
+        }
+        
+        // Sort by date (descending)
+        pastExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        // Calculate total
+        let total = 0;
+        
+        // Add items
+        pastExpenses.forEach((expense) => {
+          const expenseDate = new Date(expense.date);
+          const formattedDate = `${expenseDate.toLocaleString('default', { month: 'short' })} ${expenseDate.getFullYear()}`;
+          
+          // Add to total
+          total += parseFloat(expense.amount);
+          
+          const item = document.createElement('div');
+          item.className = 'list-item';
+          item.id = `pastExpense-${expense.id}`;
+          item.innerHTML = `
+            <div class="item-main">
+              <div class="item-name">${expense.name}</div>
+              <div class="item-details">${formattedDate} • ${expense.category || 'General'}</div>
+            </div>
+            <div class="item-amount">₹${parseFloat(expense.amount).toLocaleString()}</div>
+            <div class="item-actions">
+              <button class="action-button edit-button" onclick="editPastExpense(${expense.id})"><i class="fa fa-edit"></i></button>
+              <button class="action-button delete-button" onclick="deleteItem('pastExpense', ${expense.id})"><i class="fa fa-trash"></i></button>
+            </div>
+          `;
+          
+          pastExpensesList.appendChild(item);
+        });
+        
+        // Update total row
+        totalRow.innerHTML = `
+          <span class="total-label">Total</span>
+          <span class="total-amount">₹${total.toLocaleString()}</span>
+        `;
+      } catch (err) {
+        console.error('Error loading past expenses:', err);
+      }
+    }
+    
+    // Load upcoming expenses from localStorage
+    function loadUpcomingExpenses() {
+      try {
+        const upcomingExpenses = JSON.parse(localStorage.getItem(STORAGE_KEYS.UPCOMING_EXPENSES) || '[]');
+        const upcomingExpensesList = document.getElementById('upcomingExpensesList');
+        const totalRow = document.getElementById('upcomingExpensesTotalRow');
+        
+        if (!upcomingExpensesList || !totalRow) return;
+        
+        // Clear existing items
+        upcomingExpensesList.innerHTML = '';
+        
+        if (upcomingExpenses.length === 0) {
+          // Show empty state
+          upcomingExpensesList.innerHTML = `<p class="empty-state">No upcoming expenses yet. Click "+ Add Expense" to create one.</p>`;
+          totalRow.innerHTML = `
+            <span class="total-label">Total</span>
+            <span class="total-amount">₹0</span>
+          `;
+          return;
+        }
+        
+        // Sort by date (ascending)
+        upcomingExpenses.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        // Calculate total
+        let total = 0;
+        
+        // Add items
+        upcomingExpenses.forEach((expense) => {
+          const expenseDate = new Date(expense.date);
+          const formattedDate = `${expenseDate.toLocaleString('default', { month: 'short' })} ${expenseDate.getFullYear()}`;
+          
+          // Add to total
+          total += parseFloat(expense.amount);
+          
+          const item = document.createElement('div');
+          item.className = 'list-item';
+          item.id = `upcomingExpense-${expense.id}`;
+          item.innerHTML = `
+            <div class="item-main">
+              <div class="item-name">${expense.name}</div>
+              <div class="item-details">${formattedDate} • ${expense.category || 'General'}</div>
+            </div>
+            <div class="item-amount">₹${parseFloat(expense.amount).toLocaleString()}</div>
+            <div class="item-actions">
+              <button class="action-button edit-button" onclick="editUpcomingExpense(${expense.id})"><i class="fa fa-edit"></i></button>
+              <button class="action-button delete-button" onclick="deleteItem('upcomingExpense', ${expense.id})"><i class="fa fa-trash"></i></button>
+            </div>
+          `;
+          
+          upcomingExpensesList.appendChild(item);
+        });
+        
+        // Update total row
+        totalRow.innerHTML = `
+          <span class="total-label">Total</span>
+          <span class="total-amount">₹${total.toLocaleString()}</span>
+        `;
+      } catch (err) {
+        console.error('Error loading upcoming expenses:', err);
+      }
     }
     
     // Format date for display (MMM YYYY format)
