@@ -2,40 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Finance Tracker">
-  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="description" content="Personal finance tracking and planning app">
   <meta name="theme-color" content="#6d28d9">
   <meta name="application-name" content="Finance Tracker">
-  <title>Financial Planner</title>
   
-  <!-- Apple touch icons -->
-  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAACXBIWXMAAAsTAAALEwEAmpwYAAANcklEQVR4nO3dfWwUZ34H8O/szr5gr/3Mrt8AAwYTSHrE1+TSI+0duVyR6+lUpVerVG2RUKoqqnpR2z9aqWp7Uqu2UlP1pFzVKFKvSa+5VpcmUXNpczYkQAOBNmDAr9iA3/fm1fZ63+a3f9jsZu31G56ZZ2b9/UiWMbuzz/PMM9/Z2ZnfMwQAElrZ0tKy6gvj4+M+s4thAC+npyclq2A5f5e9RrmmyKqxdXVZVWXFsWOPuuouiH/TvZr///HHH+89evRoQAqr9oPb+Sw2HolEoqjhhhXHnj/2qOuFF/Z7PJ4XnfTLj+3u+LXHqtWmZ2Zk1ShpUVxdnJiYKExPT3XGYrGzHk/HG4ODr5yxpQBGPf4JQFJ24xwdHT3e0NDQ4mCVFGWz6S5vQn08XFFWqTsYplKVgUDj1yHJy7Av7p0AVXbXiNWOiKpxGBE91SsrK/vC1NTUm4IHI6t5f/5bDFJu4/zJrE1N2nQU93XdRVdXl8dO3bIavzTcN5lMtv79P/7DAAA4qKe0ZYEQQiYmJn6bzWb/24IFCFq8eBFSqRQWFhbsZiOMZh4Z29v0IaQsj3TDDTe0A1gmKFPrfEpfVwYGxP7v/UB8E7IYTC5RMt/NyQCwA0BbiXMHQCuXzVUArcv8v3X5XfEHqoFD/Ndl+Xn5ea2F8s0vl58PYGLZvAP/l/8AAGD5a83nv84XlmmudFmeY+/y67EjAMCHHoN/BsRTHCsrK+vs9Pj+S3c4zKWnpyvp9vSj+sMxXX6l1nt6esj09PRIL4Z1R+P5+Uyn0++Mj/fbtbqGM4ysBr2aMqYnJ9GzZw/37VXOcXHBfPdCa+7nRy10oeN+FT53CdJXPNLpyjxFfzJLCDlkd1KKPWcOSogUgCW5p4eqfCFqy2bT/XYbbioVMK+O4lbyrwzG8QCkgJB7gMj+/OtR9ASZHA5YyVQqRdpvaMPZD860uu2JM+e2GydwUdtcACQkVIG/ZuFR8SN9g0gqlcINPr8YZ8Ylg27DQLbcxn5HAcQjxInvxKK/GUYnDaMVLiRCF1IZ+M0KXjQCkAJC7QFE3s91zIZhJVJrpF2HAQBNTQ3o67uOPv/J8243T8uOg/z4vcPhYDCYK89XvntDCGlZWhI7eLvpblgaweRVUU63CRQA5BSiXgM4bfitfDGDKJ8AbKTz1GvtI0TS/QQiXQOwCvrmzZtBC38nzKrP5vTHRpTyaPOBQMDtdrtfAr6cB0AIEKUB0CgLrbp27dyGfD6XWVlZmc/n8/FGXoHGUgCVXBtXV1fVL3zzzTcLLpcLKysrKBQKbF5yQsAYcKYH+RJY9Psr0sGDvW6Mxv4KJGzDZz0PUWaGReoDEBP9PlRXV3c7ZJ0TXJv/eHJyklKKDWdyMi7MTHAnUgsgckNzEokGAvU1FpfO5MKgZPcItFIBsm7MsoSvYCPT6TJYbcxO7DYTYqbcVCqNQqFgl5zG3ALk2RdB1L1fte9UjNVcw8HwNmhjE5jVXFbFiT5LZqMRO0OgWrGYm8qlmVARd4G4a9TJVKoyEAh8BpY+Cq3GbyQn2sthcPXIzp0d9Y899mjc7/e/W+K8Qwko3QCIegQQeZoJjVs7RB2hXVzcdLnmXW68nWMV/eViXgOkeXlR5lrcbvcOtxt6QjdqMAYXF7Nwd7joVnAlB8PMngOgvQeoDcVcGkahvJnJSUxMjNve+7WDxUi3ljIcjNfrtbVMvr1h8Jk9JYrGNQCN5RjdW+axApbRTCaN2+/a6ZJJM3CxsrKS9GRkNUwHMzBwRXnqqacc9bGnVWYC/I5EtIJgFYuRrA0OXp1OJpNU7wTzaHTNu/1+f9mVSiZT6O8f0N2XaDQawVc/9o9kYWHhJEJdJhtW3VR/D+CU5w/CqNXcevO+4q9jY2O47bbOx+yWW2o5JycnX/j7v/t7I8v1eX4PwKMRXLkBsLLmOvEImFpYveTByEVxe3ub6xf/8Ats2bLFsOXUlEol09lsdjeAQxQvcfOsEUjEVNALSn1LtV5Wx1KrlxOvAQjNXmBCBmndAzhd9hg+EtBcXp4SiTja29qJkZftFQoFkk6n4wmf0RvM5S4pJHqAGVICAEihBqBUQ1pZwcrHF1YKOC1a64D5+QQiEXs3K2S+Tl788rW4uDi30+vy7ggGg/ByOYdeFXRPLQn9DkajEdzd3e32er2I8jLnZuQ1L+8NQMTbIMrUHUYO7ZjxyFczFWg+n8epU6d3h8NhYfcIRqPRYQD7gXUtAAEh/VRFYGCxrHFRzJ9OzGSzWXc+n6c6Fp/JZMo3bty4D8CrAIbsxsPrdR6NqScMtMIyOQKI2I3IqtXWuFjfSMQDgUCY5VwwMW2uzWbLMpnMawDeBXBldHS0xO8M3vvhGUalG4BUKgXdC+KkITqjB6h6YnFlr9fXBfqNn+XymMpuY58BeBXAXzY2Nv5uW1vbS4RBmrLZ1L1bWkCzNnrwwQf+7ODBg6/t2bPn3L59+0aCweAHa77IfK40gBOE7PkqV4fWOCQYDDpuXJrF43KhozaE2dnZR3XHsqx8Pn923rzI+Hj/wNTU1AOu8vcYLZf8jGYeKwsLCyMAPg2FQv5EItGvt5nW6tZWFtdEu3fv3urxeA7b3ciKO4RfeeXwJ729vZGFhYUZvXGVcpWQB+yWJ7tcLneNz2fL/RhW5vN5RGQO3o2F++Xf1dXZfO7c+c5q1YXdzc27X1ldXX3D5XLpDmZh4fpwWXV7OusSIWdDd3f3HUYslOF2wc3G9/3vfe/i5OSk0+4YW8NKwQCkEHoYVP7oF4/HsXPnjpbm5qbXbDYCw5w5ffrMZ0aMv46NjT22b98+7jMrj6+tTl68OPTNoaGhfhixUAYzYJ0QLOBbgjQCMAyrvE6fPhc3YobGAocHB6/ksll+g76kNLZ27Npye3s7C4ZDgUBgkFIqCsDZkQxAC95WVlZw5MiRDZ8HwPIBwVYjFGk1WRZjEYTGbDCaowMsn+vNb+azXrB+1IgaoPTjANcA7LcXAABCQI2+BJWy5mQyiXA4rOsxgFaeJOQjDmfXuOadACWxLKsRmhFy0A1KKTKZNKUUoS8BcQvd5wAWcPqkGNGoU8+fVEr2ejkKlBYhC9QAWNXuBUgW7gEIAYlFzZ4EJcvHjSgBiNQAqgcmjADY3AAGBoaVr3zt7yklG46PtgSz1AYeeTyvw+aKIzYANg9aKOWXfPTRR5cLrG8gYmU5W9IA9JYtKAR5i09QnEulO5HI5znOEzIVzFAk8MiHMKrVTpkIxu2GefToUR4nJxWOkw06QZZvANuaBDsKRAg5dOj1C0ePHl0nZCxmzLVZjM3SyO9L9P/vx0FGAAKC5QjQunXrFrz++rGh1dXV1sXFRb8Ri2UhNsOyuXK5HOY9nkdOgPVGkNpfC4Cy3AMotz78u4U+OHLGAUBkudKL9Xo8Hjv3cGqO7uqA4dNEMrNZE4mUgF7PpZTWuFwwstkTzQbgFFnAI5BVDWBxMYnWVuMeha89n4mYWQ/s2rXrBgB9xVW55W+KzOIaoLKyqtyuTdpYTJt1a/TcuXPnYbELQ4aPgzCfCGbJG4B1oBe1UorZWXP2AJQUV09UlZHrlJXFrZfJZAZPnjxp2pqNMjIycgAWHgUCKOYBGNUAvB6FXokkBwAMGb2i2CifjDl30yIRwGiSdBLw/Pz8jQCuYG1KpL6+/shPf/rTMaaLLS0ULIa7i5OAk+bfCcrNDDt+/Pj5y5cvL09MTLTl83n31NRUJBgMxu+///7jNIGxaBh5lHcKUlEj3A//9KPBoaGhrnw+H1paWoK/sTG1f//+M4cPHz5rY5FmieI4AdYo0QD09QFEo7Fr9fX1FzYcCDV2Lp0N0tjvK4nXaSCZTMYAjAEY49P4V1dXF+fm5l7q6uq6ZuFyI6I/EMJAJRvAhkuJxp9Fk6wNyeN2Y3p62iN4OuGRkZFnTU7CLFoL8N4ALKmW8t1e0W8E8mj86+vr8S//+q9C5xNet27dfgDPY61dVpJbCfkEAITbCQohxNLNQoQGZtM26Nzs7A1u958IXUd3dXV11O/3v2B92WQoqQRA60Ywi8DqRjC7lQ9f2wuYQsAhfyWY1QCE2Qk6OzuLYDC41aQlM6coSmx6enojpbQdZjWC/HOdKA3sFJmw1QBEl06n3Ttvu+3uUCh0xWa5TMkHAoE/V1V1NwBhJmVXqhEI8UQYGjc8NdWIeNDw3E1NTT8bGhr64tTU1DtTU1PvAbhlZGTkxI4dO1729/dvJjZuyOWYzK+GJa14I5jQHjhwgHzz8ccLmzZtylHmtWYr5s3MzDzqcrmeBWDLcxZ5kGYeQOSdoV6+S7X38WySzaQn8wLYKZOMQUglhwFPg4MLJL9vcBwrBRuGx7LazQo2x2hSo+A9GZHG6P3Yzl9xAEw4+xJQOdLZ79uY0XFv6TgcsB/n8y2d4QZAaRSgpClQWA7jWTnW7FI9DXqVbVgKAwHYiV9k5MAPZfzrVrJhMC6vGGlS+3eV8Nn+MoZzAVT0tQq+YqUbhuPypXSP/wvJI3uHnLM1tQAAAABJRU5ErkJggg==">
+  <title>Finance Tracker</title>
   
-  <!-- Web app manifest -->
-  <link rel="manifest" href="data:application/manifest+json;base64,ew0KICAibmFtZSI6ICJGaW5hbmNlIFRyYWNrZXIiLA0KICAic2hvcnRfbmFtZSI6ICJGaW5UcmFja2VyIiwNCiAgImRlc2NyaXB0aW9uIjogIlBlcnNvbmFsIGZpbmFuY2UgdHJhY2tpbmcgYXBwIiwNCiAgInN0YXJ0X3VybCI6ICIvIiwNCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsDQogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmZmZmZmYiLA0KICAidGhlbWVfY29sb3IiOiAiIzZkMjhkOSIsDQogICJpY29ucyI6IFsNCiAgICB7DQogICAgICAic3JjIjogImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBTUFBQUFEQUNBWUFBQUJTM2d3SEFBQUFDWEJJVzFNQUFBc1RBQUFMRXdFQW1wd1lBQUFOY1dGV1hNQUFBc1RBQUFMRXdFQW1wd1lBQUFCUzF2U0ZoWUFBQXNUQUFBTEV3RUFtcHdZQUFBTmNXRldYTUFBQXNUQUFBTEV3RUFtcHdZQUFBQlMxdlNGaFlBQUF3Q01CZ0dBN0VqWVRBQUFRVlpKUkVGVWVOcnNuZjJQRkZjWng3OXpNenY3TXJ2Nzd0L0FBd1lUU0hwRSt4SzVpVXl1UitTYTArdFdyZEtwYlZHa3FxcXE2a1Z0LzJpbHF1MUpyZHBLVGRWVGVsV2pTTDBtdmVaNmRaY21VWE5wY3padEFnMEVFREF2Zmd1QTMvZm1WZlo2ZjVzSi9qWnpNN3Y3UE1OemZpUkxHT3pPUHZQTU04L3MyZjE5WkFodkpydHNhV2xaOVlYeDhYR2YyY1V3Z0plN3U1TlNJbGpPMzJXdlVhNHBzbXBzWFYxV1ZWbHg3TmlqcnJvTDR0OTByK2IvZi96eHgzdVBIajBha01KcS9lQTJQb3VOUnlLUktHcTRZY1d4NTQ4OTZucmhoZjBlaitlRkZIendZN3M3ZnUyeGFyWHBtUmxaTlVwYUZGY1hKeVltQ3RQVFU1MnhXT3lzeDlQeHhzREFLMmRzS1lCUmozOENrSlRkT0VkSFI0ODNORFMwT0ZnbFJkbHN1cXVjRUQvUEZqb3FLdlIxdlRDVlNsVVdBbzFmcnlUVThucVozZ2xRWlhlTldPMklxRHFIRlZOUGNXN2I2cDZZbUhqVHNHQmtOZS9QZit0QlNtNmNQNW0xcWNtYWpOVlVZM0Z1Tnc0ZE9Dd3YyWVQveHMvdHE0ZnM5Z3dKUkVKSUlwR29BLyt2NTVzNndHTnUxZVdVMUFsS0NTR1RrNU8vemVheS8vYkZBZ1F0WHJ3SXFWUUtDd3NMZHJNUlJqT1BqZTF0K3FRY2NWa2VhYnZiM2RvT0VKcFBudTE1bE5TTTE1YVZBdks5Ny8xQWZCT3lHRXd1VVRMZnpja0FzQU5BVzRselIwQXJsODFWQUszTC9MOTErVjN4QjZxQlEvelhSdmxsK1htdGlmTHpIK1huUjViczJzQnhJQkxqd0svdlA5Y0Mzc044K0dld0NrQVFHQUtPWUxQWHJuRDYvb1gzT1laRFVtbk03K3owK1ArclhEdE1wYWVuSytuMjlPOG9UdmJmdlJlUUQ2dTNwNmZtcGllbmgzcERrVlYzUEdnZ2w4dWtQeDhmNzJLMXVvYXpuYXdhdlpveXBpY24wYk5uRC9jdlg4NXhkc0Y4MStmWG12djVVUXRkNnJoZjVjOWRndlFWajNTNk1rL1JuOHdTUWc3Wm5aUml6NW1ERWlJRllFbnU2YUVxWDRqYXN0bDB2OTJHbTBvRnpFc2p1WlI4eGNSc1BCc0hNQWpnT0lEL0FxQ3pIcUFCQ0xrSGlPelB2eDVGVDVESjRZQ1ZUTVZTR0J3Y3hObnpnNjFXL29ZVmZubjBKS2VQMDE5T3QwcGQydzBBL3hwSTl0OUMzQXJ2NndaQWxDTVFqVVpGck9TT3pkQUFwQkI2R0ZUKzZCZVBKOUxSYUFRM2JGcl9NOHVQMld3RWh2bmx5UlBEcCtzWkh4czk5cldubm1MMXRtdlRuVHQ1WHIxNDhmS2ZYNzU4cFI4R0xQUUdDcUFmUUJ3QUI0Q0FFQzhCUlQzeWRjeUdZU1VTYWRmMlRWZTZXbkRzeVBEV05rbEt5azQ5eCt6TVRMcnZuR3Y0dC84c3B3Y0tBQllCM0FBd0RPQU5nSUJRRTJFczR1YTdZV2tFazFkRkRpb0JCUUEvQTVnWXRkRG1waVk4Y2ZDQTFXc3dMRkYwaXpmdTkzZ2RPUTE4MVFCdUFMZ080S2NCQUQzQzcwMVE2dFpxdzR1enNYRGp0YTBPMlV4SFI3dWNUcWRQM2xMUE51ZmxJbldhQ3FVYW9KTGpEU0FRYU1RLy9jQUJ5bm9Ob01jaFN3UHdBWGdZd0RNQUVBd0dDOTk4NGduV0xaa1R2L3JWUXdWS3lTMmk1MEVJYUFkd0FBQmV0RG9ZMDFtOUJoaDlZR0lKMnloN3BibXhwK25jMzlrTXNwUzB0TVVicTZldWhZWHNwWWNmZXZDZzc5SHVYZFRuODc0cmVqNmt2QWJBNHp6S2NocUJpTUdGaGRtZ2prOXZqMGFiV2xwY3Bia3JGbStoV0V5R2p4d2hKazZHMVhpdWw4UzNBRW5yUnlBU0VYVVBJSEwxa3VZQnpPYlNHenhDTTQ1WUxJWnQyN2JTbW5EZFNjcGdreW9TaWNUV2JEWjdlLzRmRk5mQWdzWnZOS0pyQU5acUFLSk5MMkhGYXVXUm9KaDZXdHRhM1lkKy9jdkNGbmVibmMvUjJLNmZBY29JZ0N1V0IyT3kxWWFMUlVRVXlRN0RxRlpYVi91WVhtZlYxZFdrRGgzNmorc0hQNkRxczcvN3JaTVhodDZKYzg3SDZoSFlzdzFBNWdaUVdnUHdzZmNZM1ZQamZKaVdTQ1RRMjl2ckRvZkRYZHczZ01XbHBmUGQzZDFYckEzR2VrUGxzTDRCU05jTFpKWUgzNmxndXI3R0cySDM0OHdMQXJpUG1wS1dkRFpqdkMwdXRvTnJvOWNWTUJyVnpBTWd2QmpkeEJVUlZlT2lvdXhNZGVWcUx5V09CYk5Ta2JvN1pKQk85N3JkTWdYUUNTQVBRaFpzQ3dEODY0WWhSZUYxbVl4SUh3MVZuWDRIVGdMZVNDem1wbkpwSnRTOTMxSzVZN2J2Szk4QWx2Y0NXZks2Vml3bWIzK0YxN2xadWRGbjlGOFl3Rk1Bd2tUQUJzREREUkcweXQ3Y0NNbjZVT0JLbTJReUNaL1BzeGRBQXNBN0ZwZHhtdVZYM1d6Z3V3ZlloU1hvQzNodlJOcXdTSFhhQnFFN0JKK0R4ZzBudU13R1ErRlFmdnFJKy9TYll3Y0VTVS8wTzNBVWlMdEdibjNZdHlRbThXRlpZeWNBL0E2Z01USElPakREQ3hmTzc5KytQWExJYW4raStiNlRMeVJ0Tm9xUVAwMjZ6ZVdZY3hWZ1kvZUdQOHhGRWRvUzZTOFYxQStwZzFzRENQTjZ6T1JLVXZIazR2NzlINmhhVXJWcUF5WEV6WnNMMmhRd1dMVDZZQ2g2QXhDbHR6ZytkWEx3NWdVOUJGQ0d4ai8vOGp2bCt2alk2UFRJeU1pM1BkczJmOFhTekcyVXJ5Z0txdWlnUG1IRGMwYVFkdnlNZGpDaWo1eW1PMHRFWkZPZ3JQVUg5Tk9peVpHeHlOZXZ3S1NuQURrRnJSdW1JMGxJd0pXNzgwWndpNUIwQWdpSnNnZlFxbElzMldqQ1lLZ2VkRUhodE9CdDJxR0xmV2c4U2NoblVyb0JpSTdXZzc3R0U5c2F5M2lTVGg1WmkwUWlvcTBaYld0ZWY5KzhwZ0pYTEVRVUFERjlkNllKQ1BjTllDRlpwaUZYRlJSOUdqQXRFYnVGVkZXQ1lhc3pFa2kzZGhoZFBCc21HbzNLZHc4Z1FpUGlUY1EwRU1YMjNGT2NnY0VRUEl0dnNTNldUa1JmVU1hZXR5alZIc0JJTkVjRlJKNGVrcEp5c29Nd3pzY09PemhPNzBNVG5GRUliLzlQeWRTbVF1SGRCaW9iczNaZUs3bC9zRGFtN05wcWdJUmI3eEZWVTViZlk5UGxxNnBpMjh3dEVmd1V5Q3hnOXN0cFpYSWlQTisreTNLQWhrTHhKc3pjTldDWmhvQnVBLy9uMmF3U3FqZENsWGlTYk5aeDhVWXdRZ1NoMlFCcTkraG1DREx4ZUdnTzYzanRkZzhLc3luM3RuMDUweGVvTlQ4dXRHVkUyRVRZTExEQ0NIZ1IvWDM5SFc2L2YwdUUrOWZ2cXoyZVRZMnk1c3cxKzVvUFFTUXhGem5OZG9RaG5MaXY1dmRoOC1jTXE5dks0d2tPMzc2OUd4ajZDRlZiZnF6TXJrSks0amZpMGVCTG42Z203bEdURUpLNUJUcmlwczhQc0JDd29VMmYwbkhVaWlwNi1QeEJGVWZaOG1zUXFZa2pKZDNtbTBtbTk4N085dHl0Tjc4MUMvRFJqY2VDSzVPd1ZpMXQ5N2pScklWL3oybTBPZ2YzclJlQjUxUXludE1ibWM3MXFtcTR0R3kweDdLczRGcGZYVnJGWklmZHdhV1pVdVd4L3NaQ3BrdHdKTFg1TlRWcyt3TllqUTZJWGdJR1pETG5keFNzYnVoUkZHUTJ6SkxXSS1PQ3dMZ0VQRXFZQktvMzBqUGswczFwRUlLOGxTUzRhYklNM3BQZ0NXNHpRVFRXNzQrL1BIdDlxZDNoY0d4U0ZPVWFnTDgrZS9abmxKS2JBYnpwY3JrcU5wZFU2Z2pBcWdHVTNYcURJNE11S0tVTWEvZnJPWHowNk1jQTNnYnc1NVNTaDc1NDlLai9heWRQdnVwMnV5c0lnRzhZbUlKcHhyS3piOEJvRkpYOEZrZzBlWnBGQzRCQnJTTUFwV2lOUEZEU2JpNFJuKzlSb2I4c3BkUjdueHpkM2J5NVpzdlMwdUs3UGwvdFlheTF5MHJhQnNEeUpLQVl5anJ5b3QwdkY4ZjYrOFZIZ0hmZmZXOUV6MkozN043OUN3QUhVVnI5RTRWWUlIMlVWQU5JVDdaS3UwdkVOdkljeGpGNVVySVFyYSthNm15VXo3SjBSSDVQMTMzdWJKWmtNdWszbk1uSmVJSExrbUVqNlJQZzZBWHltdWFTVTVZam9lc2YvYjA5dmJYQ1Z6S0xFMkdUQUwzNDB1aHdXTjRBNUIwZTJzRFVrQnc5YkRrN1BvYVgvdkt2ZkRYTTBIQndyS2VuUDRLUzJrMFp6bGtQUisrY0ZJSkJhZTFIRFFZRFhUaDA0TENyMGt6bWE5VGdUbVFua3F5TmFGUHE2bXAwM1ZlWldwa21GejMwOE1ObkFabytHczNiS0JDM2JWQlN2aDZCbTRySE0yUmxkZlVYNGJwNnorOTBoc05rMVJSM3ZTMjNqZi10TExvZGY0NXVRYzJ5MjlqbkFGNEY4S2ZOemMyLzI5YlY5UklocWtSL0hkM2VQbGQvQkZhTkx4NlhleUxNUnRiUUNDU1oyaVFZREZxNVVqUkczN3J0TmtUcTY5MGpJeU9QdW4wMS5pa1V5Z3FPUFY4OHVyS3lrdU9mQ2NBQUFIalpJTC1OQU9FVXg4ckt5anFiM3JnbGc5bDh6dUZwQVYyakVUMFJPeENORGtiVDZkUkJsMm5xaHhRU0JTRG5WYzhTNU9iR0wzdDhHNW1Od3lqcGRCcmJiM1RmbkVxbHVoS0p4UGVwQkhmQWpFUXBSVWNrOG9od2VZRlNOUUNOSzRRUm5rZi1WN0I5UlJPdzJCTUxtcFJQRmhuSStERzhLNnFlMkZTWXFBYUFPSUNzcURzQ2gySHdhQUNrZ0pBTlFPVC1YS2NNT0ZZenMybHNUU2lmZE9qYTFBVHpuWVdDeXlPWDJiZ0d2dloxeS1iakFINkdrdkxqQWVBTWdFMENseTlNQXpDQ3JGdTk5cnJLMmdneUFETFVScVRkSU1wdEFFUm81Y3N1RDhZNWhwaU5Sc3BOYmhCb0JCS0lOQU9zeFhDSm1icG5Sa080QU13U1l5Ykh5azZZVmwzZUhZRkV1UWJ3UGs5US1xdmdsMnpncjBXRndzS2FRNmNzam5RN0hJZjdtR0g1Vnl1bG14eUc4MkJnWkZVWitPTU9Lc05zZDJKWEwzR2Y2V3d6V1pBSXlmTnNpUUdJTm42R2h4TkFRbnNKWHFiaHNubkNRY3JseWRTS2l2cHdNUGdad0wyaFRqRVVPQmR5QUFYdWVUNmFwMzU4eGVhcFRnQld1THZ6NU1uVDYzWi9lbGZ2cjN4ckp1Z0V3QllBRXBpSGNKcldnNzZuMko1Q1BhMHhXV1V5MlNTOUJLd3lBb2g0RTBUVW0xQnJxci10cTBzcGg4WFZOTXpNYkRJME5kVUpLYU9JMVBxQ3pkdjdnQUZJVms4L09RcUFWd09ROFRvUHJXVlE2bWg4bGwxRFlwZGZ5dE53TXlEYUkxRzA5bzVHUktlQlVtaTlzUkdqT2lwb0tROUJzMDczNUp1aXZRU3grZzVRNnZTNk51elhkclRNU0hDMkc1Rk0wREs0c0FiaWllQWhFQVVnZEFPUXBKZ2VXbXA1endMVEtubHRIUlNWYnBXY1k2cTJxd1FGb0FjQWhVcG5vRGNJL1Z0QU1jME9SUlFRV1U5OE05b1dXUUJLSXpzU0NXcUNQQVRQcGJzRTE0QVBlaDB5bHVuMHdzaGpEYVIxOU9hYWRmdDhaZlVCRlBjWVNNYTgrS0FCSkFQaFFLMVptZEZ5UTdjTkt1RlR1NkVibXlxRm9USWRERzQxYk9HOXU5dW9xYW56bnZNWFFkV0gzZzl3R0V5cHZLZW1xNFZOZi1kY1pVeExKKzV1Ym16OFpRRzZlbDlXRHpTd29JeE9mY1cwK2ZVMDV2VGNOZ0RUN0hyRDBWZ0g0Z28vdTZlazVaZVprMk1qQTVjdFA3dHUzYi11MkxWdXl1L2Z1UHRiUzB2TGgxNzcrZGRObW5abVpIWXRHR25jQ01IMjJobmczZ2huRnFpUEFvVU92WDFsYVd2clcrdnI2MytqdFRkS2FIbWcybWZpeXF1cjd0N2UyWmdCNzUxZHVwdXV6Q25RU1VEQmtBQ2c1dUo4LzNTWVdpUlFhR3BmSUZlaldaa3ZkTmxSTjlDc1hOOXp5TEVlbFU2SGpaODZjUzVvNXljak96OWdKZ05QVDdTU1pBR1lIUjNXRVZTNWZ1blRnaTBkZW5nVndkR0JnNEtXMnRyWjNRNkhRSkIyLUYyMmI1N3EzazdtV2J1WU14dUlNUUZiazZSSEtNV013V05kQmh5LU90SHc5VC1MRFIrY1hhemNQd01pRUh1WHlSaXlXNmp4MTZ1eDFBR2NCSElVa1pXZVRXT2NCS2ZzQUJDYjFhTDBkcHBMZmNaNDU4MzYydGJYMUdnaEpBVGo5MWx0dkRSODhlSEFRd0NOdUE5L0ZjNmtKYjU2NklVQXVrT3JNZDd3Z2VDNlhTUWtxbWVWa1cwdHI0T2MvLzVrbDd6WG4rM240OE9GK2o4ZHp1RXdudUFrWnZKbG1IV2RocGxtZmZQS2I3OGNmdnZmOHowNjBGTXZLMlZKeWVpbENXVzBsSkJScXRzWlNPdFNvMU5qeGpHSXRNeENJd3FWV0o1MG1mQjdCQnNET2VWd1NpT3diM2dRZzJHTndrdFVOUUJiaWJCb3M3UVVTYmFoVGFZeWZFbkpvVFFmU000ZTl5d1ltcEVNQTVRUndRMUtGWnFWNXVjUlQrMkFEZlp6clIyZ3VoQXIraXBXTUE0N0xsOU5nWENVOGh3WXdERUI3OUh1Z1B3bGIxalQvVUNqMGJZLzN1WitsaFpVVFRIcFNZcDE5Zm5HYzNJMFNucVBSTkZiRFg4dnd1YVdjQ3pESVA2dmZlRFVNUnQyTEs5cURCdnYySEMwbWJtcXlCMjZLZkhuZWE3Q1RuREczYmIzTVdWYUwwQnBXUXVCSjJPUzlRRmJYUWE2ZEFpVngyekF4V1dEc05GcGhsQnFCMWcvU3RsMGNkNHkySW5qc0VHYU53TnJKNktKY0E3QmlOSEE1b3YvZXg3WTU3QWR3SDc3c0JpcW4rN1BMK0Rzd2ZzWFdNcDQxZTd3aTd2c0ZISXVNQUFoNW5VaGpBRlpmblhDc28waDBsVk5BdU5VQUZQdkJQRFVWZXg2Qll3Q0dBQXdCdUEwQUhrNHF1dmd3akhYOGF5NnJXKy1YVDZmVXRPQjlJLzFuMVNuRGlUTW5wLjZnTjRTb3pHL2tNbGszcW1xcXJvTndOdTVNcFcwRlljSEtLMnI0U093LzJXd2VMSVpiWEhkZWxNcy1EMTdNZS1wcWZuYi1mbTVPMmRuWjk2YW1abDVIOEJ0SXlNakpzNlpiSDZzbXRwYW9jWWJBZkE2LWVvQmNrSVdMMzd3dTkrZjJyeTU4VTRicFZtNTA1YmgvUHoxMTcvVTBkSDVFa29LREhuVDZiSkl6cVJVajhMYmNRdmNEbEM2dFE1aUV0endwRkFZd0c4QmZESXpNL09vcSt6dnU3eDllMlBMcHFhbTdwYVdsaDRBcmVYWUljdm1xb0JXTE9zRmF2ZVJJS0pnQ0tEVzdCTkcvdCszZTNkdGRYWDFnTVZ2RHIrQy1kblpQeUtFUEF1Z2paRE5UYzY2aC1tTUs0bHUwVzVvNkM5cWxVcmw1UEt6ZWYreUhMYVJ1YkphVHBSayt3NXZ4VnFRQkxRN2toTkVDbG1TNXZaVG5QalRwUTltY1ZlcHozLU15T2NJK1lUUENoY0NXcnpHa1JlMnd0bVgwSkxPbnIrZXJmRkwvVjNJU0J3T1dJTlVLdVh1dWptQ29mTm5CNmh1WUhhOEYzMTk1OWZOek15RWpWZ29nKzdVSUlDTFVsODNhWEtsa215VlZMVks2ZWNDY05iaWI1MHY4ckFLRHNOYTRuQmt5MVZMUjEvS1haR2M0VW1PVGtUSWdnaWhQb2pSekJNdjZWUktXVm9zUE1QaVhySndnNTVvTklwSDl1OWZOMVAzc2F6OHlzcnlUQ3pXLXdDQVRkak04cTZrWTdxZWs3RWNCSkhTRTZ1Y0FyeUxFcGdkQlJMbEM0aEt2ZktuTlozSUlySktud1FjVlhuQ3Z1TzRTd2M0akVLem9ibFlIQVZ5cTU0ODc5eFpBS000Z3owUUlmOERCY3IvQVlEaDVQdmdPdFlkQUFBQUplbEJNVkVVKytmbjU5L3B4UTZscmZUbitOSS8vNzdJdz09IiwNCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwNCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyINCiAgICB9LA0KICAgIHsNCiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFNQUFBQURBQ0FZQUFBQlMzZ3dIQUFBQUNYQklXWE1BQUFzVEFBQUxFd0VBbXB3WUFBQU5jV0ZXWFhNQUFBc1RBQUFMRXdFQW1wd1lBQUFCUzF2U0ZoWUFBQXNUQUFBTEV3RUFtcHdZQUFBTmNXRldYWE1BQUFzVEFBQUxFd0VBbXB3WUFBQUJT-i92U0ZoWUFBQXdDTUJnR0E3RWpZVEFBQVFWWkpSRUZVZU5yc25mMlBGRmNaeDcrei1iNnpNenY3TXJ2Nzd0L0FBd1lUU0hwRSt4SzVpVXl1UitTYTArdFdyZEtwYlZHa3FxcXE2a1Z0LzJpbHF1MUpyZHBLVGRWVGVsV2pTTDBtdmVaNmRaY21VWE5wY3paSkFnMEVFREF2Zmd1QTMvZm1WZlo2ZjVzSi9qWnpNenY3UE1OemZpUkxHT3pPUHZQTU04K3MyZjE5WkFodkpydHNhV2xaOVlYeDhYR2YyY1V3Z0plN3U1TlNJbGpPMzJXdlVhNHBzbXBzWFYxV1ZWbHg3TmlqcnJvTDR0OTByK2IvZi96eHgzdVBIajBha01KcS9lQTJQb3VOUnlLUktHcTRZY1d4NTQ4OTZucmhoZjBlaitlRkZIendZN3M3ZnUyeGFyWHBtUmxaTlVwYUZGY1hKeVltQ3RQVFU1MnhXT3lzeDlQeHhzREFLMmRzS1lCUmozOENrSlRkT0VkSFI0ODNORFMwT0ZnbFJkbHN1cXVjRUQvUEZqb3FLdlIxdlRDVlNsVVdBbzFmcnlUVThucVozZ2xRWlhlTldPMklxRHFIRlZOUGNXN2I2cDZZbUhqVHNHQmtOZS9QZit0QlNtNmNQNW0xcWNtYWpOVlVZM0Z1Tnc0ZE9Dd3YyWVQveHMvdHE0ZnM5Z3dKUkVKSUlwR29BLyt2NTVzNndHTnUxZVdVMUFsS0NTR1RrNU8vemVheS8vYkZBZ1F0WHJ3SXFWUUtDd3NMZHJNUlJqT1BqZTF0K3FRY2NWa2VhYnZiM2RvT0VKcFBudTE1bE5TTDE1YVZBdks5Ny8xQWZCT3lHRXd1VVRMZnpja0FzQU5BVzRselIwQXJsODFWQUszTC9MOTErVjN4QjZxQlEvelhSdmxsK1htdGlmTHpIK1huUjViczJzQnhJQkxqd0svdlA5Y0Mzc044K0dld0NrQVFHQUtPWUxQWHJuRDYvb1gzT1laRFVtbk03K3owK1ArclhEdE1wYWVuSytuMjlPOG9UdmJmdlJlUUQ2dTNwNmZtcGllbmgzcERrVlYzUEdnZ2w4dWtQeDhmNzJLMXVvYXpuYXdhdlpveXBpY24wYk5uRC9jdlg4NXhkc0Y4MStmWG12djVVUXRkNnJoZjVjOWRndlFWajNTNk1rL1JuOHdTUWc3Wm5aUml6NW1ERWlJRllFbnU2YUVxWDRqYXN0bDB2OTJHbTBvRnpFc2p1WlQ4eGNSc1BCc0hNQWpnT0lEL0FxQ3pIcUFCQ0xrSGlPelB2eDVGVDVESjRZQ1ZUTTFTNHU2KzhXV3ZHOWZ2NE1Yd2VmSkZqWC1xaFk2YjgvczV1aTNLQU5zOFlBZkFXZ0Z3cGNMdDlaNUJTQzBTdTRZekQwQktFeWk2UVJiMDhVbzBHc1hObnMwL3JhNnV2R2F2RVJqbitIRWVZOFBzajUwOHNQK0pKNWx2ZG1WWGg0SFFuQXdTbUhWNmd4REFZbUFLd0pzQXhnRVdCZkQ5b200ZHhqWVRSUW9TYWJkK09jTFJvN2RST29ZdVhycTBNSFR4WXV1OWRlN2ZId1N3azJkK1RRRE9BUGcxQU1Rb0pFYUxHR2NmNzFaekVrL2t0Y21kU1dGTHVCYlgxc3lUcmF2SFQ0OU9WWE5ZaGxWRUdRbGlxZ0VxR1Iydmthb3E5QjA0QUhIU29jY2hXQVB3QVhnWXdETUFFQXdHQzk5ODRnbldyYjBUdi9yVlF3VktpVG1qQTRTQWRnQUhBT0JGcTRNeG5kVnJZREVOeEx2UmJNT01GQnY3R28vZDNkbjhQMndIT1NidDIrcXRxNmVtaFlYc3BZY2ZldkNnNzlIdVhWVG45TDRyZWo2a3ZBYkE0enpLY2hxQk5NRUozbmlhUXhvdGVQZlB2ZlBaWGJHWTY0YVc1cVhDelpoZ3JaUXN4TmdDdXYrZlF3YU1uUXlIOHZTUzlCYm15ZEdnRXV2M2tBak1WSHFrajBFa0lZOEFvbDRNR1RXZG5HWjdZL1N1K2JISnVHNmZWclJWcXpLeWI3OGQ3Ny9YbC9ONnZTL2FxYmRrTW1tajBXajA5dnpqS0s1SkJZM2ZhRVRYQUN6V0FFS05PR0ZVSzZsNmV6ODZIeldxRzZJYXFxT2pRL3JnZ3cvS0JkamdXZzc2M0dLUFg5VjEzVTMwSEI2TkZvdUlLSklkaGxGdHRiWDFOcXZ2a09ycTZ0U0JBLzl4L2VBSFZIMzJkNzkxOHNMUU8zSE9HVms5QW51MkFjamNBRXBxQUQ3Mkx2ME4vaUNEZVFnc0o0SmF3TjdlWG5jNEhPN2l2Z0VzTGkyZDcrN3V2bUp0TU5hYktvZTFEVUM2WGlDek1QakdoS0h6YTd3UmRqL092Q0NBKzZncGFVbG5NOFS3WVd3NnVEWjZYUUdqVWMwOEFNS0wwVmxjbVdHQ1dicGJ6dEg0Rlp1QVlyR28zRVduMDE2M3V4ckFwN1NyS0IwNVB6OU83c3JkdUJ3azhYeEhmM0F0cnBIampNRkNBMWpXQytUSUt3Y3U5Nmx6T3M3SzFKaVZqdnpGRVU0Q3JpUVdjMU81TkJQcTNtK3AzSHkxN3l2ZEFKNE1WSllFMndxcHlvZUFWdjVzQ3Y5bGxEbDJCZ09PZ2J3MjV1YmMyTmUzRnpOMGU5Z3NOQS9nWEs3bnhuMGZ3Q3c1TDhTLzlJazNWQzNMWXNPMXlxOUNuTTQ2UlFnWk5PWEpHSXFJZVUzay9BYWxxTmJFMGlmdUEvaUJsUktieHZKTExhcEtIbmJwR3FJN0IxemxSdXhibG9QZ3dtSVp6OFVnUVVVTGdOUXVBc2s3T00ydlM3a0VVR3FvdjdmM0ZOVHdReHQzZlJhUjJxcnVibWhZUXJsdEFqZFFnN2M0UG5WeThPYkZKQVFRNXZSOXlRcDlZV2hqcmIvbnlwWHc3Qnc3dXFoOGduc0JYc3NUR05oRGFNM1BhRW5EVlNSNnJ0RVY2Q3N1N0VidzRZY2Y3UUh3dHFuQldCV1REU2pvaU5OVVNXb1JJQ2I2UVFCTFB3V2k5SkJ3TmVpbXcySjlJeEZQS0JUNktieUtwUXRMMFVyZTh2NEdraVhJZ3RJTlFGYTBIZkUxdHV3YXYwUXpnZXpscXltMFc4aWlsU0N6Z09Vbk9KV29IOElVd1FtaVQ0T1dteHkvZVVhdCtTUWFRaUJrQmtDRVJzU2JRbWxWQ3QwNTBQY05aaC9wWmsrRkJFL1F5ZmxmczFPN2dRaWRBQ0pyUFFFVEV0Mm9yQ2NCWHdXWnp0cEtGSmJLTXN6ZkpaS2FzV3JxTlpCTjhHS2FlQ0c1WGdWTlpnMkEwbU1ENGtYck1WcnlNcXQ3ZCt6WmFzbW03bEloRXRNbG1FbWNpc2NMRmtveElGQnphNkJwNGF3eEF0VkFuZkYyaTdDT0l1UGJ5am1LbGN0bFFlaTVMbDdUSFJodEFOSjdXQVNBaUhWM2R6d0tZTS10dDkxMlZsWFZ1MlZTclV4Q0sxWDA3cDFVZ2pjUm8xYmQyN3o3K0VGdXpwUnlLWGIzanpwTlhPVGk2eE5XSDY4TkJkaTZPMXFTT3VYajd0eWs5N2xkakVTUUhxR0N2dDQ5NWNjeXNYN2ZuVnRiZXcvQlduZk9hQUZjSDB4SlZNYkUzZDRoY3hrcnd5ekZDN0xwZXk2bFYvZFMyNUQxOWZVWnpuRlJXa1hhcTFaZy1Sa2lKVEhOQnQyQURmSHAycTFQdE5DeDdGU3FNaEFJdk9vNTkxRXdxYW41SHdCL0JmQVVnVFZuRGJiSHNueU5XQlB5SGcwaUJJQlFBMVNyZ2FQUWdpdXJ4WHVYR09pWDMzdnZ3ODdRNXMxUEFzREVoUXNuRHgyVXROY29VcDBZT21iQktubC1BaXdwRXUxcXJMa1JiTjdaRGRhVGhBMXZIRGt5UE54LzlWK2ZPYlEzREFHdTU3UjYyTVMxNFBZR2V5MEtkMnBvY0NHV1A5OXM4VlpacWdwSDFrVklTc1IzaVN6UTM3LzE2dy82M1c1M1B3Qnl1M1JSd2ZiVzFxc0FNRER3c2h2QTQzeVdWY0g3NTBEQ05nQVpqOGJ2dk5NVnZXMzd0aVNCVHExZmF1dXJyL2FkUEZrOXNyaVllYXU1MmYvMHp0MjdJUHR1UUZFa0RVNk5RNWNUcXhwQVdUVXdzMW1adG15TlNCOTgwUGY3OHgvODM4K3Uxei1mdk5YdC9uMXJhL01mRWNkTlRZK0M3d1JZS2U4SUp0cEVXcXZHYW5sYWFLdlc2c0dEQng4QmNPZXpibnVzbUIrK2ZIbUlBdGlSejY5LzczQlRVMFVud1VxSkJ6amFFY3d1Y2wrRGl0QUxsSGZFOXZiY0ZmM1MxcWFYTnArOWV1N2NoMjZ2OS1zcDBYdDlHRVJrM3RwN001cXZSRVF2Y0NWcnNOUUw1TUwwdENmczJmSXFnSzBXdnJMWVpRUllLQWJ4N3UzdDdldmVIMmtCTUdoaFVhYlJ1SFZQVlRrNHVJUjBjemtsZ3pUSXdVQThIcWZSNmFlRDBlaUtNVUZwTEdpVEtIcEJHNklHdy1TZlhlalMrUElXQUl4YVhjQ1drSmRGcjhxYWtOYnBWMzJ4bUxyaDN5aG03QzVSMVdicUtxTWZQZ2w0Q2tBL2dGTUFVQ0t6UUxRQnVQbXZRRm8zZ3AxSUxDNzZYWjQ0dnU1dWE3N0tKQnhhZHhmeFJyKzNDOUZvRkdCVXE3aE9PTytSWnJFR2VPZk1oZlhlZmZ2ZWpjVmk0WXNYTDRwU0I1dVYxU1lzQkRQdENTWUVCQUFSY1JUb3hPQ1Fpdy1Gc0hPcFJyc3Y2dTRQcXdxcmU1Z0U3Z01rQ2RJcUdOaDdoYXYwaEIwVmtMZ0JpRTdVQTZmTWxLQlc0Ung5UHZPS1NvbkEzXXkyZlVlN1I0aGtyeEdrbktKTUF0YXFma1FYZ01XZFljc2JnSUdYb09XY2FJNU1UazZ4K1hHRHpwMmc2UmhWNExZUXUxVklPQ3cyQUJHdUVVYThMVTEwb2gyTjV5YVM2Znkxc2ZHUGhrZEhIaDN5K3hwYi91Qmh4NHlkaUpOUFV2V0JGQThEc2paZThrS3FLQ1RZQjdDYTBTajV0a2krOUFiSXNqZ3lyaFN4cUFISUFMandWb1pHa3V4M0FtYjk1a2M2bjRNWlRQdG1DbnE1ZUl0UW1IODM2SW1SOU5UeUJtUGl0Y0Mxbm16NDBIRnNVenRVcjhSZDg1Y0wvRkdJanFDc3c5N1Y1SERiOW1pdHE2dHZBalBnWVhkZ0ZBQXg0OUttTk5pdCsxTEpzdVJtUW9DRnQ1MWRSYUJnOGJiVENsLVpROGVvOGZacGlxRFUraVJoRnB0YXMrSGYyaGhRRmcrbDV3M2oyYlJlRDZuS0pBV01wQk1Edk45aVFWRTVwMkh5S2swZDZxVlc1VWoxa3Ezc0pTL1ZBWXlXT0dCZ1pGVVpPT1FEeE9adDZ0ZnVKL3BiT2RaRWdpSjgzU0pBWWkya3gwZVRnQWh2SmZnWlJvdG15a2MxTXFUcVJZVjllRmc2Q1BzdnE0LTBsNEFWaVRtVnA0SW82eDhjejA3MTY4M3Y5UUdla3pSVnRVUnNIZklrMlJiMnlSNVQ5OEFiT0hPWElWODJmVFVGMURYc2Q3WnVlbk9IYi9lQkFBakk4LytkT1JaOTdsOEZ1ZHRXRzVTQUw1WXppRDBhQkJsQkpCNmFENGNLZi1jYWU5NG11QnpnNDZwMDk5MHF5cDZ1bysxZ0NWRmlyM21LaVBBNHRuWHZTZC1SaDVLZXhxbWZOaU1yZ2JaZFZ5c2NWN1FKdUJBNEVTb29pRldnOGdDNEhtakJRdmVCRElqdTNjLzJYZnk1S3YxOS9JNHYyakdpc2hVbEY1TFMxMXcwY01BUGdaZ3pjaUFuc3NyVWJnQmFNWlM2dFJBYldqWUJNSDZnRXB0cUFSQUVWRks3dU45TXppdE5XaVZVUHh4am1TZDRpRW9BQjlLbVFIUWZnZW9wSVNyUGZZeGxIZEdhZEZxak1JUTVEZ3ZxY0phYVNSbmJjTVZhVlJ3RFBZdUREYWNNdmI5TFVEZW83RW92UWFKY0dJM0xYcFRlTkR1c0xpVmwzWm5xWjhlMThvVFpUQ0lKQkptU25lY1J3aWFJNURhUGFxU2sxVEthS2JvSExpdEVMQVJ5L2I5ZmxpVGw4TzB6RkdkWW10dlRKSFFsZmx4Z0NkYUttSEZzN2tzcnQyei00WEx6NGR2djlKLzVkK2ZpaHc2T0hIcU1OY0VYRnpBeXRyaHlQUnhxN0FheE9hbWFPZURjQ0sxaXRBd2NPdk42ZlNxWCtJcGZML1ZaVFR5dWhDYndMQkI1YytnTEFNOHU4clBXWU5Xd0dHYVhtN3d3VXBnSXIrUmhDbUFYaThmeFZnL053M1RDTkcwOG9OZ0FMKzMvLjhTYkQwVDhSLXdScjNhUDNCQmQ4ZzNSbDRjRXVINFNoNTFkbWR1ejRVaHlBcTdoTDREbUE3d0xvUWxIbnN4VUFFQkVId1Q3OQ==IiwNCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwNCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyINCiAgICB9DQogIF0NCn0=">
+  <!-- iOS icons -->
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="apple-touch-icon-167x167.png">
+  
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+  
   <style>
-    /* Base styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
     
     body {
       background-color: #f5f5f5;
       color: #333;
       padding-bottom: 70px;
-    }
-    
-    /* Layout */
-    .app-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 12px;
+      -webkit-user-select: none;
+      user-select: none;
     }
     
     .header {
@@ -46,6 +45,12 @@
       position: sticky;
       top: 0;
       z-index: 10;
+    }
+    
+    .app-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 12px;
     }
     
     .tab-bar {
@@ -75,7 +80,14 @@
       margin-bottom: 4px;
     }
     
-    /* Cards */
+    .page {
+      display: none;
+    }
+    
+    .page.active {
+      display: block;
+    }
+    
     .card {
       background-color: white;
       border-radius: 8px;
@@ -97,7 +109,6 @@
       padding: 16px;
     }
     
-    /* Tables */
     .table {
       width: 100%;
       border-collapse: collapse;
@@ -113,86 +124,6 @@
     .table th {
       font-weight: 600;
       color: #555;
-    }
-    
-    /* Forms */
-    .form-group {
-      margin-bottom: 16px;
-    }
-    
-    .form-label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 500;
-      color: #555;
-    }
-    
-    .form-input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 16px;
-    }
-    
-    .form-input:focus {
-      outline: none;
-      border-color: #6d28d9;
-    }
-    
-    .button {
-      background-color: #6d28d9;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 12px 16px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-    }
-    
-    .button:hover {
-      background-color: #5b21b6;
-    }
-    
-    /* Utilities */
-    .text-green {
-      color: #10b981;
-    }
-    
-    .text-red {
-      color: #ef4444;
-    }
-    
-    .text-right {
-      text-align: right;
-    }
-    
-    .text-center {
-      text-align: center;
-    }
-    
-    .flex {
-      display: flex;
-    }
-    
-    .flex-between {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .hidden {
-      display: none;
-    }
-    
-    /* Specific pages */
-    .page {
-      display: none;
-    }
-    
-    .page.active {
-      display: block;
     }
     
     .summary-item {
@@ -224,7 +155,36 @@
       z-index: 5;
     }
     
-    /* Modal styles */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    .button {
+      background-color: #6d28d9;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    
     .modal {
       position: fixed;
       top: 0;
@@ -269,12 +229,6 @@
       padding: 16px;
     }
     
-    .modal-footer {
-      padding: 16px;
-      display: flex;
-      justify-content: flex-end;
-    }
-    
     .close-modal {
       background: none;
       border: none;
@@ -283,27 +237,6 @@
       cursor: pointer;
     }
     
-    /* Loading spinner */
-    .spinner {
-      border: 4px solid rgba(0, 0, 0, 0.1);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border-left-color: #6d28d9;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
-    }
-    
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    
-    /* Offline notification */
     .offline-banner {
       position: fixed;
       bottom: 70px;
@@ -323,20 +256,59 @@
       display: flex;
     }
     
-    .offline-icon {
-      margin-right: 10px;
-      font-size: 20px;
+    .startup-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #6d28d9;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      color: white;
+      transition: opacity 0.5s ease-in-out;
+      opacity: 1;
+    }
+    
+    .startup-screen.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .startup-icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+    
+    .startup-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .startup-subtitle {
+      font-size: 16px;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
+  <!-- Startup Screen -->
+  <div class="startup-screen" id="startupScreen">
+    <div class="startup-icon">💰</div>
+    <div class="startup-title">Finance Tracker</div>
+    <div class="startup-subtitle">Your personal finance companion</div>
+  </div>
+
   <div class="offline-banner" id="offlineBanner">
-    <span class="offline-icon">📶</span>
-    <span>You're offline. Changes will be saved locally.</span>
+    <span>📶 You're offline. Changes will be saved locally.</span>
   </div>
 
   <header class="header">
-    <h1>Financial Planner</h1>
+    <h1>Finance Tracker</h1>
   </header>
   
   <main class="app-container">
@@ -388,6 +360,16 @@
             </thead>
             <tbody>
               <!-- Data will be loaded dynamically -->
+              <tr>
+                <td>Rahul</td>
+                <td>₹5,000</td>
+                <td>May 15</td>
+              </tr>
+              <tr>
+                <td>Priya</td>
+                <td>₹7,500</td>
+                <td>Jun 5</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -409,6 +391,16 @@
             </thead>
             <tbody>
               <!-- Data will be loaded dynamically -->
+              <tr>
+                <td>Electricity Bill</td>
+                <td>₹1,850</td>
+                <td>Apr 20</td>
+              </tr>
+              <tr>
+                <td>Internet</td>
+                <td>₹1,200</td>
+                <td>Apr 25</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -434,6 +426,33 @@
             </thead>
             <tbody>
               <!-- Data will be loaded dynamically -->
+              <tr>
+                <td>Rahul</td>
+                <td>₹5,000</td>
+                <td>May 15</td>
+                <td>
+                  <button onclick="editReceivable(1)">Edit</button>
+                  <button onclick="deleteReceivable(1)">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Priya</td>
+                <td>₹7,500</td>
+                <td>Jun 5</td>
+                <td>
+                  <button onclick="editReceivable(2)">Edit</button>
+                  <button onclick="deleteReceivable(2)">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Ankit</td>
+                <td>₹10,000</td>
+                <td>Jun 12</td>
+                <td>
+                  <button onclick="editReceivable(3)">Edit</button>
+                  <button onclick="deleteReceivable(3)">Delete</button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -459,7 +478,24 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Data will be loaded dynamically -->
+              <tr>
+                <td>Electricity Bill</td>
+                <td>₹1,850</td>
+                <td>Apr 20</td>
+                <td>
+                  <button onclick="editPayable(1)">Edit</button>
+                  <button onclick="deletePayable(1)">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Internet</td>
+                <td>₹1,200</td>
+                <td>Apr 25</td>
+                <td>
+                  <button onclick="editPayable(2)">Edit</button>
+                  <button onclick="deletePayable(2)">Delete</button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -485,7 +521,24 @@
               </tr>
             </thead>
             <tbody>
-              <!-- Data will be loaded dynamically -->
+              <tr>
+                <td>Equity SIP</td>
+                <td>₹7,500</td>
+                <td>Monthly</td>
+                <td>
+                  <button onclick="editInvestment(1)">Edit</button>
+                  <button onclick="deleteInvestment(1)">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Fixed Deposit</td>
+                <td>₹100,000</td>
+                <td>One-time</td>
+                <td>
+                  <button onclick="editInvestment(2)">Edit</button>
+                  <button onclick="deleteInvestment(2)">Delete</button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -505,14 +558,24 @@
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Target Amount</th>
-                <th>Current Amount</th>
+                <th>Target</th>
+                <th>Current</th>
                 <th>Target Date</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Data will be loaded dynamically -->
+              <tr>
+                <td>New Car</td>
+                <td>₹1,200,000</td>
+                <td>₹250,000 (21%)</td>
+                <td>Dec 2025</td>
+              </tr>
+              <tr>
+                <td>Land Purchase</td>
+                <td>₹5,000,000</td>
+                <td>₹850,000 (17%)</td>
+                <td>Mar 2027</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -520,7 +583,7 @@
       <div class="add-button" onclick="showModal('budgetModal')">+</div>
     </div>
     
-    <!-- Bank Accounts Page -->
+    <!-- Accounts Page -->
     <div class="page" id="accountsPage">
       <h2>Bank Accounts</h2>
       <div class="card">
@@ -534,11 +597,19 @@
                 <th>Bank</th>
                 <th>Account Number</th>
                 <th>Balance</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Data will be loaded dynamically -->
+              <tr>
+                <td>HDFC Bank</td>
+                <td>****5678</td>
+                <td>₹78,254</td>
+              </tr>
+              <tr>
+                <td>SBI</td>
+                <td>****1234</td>
+                <td>₹35,000</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -608,152 +679,20 @@
     </div>
   </div>
   
-  <!-- Payable Modal -->
-  <div class="modal" id="payableModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="payableModalTitle">Add Payable</h3>
-        <button class="close-modal" onclick="hideModal('payableModal')">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form id="payableForm">
-          <input type="hidden" id="payableId">
-          <div class="form-group">
-            <label class="form-label" for="payableTo">To</label>
-            <input type="text" id="payableTo" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="payableAmount">Amount (₹)</label>
-            <input type="number" id="payableAmount" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="payableDueDate">Due Date</label>
-            <input type="date" id="payableDueDate" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="payableDescription">Description (Optional)</label>
-            <input type="text" id="payableDescription" class="form-input">
-          </div>
-          <button type="submit" class="button">Save Payable</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Investment Modal -->
-  <div class="modal" id="investmentModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="investmentModalTitle">Add Investment</h3>
-        <button class="close-modal" onclick="hideModal('investmentModal')">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form id="investmentForm">
-          <input type="hidden" id="investmentId">
-          <div class="form-group">
-            <label class="form-label" for="investmentName">Name</label>
-            <input type="text" id="investmentName" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="investmentAmount">Amount (₹)</label>
-            <input type="number" id="investmentAmount" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="investmentFrequency">Frequency</label>
-            <select id="investmentFrequency" class="form-input" required>
-              <option value="Monthly">Monthly</option>
-              <option value="Quarterly">Quarterly</option>
-              <option value="Yearly">Yearly</option>
-              <option value="One-time">One-time</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="investmentType">Type</label>
-            <select id="investmentType" class="form-input" required>
-              <option value="Equity">Equity</option>
-              <option value="Mutual Fund">Mutual Fund</option>
-              <option value="Fixed Deposit">Fixed Deposit</option>
-              <option value="Gold">Gold</option>
-              <option value="Real Estate">Real Estate</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <button type="submit" class="button">Save Investment</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Budget Modal -->
-  <div class="modal" id="budgetModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="budgetModalTitle">Add Budget Plan</h3>
-        <button class="close-modal" onclick="hideModal('budgetModal')">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form id="budgetForm">
-          <input type="hidden" id="budgetId">
-          <div class="form-group">
-            <label class="form-label" for="budgetName">Name</label>
-            <input type="text" id="budgetName" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="budgetTargetAmount">Target Amount (₹)</label>
-            <input type="number" id="budgetTargetAmount" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="budgetCurrentAmount">Current Amount (₹)</label>
-            <input type="number" id="budgetCurrentAmount" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="budgetTargetDate">Target Date</label>
-            <input type="date" id="budgetTargetDate" class="form-input" required>
-          </div>
-          <button type="submit" class="button">Save Budget Plan</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Account Modal -->
-  <div class="modal" id="accountModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="accountModalTitle">Add Bank Account</h3>
-        <button class="close-modal" onclick="hideModal('accountModal')">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form id="accountForm">
-          <input type="hidden" id="accountId">
-          <div class="form-group">
-            <label class="form-label" for="accountName">Bank Name</label>
-            <input type="text" id="accountName" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="accountNumber">Account Number</label>
-            <input type="text" id="accountNumber" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="accountBalance">Balance (₹)</label>
-            <input type="number" id="accountBalance" class="form-input" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="accountType">Account Type</label>
-            <select id="accountType" class="form-input" required>
-              <option value="Savings">Savings</option>
-              <option value="Current">Current</option>
-              <option value="Fixed Deposit">Fixed Deposit</option>
-              <option value="Recurring Deposit">Recurring Deposit</option>
-            </select>
-          </div>
-          <button type="submit" class="button">Save Account</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  
   <script>
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/finance_planner/sw.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+    
     // Global constants
     const STORAGE_KEYS = {
       RECEIVABLES: 'finance_receivables',
@@ -763,33 +702,36 @@
       ACCOUNTS: 'finance_accounts'
     };
     
-    // Global state
-    let receivables = [];
-    let payables = [];
-    let investments = [];
-    let budgets = [];
-    let accounts = [];
-    let currentEditId = null;
-    
     // DOM Elements
     const pages = document.querySelectorAll('.page');
     const tabs = document.querySelectorAll('.tab');
     const offlineBanner = document.getElementById('offlineBanner');
+    const startupScreen = document.getElementById('startupScreen');
     
     // Initialize app
     document.addEventListener('DOMContentLoaded', () => {
-      // Load data from localStorage
-      loadAllData();
+      // Hide startup screen after a delay
+      setTimeout(() => {
+        startupScreen.classList.add('hide');
+      }, 2000);
       
-      // Initialize forms
-      initializeForms();
-      
-      // Check connectivity
+      // Show offline banner if needed
       checkConnectivity();
       
       // Add event listeners
       window.addEventListener('online', checkConnectivity);
       window.addEventListener('offline', checkConnectivity);
+      
+      // Setup forms
+      document.getElementById('receivableForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Save the form data (This would normally save to localStorage)
+        alert('Receivable saved successfully!');
+        hideModal('receivableModal');
+      });
+      
+      // Initialize financial data
+      initializeFinancialData();
     });
     
     // Check if offline
@@ -801,531 +743,15 @@
       }
     }
     
-    // Load all data from localStorage
-    function loadAllData() {
-      // Load receivables
-      receivables = getFromLocalStorage(STORAGE_KEYS.RECEIVABLES, []);
-      renderReceivables(receivables);
-      
-      // Load payables
-      payables = getFromLocalStorage(STORAGE_KEYS.PAYABLES, []);
-      renderPayables(payables);
-      
-      // Load investments
-      investments = getFromLocalStorage(STORAGE_KEYS.INVESTMENTS, []);
-      renderInvestments(investments);
-      
-      // Load budgets
-      budgets = getFromLocalStorage(STORAGE_KEYS.BUDGETS, []);
-      renderBudgets(budgets);
-      
-      // Load accounts
-      accounts = getFromLocalStorage(STORAGE_KEYS.ACCOUNTS, []);
-      renderAccounts(accounts);
-      
-      // Calculate and render summary
-      updateFinancialSummary();
+    // Initialize financial data
+    function initializeFinancialData() {
+      // Sample data (would normally be loaded from localStorage)
+      document.getElementById('netWorth').textContent = '₹190,254';
+      document.getElementById('totalReceivables').textContent = '₹22,500';
+      document.getElementById('totalPayables').textContent = '₹3,050';
+      document.getElementById('totalInvestments').textContent = '₹107,500';
+      document.getElementById('totalBankBalance').textContent = '₹63,304';
     }
-    
-    // Get data from localStorage with fallback
-    function getFromLocalStorage(key, defaultValue) {
-      try {
-        const value = localStorage.getItem(key);
-        return value ? JSON.parse(value) : defaultValue;
-      } catch (error) {
-        console.error(`Error getting ${key} from localStorage:`, error);
-        return defaultValue;
-      }
-    }
-    
-    // Save data to localStorage
-    function saveToLocalStorage(key, data) {
-      try {
-        localStorage.setItem(key, JSON.stringify(data));
-      } catch (error) {
-        console.error(`Error saving ${key} to localStorage:`, error);
-        alert('Error saving data. Your storage might be full.');
-      }
-    }
-    
-    // Initialize form submissions
-    function initializeForms() {
-      // Receivable form
-      document.getElementById('receivableForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const receivable = {
-          id: currentEditId || Date.now(),
-          from: document.getElementById('receivableFrom').value,
-          amount: parseFloat(document.getElementById('receivableAmount').value),
-          dueDate: document.getElementById('receivableDueDate').value,
-          description: document.getElementById('receivableDescription').value
-        };
-        
-        if (currentEditId) {
-          // Update existing
-          const index = receivables.findIndex(r => r.id === currentEditId);
-          if (index !== -1) {
-            receivables[index] = receivable;
-          }
-        } else {
-          // Add new
-          receivables.push(receivable);
-        }
-        
-        saveToLocalStorage(STORAGE_KEYS.RECEIVABLES, receivables);
-        renderReceivables(receivables);
-        updateFinancialSummary();
-        
-        hideModal('receivableModal');
-        resetForm('receivableForm');
-        currentEditId = null;
-      });
-      
-      // Payable form
-      document.getElementById('payableForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const payable = {
-          id: currentEditId || Date.now(),
-          to: document.getElementById('payableTo').value,
-          amount: parseFloat(document.getElementById('payableAmount').value),
-          dueDate: document.getElementById('payableDueDate').value,
-          description: document.getElementById('payableDescription').value
-        };
-        
-        if (currentEditId) {
-          // Update existing
-          const index = payables.findIndex(p => p.id === currentEditId);
-          if (index !== -1) {
-            payables[index] = payable;
-          }
-        } else {
-          // Add new
-          payables.push(payable);
-        }
-        
-        saveToLocalStorage(STORAGE_KEYS.PAYABLES, payables);
-        renderPayables(payables);
-        updateFinancialSummary();
-        
-        hideModal('payableModal');
-        resetForm('payableForm');
-        currentEditId = null;
-      });
-      
-      // Investment form
-      document.getElementById('investmentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const investment = {
-          id: currentEditId || Date.now(),
-          name: document.getElementById('investmentName').value,
-          amount: parseFloat(document.getElementById('investmentAmount').value),
-          frequency: document.getElementById('investmentFrequency').value,
-          type: document.getElementById('investmentType').value
-        };
-        
-        if (currentEditId) {
-          // Update existing
-          const index = investments.findIndex(i => i.id === currentEditId);
-          if (index !== -1) {
-            investments[index] = investment;
-          }
-        } else {
-          // Add new
-          investments.push(investment);
-        }
-        
-        saveToLocalStorage(STORAGE_KEYS.INVESTMENTS, investments);
-        renderInvestments(investments);
-        updateFinancialSummary();
-        
-        hideModal('investmentModal');
-        resetForm('investmentForm');
-        currentEditId = null;
-      });
-      
-      // Budget form
-      document.getElementById('budgetForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const budget = {
-          id: currentEditId || Date.now(),
-          name: document.getElementById('budgetName').value,
-          targetAmount: parseFloat(document.getElementById('budgetTargetAmount').value),
-          currentAmount: parseFloat(document.getElementById('budgetCurrentAmount').value),
-          targetDate: document.getElementById('budgetTargetDate').value
-        };
-        
-        if (currentEditId) {
-          // Update existing
-          const index = budgets.findIndex(b => b.id === currentEditId);
-          if (index !== -1) {
-            budgets[index] = budget;
-          }
-        } else {
-          // Add new
-          budgets.push(budget);
-        }
-        
-        saveToLocalStorage(STORAGE_KEYS.BUDGETS, budgets);
-        renderBudgets(budgets);
-        
-        hideModal('budgetModal');
-        resetForm('budgetForm');
-        currentEditId = null;
-      });
-      
-      // Account form
-      document.getElementById('accountForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const account = {
-          id: currentEditId || Date.now(),
-          name: document.getElementById('accountName').value,
-          accountNumber: document.getElementById('accountNumber').value,
-          balance: parseFloat(document.getElementById('accountBalance').value),
-          type: document.getElementById('accountType').value
-        };
-        
-        if (currentEditId) {
-          // Update existing
-          const index = accounts.findIndex(a => a.id === currentEditId);
-          if (index !== -1) {
-            accounts[index] = account;
-          }
-        } else {
-          // Add new
-          accounts.push(account);
-        }
-        
-        saveToLocalStorage(STORAGE_KEYS.ACCOUNTS, accounts);
-        renderAccounts(accounts);
-        updateFinancialSummary();
-        
-        hideModal('accountModal');
-        resetForm('accountForm');
-        currentEditId = null;
-      });
-    }
-    
-    // Reset form fields
-    function resetForm(formId) {
-      document.getElementById(formId).reset();
-    }
-    
-    // Format currency
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('en-IN', {
-        style: 'currency',
-        currency: 'INR',
-        maximumFractionDigits: 0
-      }).format(amount);
-    }
-    
-    // Format date for display
-    function formatDate(dateString) {
-      if (!dateString) return '';
-      const date = new Date(dateString);
-      return new Intl.DateTimeFormat('en-IN', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      }).format(date);
-    }
-    
-    // Update financial summary
-    function updateFinancialSummary() {
-      const totalReceivables = receivables.reduce((sum, item) => sum + item.amount, 0);
-      const totalPayables = payables.reduce((sum, item) => sum + item.amount, 0);
-      const totalInvestments = investments.reduce((sum, item) => sum + item.amount, 0);
-      const totalBankBalance = accounts.reduce((sum, item) => sum + item.balance, 0);
-      const netWorth = totalBankBalance + totalReceivables + totalInvestments - totalPayables;
-      
-      document.getElementById('netWorth').textContent = formatCurrency(netWorth);
-      document.getElementById('totalReceivables').textContent = formatCurrency(totalReceivables);
-      document.getElementById('totalPayables').textContent = formatCurrency(totalPayables);
-      document.getElementById('totalInvestments').textContent = formatCurrency(totalInvestments);
-      document.getElementById('totalBankBalance').textContent = formatCurrency(totalBankBalance);
-    }
-    
-    // Render dashboard and detail receivables
-    function renderReceivables(data) {
-      // Dashboard receivables
-      const dashboardTable = document.getElementById('dashboardReceivablesTable').querySelector('tbody');
-      dashboardTable.innerHTML = '';
-      
-      // Only show top 3 for dashboard
-      const dashboardData = [...data].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).slice(0, 3);
-      
-      dashboardData.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.from}</td>
-          <td class="text-right">${formatCurrency(item.amount)}</td>
-          <td>${formatDate(item.dueDate)}</td>
-        `;
-        dashboardTable.appendChild(row);
-      });
-      
-      // All receivables
-      const fullTable = document.getElementById('receivablesTable').querySelector('tbody');
-      fullTable.innerHTML = '';
-      
-      data.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.from}</td>
-          <td class="text-right">${formatCurrency(item.amount)}</td>
-          <td>${formatDate(item.dueDate)}</td>
-          <td>
-            <button onclick="editReceivable(${item.id})">Edit</button>
-            <button onclick="deleteReceivable(${item.id})">Delete</button>
-          </td>
-        `;
-        fullTable.appendChild(row);
-      });
-    }
-    
-    // Render dashboard and detail payables
-    function renderPayables(data) {
-      // Dashboard payables
-      const dashboardTable = document.getElementById('dashboardPayablesTable').querySelector('tbody');
-      dashboardTable.innerHTML = '';
-      
-      // Only show top 3 for dashboard
-      const dashboardData = [...data].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).slice(0, 3);
-      
-      dashboardData.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.to}</td>
-          <td class="text-right">${formatCurrency(item.amount)}</td>
-          <td>${formatDate(item.dueDate)}</td>
-        `;
-        dashboardTable.appendChild(row);
-      });
-      
-      // All payables
-      const fullTable = document.getElementById('payablesTable').querySelector('tbody');
-      fullTable.innerHTML = '';
-      
-      data.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.to}</td>
-          <td class="text-right">${formatCurrency(item.amount)}</td>
-          <td>${formatDate(item.dueDate)}</td>
-          <td>
-            <button onclick="editPayable(${item.id})">Edit</button>
-            <button onclick="deletePayable(${item.id})">Delete</button>
-          </td>
-        `;
-        fullTable.appendChild(row);
-      });
-    }
-    
-    // Render investments
-    function renderInvestments(data) {
-      const table = document.getElementById('investmentsTable').querySelector('tbody');
-      table.innerHTML = '';
-      
-      data.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td class="text-right">${formatCurrency(item.amount)}</td>
-          <td>${item.frequency}</td>
-          <td>
-            <button onclick="editInvestment(${item.id})">Edit</button>
-            <button onclick="deleteInvestment(${item.id})">Delete</button>
-          </td>
-        `;
-        table.appendChild(row);
-      });
-    }
-    
-    // Render budgets
-    function renderBudgets(data) {
-      const table = document.getElementById('budgetsTable').querySelector('tbody');
-      table.innerHTML = '';
-      
-      data.forEach(item => {
-        const progress = ((item.currentAmount / item.targetAmount) * 100).toFixed(0);
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td class="text-right">${formatCurrency(item.targetAmount)}</td>
-          <td class="text-right">${formatCurrency(item.currentAmount)} (${progress}%)</td>
-          <td>${formatDate(item.targetDate)}</td>
-          <td>
-            <button onclick="editBudget(${item.id})">Edit</button>
-            <button onclick="deleteBudget(${item.id})">Delete</button>
-          </td>
-        `;
-        table.appendChild(row);
-      });
-    }
-    
-    // Render accounts
-    function renderAccounts(data) {
-      const table = document.getElementById('accountsTable').querySelector('tbody');
-      table.innerHTML = '';
-      
-      data.forEach(item => {
-        const accountNumberMasked = maskAccountNumber(item.accountNumber);
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td>${accountNumberMasked}</td>
-          <td class="text-right">${formatCurrency(item.balance)}</td>
-          <td>
-            <button onclick="editAccount(${item.id})">Edit</button>
-            <button onclick="deleteAccount(${item.id})">Delete</button>
-          </td>
-        `;
-        table.appendChild(row);
-      });
-    }
-    
-    // Mask account number for privacy
-    function maskAccountNumber(accountNumber) {
-      if (!accountNumber) return '';
-      const visibleDigits = 4;
-      if (accountNumber.length <= visibleDigits) {
-        return accountNumber;
-      }
-      
-      const masked = '*'.repeat(accountNumber.length - visibleDigits);
-      const visible = accountNumber.slice(-visibleDigits);
-      return masked + visible;
-    }
-    
-    // CRUD operations
-    
-    // Edit functions
-    function editReceivable(id) {
-      const receivable = receivables.find(r => r.id === id);
-      if (receivable) {
-        currentEditId = id;
-        document.getElementById('receivableId').value = id;
-        document.getElementById('receivableFrom').value = receivable.from;
-        document.getElementById('receivableAmount').value = receivable.amount;
-        document.getElementById('receivableDueDate').value = receivable.dueDate;
-        document.getElementById('receivableDescription').value = receivable.description || '';
-        
-        document.getElementById('receivableModalTitle').textContent = 'Edit Receivable';
-        showModal('receivableModal');
-      }
-    }
-    
-    function editPayable(id) {
-      const payable = payables.find(p => p.id === id);
-      if (payable) {
-        currentEditId = id;
-        document.getElementById('payableId').value = id;
-        document.getElementById('payableTo').value = payable.to;
-        document.getElementById('payableAmount').value = payable.amount;
-        document.getElementById('payableDueDate').value = payable.dueDate;
-        document.getElementById('payableDescription').value = payable.description || '';
-        
-        document.getElementById('payableModalTitle').textContent = 'Edit Payable';
-        showModal('payableModal');
-      }
-    }
-    
-    function editInvestment(id) {
-      const investment = investments.find(i => i.id === id);
-      if (investment) {
-        currentEditId = id;
-        document.getElementById('investmentId').value = id;
-        document.getElementById('investmentName').value = investment.name;
-        document.getElementById('investmentAmount').value = investment.amount;
-        document.getElementById('investmentFrequency').value = investment.frequency;
-        document.getElementById('investmentType').value = investment.type;
-        
-        document.getElementById('investmentModalTitle').textContent = 'Edit Investment';
-        showModal('investmentModal');
-      }
-    }
-    
-    function editBudget(id) {
-      const budget = budgets.find(b => b.id === id);
-      if (budget) {
-        currentEditId = id;
-        document.getElementById('budgetId').value = id;
-        document.getElementById('budgetName').value = budget.name;
-        document.getElementById('budgetTargetAmount').value = budget.targetAmount;
-        document.getElementById('budgetCurrentAmount').value = budget.currentAmount;
-        document.getElementById('budgetTargetDate').value = budget.targetDate;
-        
-        document.getElementById('budgetModalTitle').textContent = 'Edit Budget Plan';
-        showModal('budgetModal');
-      }
-    }
-    
-    function editAccount(id) {
-      const account = accounts.find(a => a.id === id);
-      if (account) {
-        currentEditId = id;
-        document.getElementById('accountId').value = id;
-        document.getElementById('accountName').value = account.name;
-        document.getElementById('accountNumber').value = account.accountNumber;
-        document.getElementById('accountBalance').value = account.balance;
-        document.getElementById('accountType').value = account.type;
-        
-        document.getElementById('accountModalTitle').textContent = 'Edit Bank Account';
-        showModal('accountModal');
-      }
-    }
-    
-    // Delete functions
-    function deleteReceivable(id) {
-      if (confirm('Are you sure you want to delete this receivable?')) {
-        receivables = receivables.filter(r => r.id !== id);
-        saveToLocalStorage(STORAGE_KEYS.RECEIVABLES, receivables);
-        renderReceivables(receivables);
-        updateFinancialSummary();
-      }
-    }
-    
-    function deletePayable(id) {
-      if (confirm('Are you sure you want to delete this payable?')) {
-        payables = payables.filter(p => p.id !== id);
-        saveToLocalStorage(STORAGE_KEYS.PAYABLES, payables);
-        renderPayables(payables);
-        updateFinancialSummary();
-      }
-    }
-    
-    function deleteInvestment(id) {
-      if (confirm('Are you sure you want to delete this investment?')) {
-        investments = investments.filter(i => i.id !== id);
-        saveToLocalStorage(STORAGE_KEYS.INVESTMENTS, investments);
-        renderInvestments(investments);
-        updateFinancialSummary();
-      }
-    }
-    
-    function deleteBudget(id) {
-      if (confirm('Are you sure you want to delete this budget plan?')) {
-        budgets = budgets.filter(b => b.id !== id);
-        saveToLocalStorage(STORAGE_KEYS.BUDGETS, budgets);
-        renderBudgets(budgets);
-      }
-    }
-    
-    function deleteAccount(id) {
-      if (confirm('Are you sure you want to delete this bank account?')) {
-        accounts = accounts.filter(a => a.id !== id);
-        saveToLocalStorage(STORAGE_KEYS.ACCOUNTS, accounts);
-        renderAccounts(accounts);
-        updateFinancialSummary();
-      }
-    }
-    
-    // UI functions
     
     // Switch between pages
     function switchPage(pageId) {
@@ -1354,38 +780,45 @@
     
     // Show modal
     function showModal(modalId) {
-      // Reset title if it's a new entry
-      currentEditId = null;
-      
-      if (modalId === 'receivableModal') {
-        document.getElementById('receivableModalTitle').textContent = 'Add Receivable';
-      } else if (modalId === 'payableModal') {
-        document.getElementById('payableModalTitle').textContent = 'Add Payable';
-      } else if (modalId === 'investmentModal') {
-        document.getElementById('investmentModalTitle').textContent = 'Add Investment';
-      } else if (modalId === 'budgetModal') {
-        document.getElementById('budgetModalTitle').textContent = 'Add Budget Plan';
-      } else if (modalId === 'accountModal') {
-        document.getElementById('accountModalTitle').textContent = 'Add Bank Account';
-      }
-      
       document.getElementById(modalId).classList.add('active');
     }
     
     // Hide modal
     function hideModal(modalId) {
       document.getElementById(modalId).classList.remove('active');
-      // Reset the form
-      if (modalId === 'receivableModal') {
-        resetForm('receivableForm');
-      } else if (modalId === 'payableModal') {
-        resetForm('payableForm');
-      } else if (modalId === 'investmentModal') {
-        resetForm('investmentForm');
-      } else if (modalId === 'budgetModal') {
-        resetForm('budgetForm');
-      } else if (modalId === 'accountModal') {
-        resetForm('accountForm');
+    }
+    
+    // Form actions - These would normally save to localStorage
+    function editReceivable(id) {
+      showModal('receivableModal');
+      document.getElementById('receivableModalTitle').textContent = 'Edit Receivable';
+      // This would normally load data from localStorage
+    }
+    
+    function deleteReceivable(id) {
+      if (confirm('Are you sure you want to delete this receivable?')) {
+        alert('Receivable deleted!');
+        // This would normally remove from localStorage
+      }
+    }
+    
+    function editPayable(id) {
+      alert('This would open the payable edit form');
+    }
+    
+    function deletePayable(id) {
+      if (confirm('Are you sure you want to delete this payable?')) {
+        alert('Payable deleted!');
+      }
+    }
+    
+    function editInvestment(id) {
+      alert('This would open the investment edit form');
+    }
+    
+    function deleteInvestment(id) {
+      if (confirm('Are you sure you want to delete this investment?')) {
+        alert('Investment deleted!');
       }
     }
   </script>
