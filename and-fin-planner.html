@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <title>Financial Planner</title>
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+      padding-bottom: 70px;
+    }
+    
+    /* Layout */
+    .app-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 12px;
+    }
+    
+    .header {
+      background-color: #6d28d9;
+      color: white;
+      padding: 16px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .tab {
+      color: #6d28d9;
+      text-decoration: none;
+      text-align: center;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .tab-icon {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    
+    /* Cards */
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    
+    .card-header {
+      background-color: #6d28d9;
+      color: white;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .card-body {
+      padding: 16px;
+    }
+    
+    /* Tables */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .table th,
+    .table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .table th {
+      font-weight: 600;
+      color: #555;
+    }
+    
+    /* Forms */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #6d28d9;
+    }
+    
+    .button {
+      background-color: #6d28d9;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    
+    .button:hover {
+      background-color: #5b21b6;
+    }
+    
+    /* Utilities */
+    .text-green {
+      color: #10b981;
+    }
+    
+    .text-red {
+      color: #ef4444;
+    }
+    
+    .text-right {
+      text-align: right;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .flex {
+      display: flex;
+    }
+    
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    /* Specific pages */
+    .page {
+      display: none;
+    }
+    
+    .page.active {
+      display: block;
+    }
+    
+    .summary-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+    
+    .add-button {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background-color: #6d28d9;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 5;
+    }
+    
+    /* Modal styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s linear 0.25s, opacity 0.25s;
+    }
+    
+    .modal.active {
+      visibility: visible;
+      opacity: 1;
+      transition-delay: 0s;
+    }
+    
+    .modal-content {
+      background-color: white;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      background-color: #6d28d9;
+      color: white;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-body {
+      padding: 16px;
+    }
+    
+    .modal-footer {
+      padding: 16px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    
+    .close-modal {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border-left-color: #6d28d9;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    /* Offline notification */
+    .offline-banner {
+      position: fixed;
+      bottom: 70px;
+      left: 10px;
+      right: 10px;
+      background-color: #fef3c7;
+      color: #92400e;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: none;
+      align-items: center;
+      z-index: 15;
+    }
+    
+    .offline-banner.visible {
+      display: flex;
+    }
+    
+    .offline-icon {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-banner" id="offlineBanner">
+    <span class="offline-icon">📶</span>
+    <span>You're offline. Changes will be saved locally.</span>
+  </div>
+
+  <header class="header">
+    <h1>Financial Planner</h1>
+  </header>
+  
+  <main class="app-container">
+    <!-- Dashboard Page -->
+    <div class="page active" id="dashboardPage">
+      <h2>Dashboard</h2>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>Financial Overview</h3>
+        </div>
+        <div class="card-body">
+          <div class="summary-item">
+            <span>Net Worth</span>
+            <span id="netWorth">₹0</span>
+          </div>
+          <div class="summary-item">
+            <span>Total Receivables</span>
+            <span id="totalReceivables">₹0</span>
+          </div>
+          <div class="summary-item">
+            <span>Total Payables</span>
+            <span id="totalPayables">₹0</span>
+          </div>
+          <div class="summary-item">
+            <span>Total Investments</span>
+            <span id="totalInvestments">₹0</span>
+          </div>
+          <div class="summary-item">
+            <span>Bank Balance</span>
+            <span id="totalBankBalance">₹0</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>Receivables</h3>
+          <a href="#" onclick="switchPage('receivablesPage')">View All</a>
+        </div>
+        <div class="card-body">
+          <table class="table" id="dashboardReceivablesTable">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>Payables</h3>
+          <a href="#" onclick="switchPage('payablesPage')">View All</a>
+        </div>
+        <div class="card-body">
+          <table class="table" id="dashboardPayablesTable">
+            <thead>
+              <tr>
+                <th>To</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Receivables Page -->
+    <div class="page" id="receivablesPage">
+      <h2>Receivables</h2>
+      <div class="card">
+        <div class="card-header">
+          <h3>All Receivables</h3>
+        </div>
+        <div class="card-body">
+          <table class="table" id="receivablesTable">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="add-button" onclick="showModal('receivableModal')">+</div>
+    </div>
+    
+    <!-- Payables Page -->
+    <div class="page" id="payablesPage">
+      <h2>Payables</h2>
+      <div class="card">
+        <div class="card-header">
+          <h3>All Payables</h3>
+        </div>
+        <div class="card-body">
+          <table class="table" id="payablesTable">
+            <thead>
+              <tr>
+                <th>To</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="add-button" onclick="showModal('payableModal')">+</div>
+    </div>
+    
+    <!-- Investments Page -->
+    <div class="page" id="investmentsPage">
+      <h2>Investments</h2>
+      <div class="card">
+        <div class="card-header">
+          <h3>All Investments</h3>
+        </div>
+        <div class="card-body">
+          <table class="table" id="investmentsTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Frequency</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="add-button" onclick="showModal('investmentModal')">+</div>
+    </div>
+    
+    <!-- Budgets Page -->
+    <div class="page" id="budgetsPage">
+      <h2>Budget Plans</h2>
+      <div class="card">
+        <div class="card-header">
+          <h3>All Budget Plans</h3>
+        </div>
+        <div class="card-body">
+          <table class="table" id="budgetsTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Target Amount</th>
+                <th>Current Amount</th>
+                <th>Target Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="add-button" onclick="showModal('budgetModal')">+</div>
+    </div>
+    
+    <!-- Bank Accounts Page -->
+    <div class="page" id="accountsPage">
+      <h2>Bank Accounts</h2>
+      <div class="card">
+        <div class="card-header">
+          <h3>All Accounts</h3>
+        </div>
+        <div class="card-body">
+          <table class="table" id="accountsTable">
+            <thead>
+              <tr>
+                <th>Bank</th>
+                <th>Account Number</th>
+                <th>Balance</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="add-button" onclick="showModal('accountModal')">+</div>
+    </div>
+  </main>
+  
+  <!-- Tab Navigation -->
+  <nav class="tab-bar">
+    <a href="#" class="tab active" onclick="switchPage('dashboardPage')">
+      <span class="tab-icon">📊</span>
+      <span>Dashboard</span>
+    </a>
+    <a href="#" class="tab" onclick="switchPage('receivablesPage')">
+      <span class="tab-icon">📥</span>
+      <span>Receivables</span>
+    </a>
+    <a href="#" class="tab" onclick="switchPage('payablesPage')">
+      <span class="tab-icon">📤</span>
+      <span>Payables</span>
+    </a>
+    <a href="#" class="tab" onclick="switchPage('investmentsPage')">
+      <span class="tab-icon">📈</span>
+      <span>Investments</span>
+    </a>
+    <a href="#" class="tab" onclick="switchPage('budgetsPage')">
+      <span class="tab-icon">💰</span>
+      <span>Budgets</span>
+    </a>
+    <a href="#" class="tab" onclick="switchPage('accountsPage')">
+      <span class="tab-icon">🏦</span>
+      <span>Accounts</span>
+    </a>
+  </nav>
+  
+  <!-- Modals -->
+  <!-- Receivable Modal -->
+  <div class="modal" id="receivableModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="receivableModalTitle">Add Receivable</h3>
+        <button class="close-modal" onclick="hideModal('receivableModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="receivableForm">
+          <input type="hidden" id="receivableId">
+          <div class="form-group">
+            <label class="form-label" for="receivableFrom">From</label>
+            <input type="text" id="receivableFrom" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="receivableAmount">Amount (₹)</label>
+            <input type="number" id="receivableAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="receivableDueDate">Due Date</label>
+            <input type="date" id="receivableDueDate" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="receivableDescription">Description (Optional)</label>
+            <input type="text" id="receivableDescription" class="form-input">
+          </div>
+          <button type="submit" class="button">Save Receivable</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Payable Modal -->
+  <div class="modal" id="payableModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="payableModalTitle">Add Payable</h3>
+        <button class="close-modal" onclick="hideModal('payableModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="payableForm">
+          <input type="hidden" id="payableId">
+          <div class="form-group">
+            <label class="form-label" for="payableTo">To</label>
+            <input type="text" id="payableTo" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="payableAmount">Amount (₹)</label>
+            <input type="number" id="payableAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="payableDueDate">Due Date</label>
+            <input type="date" id="payableDueDate" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="payableDescription">Description (Optional)</label>
+            <input type="text" id="payableDescription" class="form-input">
+          </div>
+          <button type="submit" class="button">Save Payable</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Investment Modal -->
+  <div class="modal" id="investmentModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="investmentModalTitle">Add Investment</h3>
+        <button class="close-modal" onclick="hideModal('investmentModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="investmentForm">
+          <input type="hidden" id="investmentId">
+          <div class="form-group">
+            <label class="form-label" for="investmentName">Name</label>
+            <input type="text" id="investmentName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="investmentAmount">Amount (₹)</label>
+            <input type="number" id="investmentAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="investmentFrequency">Frequency</label>
+            <select id="investmentFrequency" class="form-input" required>
+              <option value="Monthly">Monthly</option>
+              <option value="Quarterly">Quarterly</option>
+              <option value="Yearly">Yearly</option>
+              <option value="One-time">One-time</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="investmentType">Type</label>
+            <select id="investmentType" class="form-input" required>
+              <option value="Equity">Equity</option>
+              <option value="Mutual Fund">Mutual Fund</option>
+              <option value="Fixed Deposit">Fixed Deposit</option>
+              <option value="Gold">Gold</option>
+              <option value="Real Estate">Real Estate</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <button type="submit" class="button">Save Investment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Budget Modal -->
+  <div class="modal" id="budgetModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="budgetModalTitle">Add Budget Plan</h3>
+        <button class="close-modal" onclick="hideModal('budgetModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="budgetForm">
+          <input type="hidden" id="budgetId">
+          <div class="form-group">
+            <label class="form-label" for="budgetName">Name</label>
+            <input type="text" id="budgetName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="budgetTargetAmount">Target Amount (₹)</label>
+            <input type="number" id="budgetTargetAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="budgetCurrentAmount">Current Amount (₹)</label>
+            <input type="number" id="budgetCurrentAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="budgetTargetDate">Target Date</label>
+            <input type="date" id="budgetTargetDate" class="form-input" required>
+          </div>
+          <button type="submit" class="button">Save Budget Plan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Account Modal -->
+  <div class="modal" id="accountModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="accountModalTitle">Add Bank Account</h3>
+        <button class="close-modal" onclick="hideModal('accountModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="accountForm">
+          <input type="hidden" id="accountId">
+          <div class="form-group">
+            <label class="form-label" for="accountName">Bank Name</label>
+            <input type="text" id="accountName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="accountNumber">Account Number</label>
+            <input type="text" id="accountNumber" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="accountBalance">Balance (₹)</label>
+            <input type="number" id="accountBalance" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="accountType">Account Type</label>
+            <select id="accountType" class="form-input" required>
+              <option value="Savings">Savings</option>
+              <option value="Current">Current</option>
+              <option value="Fixed Deposit">Fixed Deposit</option>
+              <option value="Recurring Deposit">Recurring Deposit</option>
+            </select>
+          </div>
+          <button type="submit" class="button">Save Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Global constants
+    const STORAGE_KEYS = {
+      RECEIVABLES: 'finance_receivables',
+      PAYABLES: 'finance_payables',
+      INVESTMENTS: 'finance_investments',
+      BUDGETS: 'finance_budgets',
+      ACCOUNTS: 'finance_accounts'
+    };
+    
+    // Global state
+    let receivables = [];
+    let payables = [];
+    let investments = [];
+    let budgets = [];
+    let accounts = [];
+    let currentEditId = null;
+    
+    // DOM Elements
+    const pages = document.querySelectorAll('.page');
+    const tabs = document.querySelectorAll('.tab');
+    const offlineBanner = document.getElementById('offlineBanner');
+    
+    // Initialize app
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load data from localStorage
+      loadAllData();
+      
+      // Initialize forms
+      initializeForms();
+      
+      // Check connectivity
+      checkConnectivity();
+      
+      // Add event listeners
+      window.addEventListener('online', checkConnectivity);
+      window.addEventListener('offline', checkConnectivity);
+    });
+    
+    // Check if offline
+    function checkConnectivity() {
+      if (navigator.onLine) {
+        offlineBanner.classList.remove('visible');
+      } else {
+        offlineBanner.classList.add('visible');
+      }
+    }
+    
+    // Load all data from localStorage
+    function loadAllData() {
+      // Load receivables
+      receivables = getFromLocalStorage(STORAGE_KEYS.RECEIVABLES, []);
+      renderReceivables(receivables);
+      
+      // Load payables
+      payables = getFromLocalStorage(STORAGE_KEYS.PAYABLES, []);
+      renderPayables(payables);
+      
+      // Load investments
+      investments = getFromLocalStorage(STORAGE_KEYS.INVESTMENTS, []);
+      renderInvestments(investments);
+      
+      // Load budgets
+      budgets = getFromLocalStorage(STORAGE_KEYS.BUDGETS, []);
+      renderBudgets(budgets);
+      
+      // Load accounts
+      accounts = getFromLocalStorage(STORAGE_KEYS.ACCOUNTS, []);
+      renderAccounts(accounts);
+      
+      // Calculate and render summary
+      updateFinancialSummary();
+    }
+    
+    // Get data from localStorage with fallback
+    function getFromLocalStorage(key, defaultValue) {
+      try {
+        const value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : defaultValue;
+      } catch (error) {
+        console.error(`Error getting ${key} from localStorage:`, error);
+        return defaultValue;
+      }
+    }
+    
+    // Save data to localStorage
+    function saveToLocalStorage(key, data) {
+      try {
+        localStorage.setItem(key, JSON.stringify(data));
+      } catch (error) {
+        console.error(`Error saving ${key} to localStorage:`, error);
+        alert('Error saving data. Your storage might be full.');
+      }
+    }
+    
+    // Initialize form submissions
+    function initializeForms() {
+      // Receivable form
+      document.getElementById('receivableForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const receivable = {
+          id: currentEditId || Date.now(),
+          from: document.getElementById('receivableFrom').value,
+          amount: parseFloat(document.getElementById('receivableAmount').value),
+          dueDate: document.getElementById('receivableDueDate').value,
+          description: document.getElementById('receivableDescription').value
+        };
+        
+        if (currentEditId) {
+          // Update existing
+          const index = receivables.findIndex(r => r.id === currentEditId);
+          if (index !== -1) {
+            receivables[index] = receivable;
+          }
+        } else {
+          // Add new
+          receivables.push(receivable);
+        }
+        
+        saveToLocalStorage(STORAGE_KEYS.RECEIVABLES, receivables);
+        renderReceivables(receivables);
+        updateFinancialSummary();
+        
+        hideModal('receivableModal');
+        resetForm('receivableForm');
+        currentEditId = null;
+      });
+      
+      // Payable form
+      document.getElementById('payableForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const payable = {
+          id: currentEditId || Date.now(),
+          to: document.getElementById('payableTo').value,
+          amount: parseFloat(document.getElementById('payableAmount').value),
+          dueDate: document.getElementById('payableDueDate').value,
+          description: document.getElementById('payableDescription').value
+        };
+        
+        if (currentEditId) {
+          // Update existing
+          const index = payables.findIndex(p => p.id === currentEditId);
+          if (index !== -1) {
+            payables[index] = payable;
+          }
+        } else {
+          // Add new
+          payables.push(payable);
+        }
+        
+        saveToLocalStorage(STORAGE_KEYS.PAYABLES, payables);
+        renderPayables(payables);
+        updateFinancialSummary();
+        
+        hideModal('payableModal');
+        resetForm('payableForm');
+        currentEditId = null;
+      });
+      
+      // Investment form
+      document.getElementById('investmentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const investment = {
+          id: currentEditId || Date.now(),
+          name: document.getElementById('investmentName').value,
+          amount: parseFloat(document.getElementById('investmentAmount').value),
+          frequency: document.getElementById('investmentFrequency').value,
+          type: document.getElementById('investmentType').value
+        };
+        
+        if (currentEditId) {
+          // Update existing
+          const index = investments.findIndex(i => i.id === currentEditId);
+          if (index !== -1) {
+            investments[index] = investment;
+          }
+        } else {
+          // Add new
+          investments.push(investment);
+        }
+        
+        saveToLocalStorage(STORAGE_KEYS.INVESTMENTS, investments);
+        renderInvestments(investments);
+        updateFinancialSummary();
+        
+        hideModal('investmentModal');
+        resetForm('investmentForm');
+        currentEditId = null;
+      });
+      
+      // Budget form
+      document.getElementById('budgetForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const budget = {
+          id: currentEditId || Date.now(),
+          name: document.getElementById('budgetName').value,
+          targetAmount: parseFloat(document.getElementById('budgetTargetAmount').value),
+          currentAmount: parseFloat(document.getElementById('budgetCurrentAmount').value),
+          targetDate: document.getElementById('budgetTargetDate').value
+        };
+        
+        if (currentEditId) {
+          // Update existing
+          const index = budgets.findIndex(b => b.id === currentEditId);
+          if (index !== -1) {
+            budgets[index] = budget;
+          }
+        } else {
+          // Add new
+          budgets.push(budget);
+        }
+        
+        saveToLocalStorage(STORAGE_KEYS.BUDGETS, budgets);
+        renderBudgets(budgets);
+        
+        hideModal('budgetModal');
+        resetForm('budgetForm');
+        currentEditId = null;
+      });
+      
+      // Account form
+      document.getElementById('accountForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const account = {
+          id: currentEditId || Date.now(),
+          name: document.getElementById('accountName').value,
+          accountNumber: document.getElementById('accountNumber').value,
+          balance: parseFloat(document.getElementById('accountBalance').value),
+          type: document.getElementById('accountType').value
+        };
+        
+        if (currentEditId) {
+          // Update existing
+          const index = accounts.findIndex(a => a.id === currentEditId);
+          if (index !== -1) {
+            accounts[index] = account;
+          }
+        } else {
+          // Add new
+          accounts.push(account);
+        }
+        
+        saveToLocalStorage(STORAGE_KEYS.ACCOUNTS, accounts);
+        renderAccounts(accounts);
+        updateFinancialSummary();
+        
+        hideModal('accountModal');
+        resetForm('accountForm');
+        currentEditId = null;
+      });
+    }
+    
+    // Reset form fields
+    function resetForm(formId) {
+      document.getElementById(formId).reset();
+    }
+    
+    // Format currency
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
+    
+    // Format date for display
+    function formatDate(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      return new Intl.DateTimeFormat('en-IN', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }).format(date);
+    }
+    
+    // Update financial summary
+    function updateFinancialSummary() {
+      const totalReceivables = receivables.reduce((sum, item) => sum + item.amount, 0);
+      const totalPayables = payables.reduce((sum, item) => sum + item.amount, 0);
+      const totalInvestments = investments.reduce((sum, item) => sum + item.amount, 0);
+      const totalBankBalance = accounts.reduce((sum, item) => sum + item.balance, 0);
+      const netWorth = totalBankBalance + totalReceivables + totalInvestments - totalPayables;
+      
+      document.getElementById('netWorth').textContent = formatCurrency(netWorth);
+      document.getElementById('totalReceivables').textContent = formatCurrency(totalReceivables);
+      document.getElementById('totalPayables').textContent = formatCurrency(totalPayables);
+      document.getElementById('totalInvestments').textContent = formatCurrency(totalInvestments);
+      document.getElementById('totalBankBalance').textContent = formatCurrency(totalBankBalance);
+    }
+    
+    // Render dashboard and detail receivables
+    function renderReceivables(data) {
+      // Dashboard receivables
+      const dashboardTable = document.getElementById('dashboardReceivablesTable').querySelector('tbody');
+      dashboardTable.innerHTML = '';
+      
+      // Only show top 3 for dashboard
+      const dashboardData = [...data].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).slice(0, 3);
+      
+      dashboardData.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.from}</td>
+          <td class="text-right">${formatCurrency(item.amount)}</td>
+          <td>${formatDate(item.dueDate)}</td>
+        `;
+        dashboardTable.appendChild(row);
+      });
+      
+      // All receivables
+      const fullTable = document.getElementById('receivablesTable').querySelector('tbody');
+      fullTable.innerHTML = '';
+      
+      data.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.from}</td>
+          <td class="text-right">${formatCurrency(item.amount)}</td>
+          <td>${formatDate(item.dueDate)}</td>
+          <td>
+            <button onclick="editReceivable(${item.id})">Edit</button>
+            <button onclick="deleteReceivable(${item.id})">Delete</button>
+          </td>
+        `;
+        fullTable.appendChild(row);
+      });
+    }
+    
+    // Render dashboard and detail payables
+    function renderPayables(data) {
+      // Dashboard payables
+      const dashboardTable = document.getElementById('dashboardPayablesTable').querySelector('tbody');
+      dashboardTable.innerHTML = '';
+      
+      // Only show top 3 for dashboard
+      const dashboardData = [...data].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).slice(0, 3);
+      
+      dashboardData.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.to}</td>
+          <td class="text-right">${formatCurrency(item.amount)}</td>
+          <td>${formatDate(item.dueDate)}</td>
+        `;
+        dashboardTable.appendChild(row);
+      });
+      
+      // All payables
+      const fullTable = document.getElementById('payablesTable').querySelector('tbody');
+      fullTable.innerHTML = '';
+      
+      data.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.to}</td>
+          <td class="text-right">${formatCurrency(item.amount)}</td>
+          <td>${formatDate(item.dueDate)}</td>
+          <td>
+            <button onclick="editPayable(${item.id})">Edit</button>
+            <button onclick="deletePayable(${item.id})">Delete</button>
+          </td>
+        `;
+        fullTable.appendChild(row);
+      });
+    }
+    
+    // Render investments
+    function renderInvestments(data) {
+      const table = document.getElementById('investmentsTable').querySelector('tbody');
+      table.innerHTML = '';
+      
+      data.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td class="text-right">${formatCurrency(item.amount)}</td>
+          <td>${item.frequency}</td>
+          <td>
+            <button onclick="editInvestment(${item.id})">Edit</button>
+            <button onclick="deleteInvestment(${item.id})">Delete</button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+    }
+    
+    // Render budgets
+    function renderBudgets(data) {
+      const table = document.getElementById('budgetsTable').querySelector('tbody');
+      table.innerHTML = '';
+      
+      data.forEach(item => {
+        const progress = ((item.currentAmount / item.targetAmount) * 100).toFixed(0);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td class="text-right">${formatCurrency(item.targetAmount)}</td>
+          <td class="text-right">${formatCurrency(item.currentAmount)} (${progress}%)</td>
+          <td>${formatDate(item.targetDate)}</td>
+          <td>
+            <button onclick="editBudget(${item.id})">Edit</button>
+            <button onclick="deleteBudget(${item.id})">Delete</button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+    }
+    
+    // Render accounts
+    function renderAccounts(data) {
+      const table = document.getElementById('accountsTable').querySelector('tbody');
+      table.innerHTML = '';
+      
+      data.forEach(item => {
+        const accountNumberMasked = maskAccountNumber(item.accountNumber);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${accountNumberMasked}</td>
+          <td class="text-right">${formatCurrency(item.balance)}</td>
+          <td>
+            <button onclick="editAccount(${item.id})">Edit</button>
+            <button onclick="deleteAccount(${item.id})">Delete</button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+    }
+    
+    // Mask account number for privacy
+    function maskAccountNumber(accountNumber) {
+      if (!accountNumber) return '';
+      const visibleDigits = 4;
+      if (accountNumber.length <= visibleDigits) {
+        return accountNumber;
+      }
+      
+      const masked = '*'.repeat(accountNumber.length - visibleDigits);
+      const visible = accountNumber.slice(-visibleDigits);
+      return masked + visible;
+    }
+    
+    // CRUD operations
+    
+    // Edit functions
+    function editReceivable(id) {
+      const receivable = receivables.find(r => r.id === id);
+      if (receivable) {
+        currentEditId = id;
+        document.getElementById('receivableId').value = id;
+        document.getElementById('receivableFrom').value = receivable.from;
+        document.getElementById('receivableAmount').value = receivable.amount;
+        document.getElementById('receivableDueDate').value = receivable.dueDate;
+        document.getElementById('receivableDescription').value = receivable.description || '';
+        
+        document.getElementById('receivableModalTitle').textContent = 'Edit Receivable';
+        showModal('receivableModal');
+      }
+    }
+    
+    function editPayable(id) {
+      const payable = payables.find(p => p.id === id);
+      if (payable) {
+        currentEditId = id;
+        document.getElementById('payableId').value = id;
+        document.getElementById('payableTo').value = payable.to;
+        document.getElementById('payableAmount').value = payable.amount;
+        document.getElementById('payableDueDate').value = payable.dueDate;
+        document.getElementById('payableDescription').value = payable.description || '';
+        
+        document.getElementById('payableModalTitle').textContent = 'Edit Payable';
+        showModal('payableModal');
+      }
+    }
+    
+    function editInvestment(id) {
+      const investment = investments.find(i => i.id === id);
+      if (investment) {
+        currentEditId = id;
+        document.getElementById('investmentId').value = id;
+        document.getElementById('investmentName').value = investment.name;
+        document.getElementById('investmentAmount').value = investment.amount;
+        document.getElementById('investmentFrequency').value = investment.frequency;
+        document.getElementById('investmentType').value = investment.type;
+        
+        document.getElementById('investmentModalTitle').textContent = 'Edit Investment';
+        showModal('investmentModal');
+      }
+    }
+    
+    function editBudget(id) {
+      const budget = budgets.find(b => b.id === id);
+      if (budget) {
+        currentEditId = id;
+        document.getElementById('budgetId').value = id;
+        document.getElementById('budgetName').value = budget.name;
+        document.getElementById('budgetTargetAmount').value = budget.targetAmount;
+        document.getElementById('budgetCurrentAmount').value = budget.currentAmount;
+        document.getElementById('budgetTargetDate').value = budget.targetDate;
+        
+        document.getElementById('budgetModalTitle').textContent = 'Edit Budget Plan';
+        showModal('budgetModal');
+      }
+    }
+    
+    function editAccount(id) {
+      const account = accounts.find(a => a.id === id);
+      if (account) {
+        currentEditId = id;
+        document.getElementById('accountId').value = id;
+        document.getElementById('accountName').value = account.name;
+        document.getElementById('accountNumber').value = account.accountNumber;
+        document.getElementById('accountBalance').value = account.balance;
+        document.getElementById('accountType').value = account.type;
+        
+        document.getElementById('accountModalTitle').textContent = 'Edit Bank Account';
+        showModal('accountModal');
+      }
+    }
+    
+    // Delete functions
+    function deleteReceivable(id) {
+      if (confirm('Are you sure you want to delete this receivable?')) {
+        receivables = receivables.filter(r => r.id !== id);
+        saveToLocalStorage(STORAGE_KEYS.RECEIVABLES, receivables);
+        renderReceivables(receivables);
+        updateFinancialSummary();
+      }
+    }
+    
+    function deletePayable(id) {
+      if (confirm('Are you sure you want to delete this payable?')) {
+        payables = payables.filter(p => p.id !== id);
+        saveToLocalStorage(STORAGE_KEYS.PAYABLES, payables);
+        renderPayables(payables);
+        updateFinancialSummary();
+      }
+    }
+    
+    function deleteInvestment(id) {
+      if (confirm('Are you sure you want to delete this investment?')) {
+        investments = investments.filter(i => i.id !== id);
+        saveToLocalStorage(STORAGE_KEYS.INVESTMENTS, investments);
+        renderInvestments(investments);
+        updateFinancialSummary();
+      }
+    }
+    
+    function deleteBudget(id) {
+      if (confirm('Are you sure you want to delete this budget plan?')) {
+        budgets = budgets.filter(b => b.id !== id);
+        saveToLocalStorage(STORAGE_KEYS.BUDGETS, budgets);
+        renderBudgets(budgets);
+      }
+    }
+    
+    function deleteAccount(id) {
+      if (confirm('Are you sure you want to delete this bank account?')) {
+        accounts = accounts.filter(a => a.id !== id);
+        saveToLocalStorage(STORAGE_KEYS.ACCOUNTS, accounts);
+        renderAccounts(accounts);
+        updateFinancialSummary();
+      }
+    }
+    
+    // UI functions
+    
+    // Switch between pages
+    function switchPage(pageId) {
+      // Hide all pages
+      pages.forEach(page => {
+        page.classList.remove('active');
+      });
+      
+      // Show selected page
+      document.getElementById(pageId).classList.add('active');
+      
+      // Update tabs
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Find the tab that points to this page
+      const activeTab = Array.from(tabs).find(tab => {
+        return tab.getAttribute('onclick').includes(pageId);
+      });
+      
+      if (activeTab) {
+        activeTab.classList.add('active');
+      }
+    }
+    
+    // Show modal
+    function showModal(modalId) {
+      // Reset title if it's a new entry
+      currentEditId = null;
+      
+      if (modalId === 'receivableModal') {
+        document.getElementById('receivableModalTitle').textContent = 'Add Receivable';
+      } else if (modalId === 'payableModal') {
+        document.getElementById('payableModalTitle').textContent = 'Add Payable';
+      } else if (modalId === 'investmentModal') {
+        document.getElementById('investmentModalTitle').textContent = 'Add Investment';
+      } else if (modalId === 'budgetModal') {
+        document.getElementById('budgetModalTitle').textContent = 'Add Budget Plan';
+      } else if (modalId === 'accountModal') {
+        document.getElementById('accountModalTitle').textContent = 'Add Bank Account';
+      }
+      
+      document.getElementById(modalId).classList.add('active');
+    }
+    
+    // Hide modal
+    function hideModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+      // Reset the form
+      if (modalId === 'receivableModal') {
+        resetForm('receivableForm');
+      } else if (modalId === 'payableModal') {
+        resetForm('payableForm');
+      } else if (modalId === 'investmentModal') {
+        resetForm('investmentForm');
+      } else if (modalId === 'budgetModal') {
+        resetForm('budgetForm');
+      } else if (modalId === 'accountModal') {
+        resetForm('accountForm');
+      }
+    }
+  </script>
+</body>
+</html>
