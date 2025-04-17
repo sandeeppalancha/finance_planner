@@ -746,6 +746,146 @@
     </div>
   </div>
   
+  <!-- Payable Modal -->
+  <div class="modal" id="payableModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="payableModalTitle">Add Payable</h3>
+        <button class="close-modal" onclick="hideModal('payableModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="payableForm">
+          <input type="hidden" id="payableId">
+          <div class="form-group">
+            <label class="form-label" for="payableTo">To</label>
+            <input type="text" id="payableTo" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="payableAmount">Amount (₹)</label>
+            <input type="number" id="payableAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="payableDueDate">Due Date</label>
+            <input type="date" id="payableDueDate" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="payableDescription">Description (Optional)</label>
+            <input type="text" id="payableDescription" class="form-input">
+          </div>
+          <button type="submit" class="button">Save Payable</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Investment Modal -->
+  <div class="modal" id="investmentModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="investmentModalTitle">Add Investment</h3>
+        <button class="close-modal" onclick="hideModal('investmentModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="investmentForm">
+          <input type="hidden" id="investmentId">
+          <div class="form-group">
+            <label class="form-label" for="investmentName">Investment Name</label>
+            <input type="text" id="investmentName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="investmentAmount">Amount (₹)</label>
+            <input type="number" id="investmentAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="investmentType">Type</label>
+            <select id="investmentType" class="form-input">
+              <option value="">Select Type</option>
+              <option value="Equity">Equity</option>
+              <option value="MutualFund">Mutual Fund</option>
+              <option value="FixedDeposit">Fixed Deposit</option>
+              <option value="Gold">Gold</option>
+              <option value="RealEstate">Real Estate</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="investmentDescription">Description (Optional)</label>
+            <input type="text" id="investmentDescription" class="form-input">
+          </div>
+          <button type="submit" class="button">Save Investment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Budget Modal -->
+  <div class="modal" id="budgetModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="budgetModalTitle">Add Budget</h3>
+        <button class="close-modal" onclick="hideModal('budgetModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="budgetForm">
+          <input type="hidden" id="budgetId">
+          <div class="form-group">
+            <label class="form-label" for="budgetName">Budget Name</label>
+            <input type="text" id="budgetName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="budgetTargetAmount">Target Amount (₹)</label>
+            <input type="number" id="budgetTargetAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="budgetCategory">Category</label>
+            <select id="budgetCategory" class="form-input">
+              <option value="">Select Category</option>
+              <option value="Car">Car</option>
+              <option value="House">House</option>
+              <option value="Education">Education</option>
+              <option value="Travel">Travel</option>
+              <option value="Emergency">Emergency</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="budgetDeadline">Target Date</label>
+            <input type="date" id="budgetDeadline" class="form-input" required>
+          </div>
+          <button type="submit" class="button">Save Budget</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Account Modal -->
+  <div class="modal" id="accountModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="accountModalTitle">Add Bank Account</h3>
+        <button class="close-modal" onclick="hideModal('accountModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="accountForm">
+          <input type="hidden" id="accountId">
+          <div class="form-group">
+            <label class="form-label" for="accountName">Bank Name</label>
+            <input type="text" id="accountName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="accountNumber">Account Number</label>
+            <input type="text" id="accountNumber" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="accountBalance">Current Balance (₹)</label>
+            <input type="number" id="accountBalance" class="form-input" required>
+          </div>
+          <button type="submit" class="button">Save Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
   <!-- Chit Modal -->
   <div class="modal" id="chitModal">
     <div class="modal-content">
@@ -1398,11 +1538,51 @@
     
     // Initialize financial data
     function initializeFinancialData() {
-      // Load all data from localStorage
+      // Only use data from localStorage - no dummy data
+      
+      // Load the stored data for each entity type
       loadAllData();
       
-      // Update financial summary
+      // Also create appropriate page-switching events
+      addPageSwitchListeners();
+      
+      // Update financial summary based on localStorage data
       updateFinancialSummary();
+    }
+    
+    // Add listeners for page switching to ensure data is always refreshed
+    function addPageSwitchListeners() {
+      // When dashboard tab is clicked, refresh all summary data
+      document.querySelector('.tab[onclick*="switchPage(\'dashboardPage\')"]').addEventListener('click', function() {
+        // Need a slight delay to ensure the page is actually showing
+        setTimeout(() => {
+          updateFinancialSummary();
+        }, 100);
+      });
+      
+      // For the money tab, ensure the appropriate subpage is loaded with fresh data
+      document.querySelector('.tab[onclick*="switchPage(\'moneyPage\')"]').addEventListener('click', function() {
+        // Need a slight delay to ensure the page is actually showing
+        setTimeout(() => {
+          loadReceivables(); // Default subpage for money tab
+        }, 100);
+      });
+      
+      // For the investments tab
+      document.querySelector('.tab[onclick*="switchPage(\'investmentsPage\')"]').addEventListener('click', function() {
+        // Need a slight delay to ensure the page is actually showing
+        setTimeout(() => {
+          loadInvestments();
+        }, 100);
+      });
+      
+      // For the planning tab
+      document.querySelector('.tab[onclick*="switchPage(\'planningPage\')"]').addEventListener('click', function() {
+        // Need a slight delay to ensure the page is actually showing
+        setTimeout(() => {
+          loadBudgets(); // Default subpage for planning tab
+        }, 100);
+      });
     }
     
     // Switch between pages
@@ -1550,6 +1730,19 @@
       if (activeSubmenuItem) {
         activeSubmenuItem.classList.add('active');
       }
+      
+      // Refresh the data based on which subpage is shown
+      if (pageId === 'receivablesPage') {
+        loadReceivables();
+      } else if (pageId === 'payablesPage') {
+        loadPayables();
+      } else if (pageId === 'accountsPage') {
+        loadAccounts();
+      } else if (pageId === 'budgetsPage') {
+        loadBudgets();
+      } else if (pageId === 'chitsPage') {
+        loadChits();
+      }
     }
     
     // Show modal
@@ -1561,7 +1754,44 @@
         document.getElementById('receivableModalTitle').textContent = 'Add Receivable';
         document.getElementById('receivableForm').reset();
         document.getElementById('receivableId').value = '';
-      } else if (modalId === 'chitModal') {
+        
+        // Set today's date by default
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+        document.getElementById('receivableDueDate').value = formattedDate;
+      } 
+      else if (modalId === 'payableModal') {
+        document.getElementById('payableModalTitle').textContent = 'Add Payable';
+        document.getElementById('payableForm').reset();
+        document.getElementById('payableId').value = '';
+        
+        // Set today's date by default
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+        document.getElementById('payableDueDate').value = formattedDate;
+      }
+      else if (modalId === 'investmentModal') {
+        document.getElementById('investmentModalTitle').textContent = 'Add Investment';
+        document.getElementById('investmentForm').reset();
+        document.getElementById('investmentId').value = '';
+      }
+      else if (modalId === 'budgetModal') {
+        document.getElementById('budgetModalTitle').textContent = 'Add Budget';
+        document.getElementById('budgetForm').reset();
+        document.getElementById('budgetId').value = '';
+        
+        // Set a default deadline date (1 year from now)
+        const oneYearFromNow = new Date();
+        oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+        const formattedDate = oneYearFromNow.toISOString().split('T')[0];
+        document.getElementById('budgetDeadline').value = formattedDate;
+      }
+      else if (modalId === 'accountModal') {
+        document.getElementById('accountModalTitle').textContent = 'Add Bank Account';
+        document.getElementById('accountForm').reset();
+        document.getElementById('accountId').value = '';
+      }
+      else if (modalId === 'chitModal') {
         document.getElementById('chitModalTitle').textContent = 'Add Chit';
         document.getElementById('chitForm').reset();
         document.getElementById('chitId').value = '';
@@ -1781,14 +2011,38 @@
     
     // Generic delete function for all entity types
     function deleteItem(type, id) {
-      // Map of entity types to their storage keys and friendly names
+      // Map of entity types to their storage keys, friendly names and loaders
       const entityMap = {
-        'receivable': { key: STORAGE_KEYS.RECEIVABLES, name: 'Receivable', endpoint: 'receivables' },
-        'payable': { key: STORAGE_KEYS.PAYABLES, name: 'Payable', endpoint: 'payables' },
-        'investment': { key: STORAGE_KEYS.INVESTMENTS, name: 'Investment', endpoint: 'investments' },
-        'budget': { key: STORAGE_KEYS.BUDGETS, name: 'Budget', endpoint: 'budget-plans' },
-        'account': { key: STORAGE_KEYS.ACCOUNTS, name: 'Account', endpoint: 'bank-accounts' },
-        'chit': { key: STORAGE_KEYS.CHITS, name: 'Chit', endpoint: 'chits' }
+        'receivable': { 
+          key: STORAGE_KEYS.RECEIVABLES, 
+          name: 'Receivable', 
+          loader: loadReceivables 
+        },
+        'payable': { 
+          key: STORAGE_KEYS.PAYABLES, 
+          name: 'Payable', 
+          loader: loadPayables 
+        },
+        'investment': { 
+          key: STORAGE_KEYS.INVESTMENTS, 
+          name: 'Investment', 
+          loader: loadInvestments 
+        },
+        'budget': { 
+          key: STORAGE_KEYS.BUDGETS, 
+          name: 'Budget', 
+          loader: loadBudgets
+        },
+        'account': { 
+          key: STORAGE_KEYS.ACCOUNTS, 
+          name: 'Account', 
+          loader: loadAccounts 
+        },
+        'chit': { 
+          key: STORAGE_KEYS.CHITS, 
+          name: 'Chit', 
+          loader: loadChits 
+        }
       };
       
       const entity = entityMap[type];
@@ -1796,67 +2050,25 @@
       
       if (confirm(`Are you sure you want to delete this ${entity.name.toLowerCase()}?`)) {
         try {
-          // For the GitHub Pages standalone version (localStorage)
-          if (typeof localStorage !== 'undefined') {
-            // Get current items from localStorage
-            let items = JSON.parse(localStorage.getItem(entity.key) || '[]');
-            
-            // Filter out the item to delete
-            items = items.filter(item => item.id != id);
-            
-            // Save back to localStorage
-            localStorage.setItem(entity.key, JSON.stringify(items));
+          // Get current items from localStorage
+          let items = JSON.parse(localStorage.getItem(entity.key) || '[]');
+          
+          // Filter out the item to delete
+          items = items.filter(item => item.id != id);
+          
+          // Save back to localStorage
+          localStorage.setItem(entity.key, JSON.stringify(items));
+          
+          // Reload the appropriate list using the loader function
+          if (entity.loader && typeof entity.loader === 'function') {
+            entity.loader();
           }
-          
-          // Try to directly remove the table row for better compatibility
-          // First, try to find the row in a table
-          let removed = false;
-          
-          // Try various selector patterns
-          const selectors = [
-            `#${type}-${id}`,                          // Modern ID format
-            `tr:has(button[onclick*="delete${entity.name}(${id})"])`, // Table rows with delete button
-            `div.list-item:has(button[onclick*="delete${entity.name}(${id})"])` // List items with delete button
-          ];
-          
-          for (const selector of selectors) {
-            try {
-              const elements = document.querySelectorAll(selector);
-              if (elements && elements.length > 0) {
-                for (const element of elements) {
-                  element.remove();
-                  removed = true;
-                }
-                break;
-              }
-            } catch (selectorErr) {
-              console.log('Selector failed:', selector, selectorErr);
-              // Continue to next selector
-            }
-          }
-          
-          // If we couldn't find/remove with selectors, try a more basic approach
-          if (!removed) {
-            // Handle simple table rows - find the row containing the delete button
-            const tables = document.querySelectorAll('table');
-            for (const table of tables) {
-              const rows = table.querySelectorAll('tr');
-              for (const row of rows) {
-                const deleteButtons = row.querySelectorAll(`button[onclick*="delete${entity.name}(${id})"]`);
-                if (deleteButtons.length > 0) {
-                  row.remove();
-                  removed = true;
-                  break;
-                }
-              }
-              if (removed) break;
-            }
-          }
-          
-          alert(`${entity.name} deleted successfully!`);
           
           // Update financial totals on dashboard
           updateFinancialSummary();
+          
+          // Show success message
+          alert(`${entity.name} deleted successfully!`);
         } catch (err) {
           console.error('Error deleting item:', err);
           alert(`Error deleting ${entity.name.toLowerCase()}. Please try again.`);
