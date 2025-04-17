@@ -848,15 +848,171 @@
       // Setup forms
       document.getElementById('receivableForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        // Save the form data (This would normally save to localStorage)
-        alert('Receivable saved successfully!');
+        
+        // Get form data
+        const id = document.getElementById('receivableId').value;
+        const from = document.getElementById('receivableFrom').value;
+        const amount = document.getElementById('receivableAmount').value;
+        const dueDate = document.getElementById('receivableDueDate').value;
+        const description = document.getElementById('receivableDescription').value;
+        
+        // Create or update receivable
+        const receivable = {
+          id: id ? parseInt(id) : Date.now(), // Use existing ID or create new one
+          from,
+          amount: parseFloat(amount),
+          dueDate: new Date(dueDate).toISOString(),
+          description
+        };
+        
+        // Save to localStorage
+        saveToLocalStorage('receivable', receivable);
+        
+        // Refresh receivables list
+        loadReceivables();
+        
+        // Update dashboard
+        updateFinancialSummary();
+        
+        // Close modal
         hideModal('receivableModal');
+      });
+      
+      // Setup payable form
+      document.getElementById('payableForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const id = document.getElementById('payableId').value;
+        const to = document.getElementById('payableTo').value;
+        const amount = document.getElementById('payableAmount').value;
+        const dueDate = document.getElementById('payableDueDate').value;
+        const description = document.getElementById('payableDescription').value;
+        
+        // Create or update payable
+        const payable = {
+          id: id ? parseInt(id) : Date.now(),
+          to,
+          amount: parseFloat(amount),
+          dueDate: new Date(dueDate).toISOString(),
+          description
+        };
+        
+        // Save to localStorage
+        saveToLocalStorage('payable', payable);
+        
+        // Refresh payables list
+        loadPayables();
+        
+        // Update dashboard
+        updateFinancialSummary();
+        
+        // Close modal
+        hideModal('payableModal');
+      });
+      
+      // Setup investment form
+      document.getElementById('investmentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const id = document.getElementById('investmentId').value;
+        const name = document.getElementById('investmentName').value;
+        const amount = document.getElementById('investmentAmount').value;
+        const type = document.getElementById('investmentType').value;
+        const description = document.getElementById('investmentDescription').value;
+        
+        // Create or update investment
+        const investment = {
+          id: id ? parseInt(id) : Date.now(),
+          name,
+          amount: parseFloat(amount),
+          type,
+          description
+        };
+        
+        // Save to localStorage
+        saveToLocalStorage('investment', investment);
+        
+        // Refresh investments list
+        loadInvestments();
+        
+        // Update dashboard
+        updateFinancialSummary();
+        
+        // Close modal
+        hideModal('investmentModal');
+      });
+      
+      // Setup budget form
+      document.getElementById('budgetForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const id = document.getElementById('budgetId').value;
+        const name = document.getElementById('budgetName').value;
+        const targetAmount = document.getElementById('budgetTargetAmount').value;
+        const category = document.getElementById('budgetCategory').value;
+        const deadline = document.getElementById('budgetDeadline').value;
+        
+        // Create or update budget
+        const budget = {
+          id: id ? parseInt(id) : Date.now(),
+          name,
+          targetAmount: parseFloat(targetAmount),
+          category,
+          deadline: new Date(deadline).toISOString()
+        };
+        
+        // Save to localStorage
+        saveToLocalStorage('budget', budget);
+        
+        // Refresh budgets list
+        loadBudgets();
+        
+        // Update dashboard
+        updateFinancialSummary();
+        
+        // Close modal
+        hideModal('budgetModal');
+      });
+      
+      // Setup account form
+      document.getElementById('accountForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const id = document.getElementById('accountId').value;
+        const name = document.getElementById('accountName').value;
+        const accountNumber = document.getElementById('accountNumber').value;
+        const balance = document.getElementById('accountBalance').value;
+        
+        // Create or update account
+        const account = {
+          id: id ? parseInt(id) : Date.now(),
+          name,
+          accountNumber,
+          balance: parseFloat(balance)
+        };
+        
+        // Save to localStorage
+        saveToLocalStorage('account', account);
+        
+        // Refresh accounts list
+        loadAccounts();
+        
+        // Update dashboard
+        updateFinancialSummary();
+        
+        // Close modal
+        hideModal('accountModal');
       });
       
       // Setup chit form
       document.getElementById('chitForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
+        // Get form data
         const id = document.getElementById('chitId').value;
         const name = document.getElementById('chitName').value;
         const amount = document.getElementById('chitAmount').value;
@@ -870,8 +1026,27 @@
         const maturityDate = new Date(startDate);
         maturityDate.setMonth(maturityDate.getMonth() + parseInt(duration));
         
-        // This would normally save to localStorage
-        alert('Chit saved successfully!');
+        // Create or update chit
+        const chit = {
+          id: id ? parseInt(id) : Date.now(),
+          name,
+          amount: parseFloat(amount),
+          startDate: startDate.toISOString(),
+          maturityDate: maturityDate.toISOString(),
+          duration: parseInt(duration),
+          description
+        };
+        
+        // Save to localStorage
+        saveToLocalStorage('chit', chit);
+        
+        // Refresh chits list
+        loadChits();
+        
+        // Update dashboard
+        updateFinancialSummary();
+        
+        // Close modal
         hideModal('chitModal');
       });
       
@@ -888,14 +1063,346 @@
       }
     }
     
+    // Helper function to save entity to localStorage
+    function saveToLocalStorage(type, item) {
+      // Map of entity types to their storage keys
+      const entityMap = {
+        'receivable': STORAGE_KEYS.RECEIVABLES,
+        'payable': STORAGE_KEYS.PAYABLES,
+        'investment': STORAGE_KEYS.INVESTMENTS,
+        'budget': STORAGE_KEYS.BUDGETS,
+        'account': STORAGE_KEYS.ACCOUNTS,
+        'chit': STORAGE_KEYS.CHITS
+      };
+      
+      const storageKey = entityMap[type];
+      if (!storageKey) return;
+      
+      try {
+        // Get current items
+        let items = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        
+        // Check if item with the same ID already exists
+        const existingIndex = items.findIndex(i => i.id == item.id);
+        
+        if (existingIndex >= 0) {
+          // Update existing item
+          items[existingIndex] = item;
+        } else {
+          // Add new item
+          items.push(item);
+        }
+        
+        // Save to localStorage
+        localStorage.setItem(storageKey, JSON.stringify(items));
+        
+        // Update last sync time
+        localStorage.setItem(STORAGE_KEYS.LAST_SYNC, new Date().toISOString());
+      } catch (err) {
+        console.error('Error saving to localStorage:', err);
+        alert('Failed to save data. Please try again.');
+      }
+    }
+    
+    // Load all data from localStorage
+    function loadAllData() {
+      loadReceivables();
+      loadPayables();
+      loadInvestments();
+      loadBudgets();
+      loadAccounts();
+      loadChits();
+      updateFinancialSummary();
+    }
+    
+    // Load receivables from localStorage
+    function loadReceivables() {
+      try {
+        const receivables = JSON.parse(localStorage.getItem(STORAGE_KEYS.RECEIVABLES) || '[]');
+        const tbody = document.querySelector('#receivablesTable tbody');
+        
+        if (!tbody) return;
+        
+        // Clear existing rows
+        tbody.innerHTML = '';
+        
+        if (receivables.length === 0) {
+          // Show empty state
+          tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No receivables yet. Click "+ Add Receivable" to create one.</td></tr>`;
+          return;
+        }
+        
+        // Sort by due date (ascending)
+        receivables.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+        
+        // Add rows
+        receivables.forEach((receivable) => {
+          const dueDate = new Date(receivable.dueDate);
+          const formattedDate = `${dueDate.toLocaleString('default', { month: 'short' })} ${dueDate.getDate()}`;
+          
+          const row = document.createElement('tr');
+          row.id = `receivable-${receivable.id}`;
+          row.innerHTML = `
+            <td>${receivable.from}</td>
+            <td>₹${receivable.amount.toLocaleString()}</td>
+            <td>${formattedDate}</td>
+            <td>
+              <button onclick="editReceivable(${receivable.id})">Edit</button>
+              <button onclick="deleteReceivable(${receivable.id})">Delete</button>
+            </td>
+          `;
+          
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error('Error loading receivables:', err);
+      }
+    }
+    
+    // Load payables from localStorage
+    function loadPayables() {
+      try {
+        const payables = JSON.parse(localStorage.getItem(STORAGE_KEYS.PAYABLES) || '[]');
+        const tbody = document.querySelector('#payablesTable tbody');
+        
+        if (!tbody) return;
+        
+        // Clear existing rows
+        tbody.innerHTML = '';
+        
+        if (payables.length === 0) {
+          // Show empty state
+          tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No payables yet. Click "+ Add Payable" to create one.</td></tr>`;
+          return;
+        }
+        
+        // Sort by due date (ascending)
+        payables.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+        
+        // Add rows
+        payables.forEach((payable) => {
+          const dueDate = new Date(payable.dueDate);
+          const formattedDate = `${dueDate.toLocaleString('default', { month: 'short' })} ${dueDate.getDate()}`;
+          
+          const row = document.createElement('tr');
+          row.id = `payable-${payable.id}`;
+          row.innerHTML = `
+            <td>${payable.to}</td>
+            <td>₹${payable.amount.toLocaleString()}</td>
+            <td>${formattedDate}</td>
+            <td>
+              <button onclick="editPayable(${payable.id})">Edit</button>
+              <button onclick="deletePayable(${payable.id})">Delete</button>
+            </td>
+          `;
+          
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error('Error loading payables:', err);
+      }
+    }
+    
+    // Load investments from localStorage
+    function loadInvestments() {
+      try {
+        const investments = JSON.parse(localStorage.getItem(STORAGE_KEYS.INVESTMENTS) || '[]');
+        const tbody = document.querySelector('#investmentsTable tbody');
+        
+        if (!tbody) return;
+        
+        // Clear existing rows
+        tbody.innerHTML = '';
+        
+        if (investments.length === 0) {
+          // Show empty state
+          tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No investments yet. Click "+ Add Investment" to create one.</td></tr>`;
+          return;
+        }
+        
+        // Add rows
+        investments.forEach((investment) => {
+          const row = document.createElement('tr');
+          row.id = `investment-${investment.id}`;
+          row.innerHTML = `
+            <td>${investment.name}</td>
+            <td>${investment.type || 'General'}</td>
+            <td>₹${investment.amount.toLocaleString()}</td>
+            <td>
+              <button onclick="editInvestment(${investment.id})">Edit</button>
+              <button onclick="deleteInvestment(${investment.id})">Delete</button>
+            </td>
+          `;
+          
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error('Error loading investments:', err);
+      }
+    }
+    
+    // Load budgets from localStorage
+    function loadBudgets() {
+      try {
+        const budgets = JSON.parse(localStorage.getItem(STORAGE_KEYS.BUDGETS) || '[]');
+        const tbody = document.querySelector('#budgetsTable tbody');
+        
+        if (!tbody) return;
+        
+        // Clear existing rows
+        tbody.innerHTML = '';
+        
+        if (budgets.length === 0) {
+          // Show empty state
+          tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No budgets yet. Click "+ Add Budget" to create one.</td></tr>`;
+          return;
+        }
+        
+        // Add rows
+        budgets.forEach((budget) => {
+          const deadline = new Date(budget.deadline);
+          const formattedDate = `${deadline.toLocaleString('default', { month: 'short' })} ${deadline.getFullYear()}`;
+          
+          const row = document.createElement('tr');
+          row.id = `budget-${budget.id}`;
+          row.innerHTML = `
+            <td>${budget.name}</td>
+            <td>₹${budget.targetAmount.toLocaleString()}</td>
+            <td>${formattedDate}</td>
+            <td>
+              <button onclick="editBudget(${budget.id})">Edit</button>
+              <button onclick="deleteBudget(${budget.id})">Delete</button>
+            </td>
+          `;
+          
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error('Error loading budgets:', err);
+      }
+    }
+    
+    // Load accounts from localStorage
+    function loadAccounts() {
+      try {
+        const accounts = JSON.parse(localStorage.getItem(STORAGE_KEYS.ACCOUNTS) || '[]');
+        const tbody = document.querySelector('#accountsTable tbody');
+        
+        if (!tbody) return;
+        
+        // Clear existing rows
+        tbody.innerHTML = '';
+        
+        if (accounts.length === 0) {
+          // Show empty state
+          tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No accounts yet. Click "+ Add Account" to create one.</td></tr>`;
+          return;
+        }
+        
+        // Add rows
+        accounts.forEach((account) => {
+          const row = document.createElement('tr');
+          row.id = `account-${account.id}`;
+          row.innerHTML = `
+            <td>${account.name}</td>
+            <td>${account.accountNumber}</td>
+            <td>₹${account.balance.toLocaleString()}</td>
+            <td>
+              <button onclick="editAccount(${account.id})">Edit</button>
+              <button onclick="deleteAccount(${account.id})">Delete</button>
+            </td>
+          `;
+          
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error('Error loading accounts:', err);
+      }
+    }
+    
+    // Load chits from localStorage
+    function loadChits() {
+      try {
+        const chits = JSON.parse(localStorage.getItem(STORAGE_KEYS.CHITS) || '[]');
+        const chitsList = document.getElementById('chitsList');
+        const maturityList = document.querySelector('.maturity-list');
+        
+        if (!chitsList || !maturityList) return;
+        
+        // Clear existing items
+        chitsList.innerHTML = '';
+        maturityList.innerHTML = '';
+        
+        if (chits.length === 0) {
+          // Show empty state
+          chitsList.innerHTML = `<p class="empty-state">No chits yet. Click "+ Add Chit" to create one.</p>`;
+          maturityList.innerHTML = `<p class="empty-state">No upcoming maturities.</p>`;
+          return;
+        }
+        
+        // Add chit items
+        chits.forEach((chit) => {
+          const startDate = new Date(chit.startDate);
+          const maturityDate = new Date(chit.maturityDate);
+          const formattedStartDate = startDate.toLocaleString('default', { month: 'short' }) + ' ' + startDate.getFullYear();
+          
+          // Calculate current value
+          const currentValue = calculateChitValue(startDate, chit.amount, chit.duration);
+          
+          const chitItem = document.createElement('div');
+          chitItem.className = 'list-item';
+          chitItem.id = `chit-${chit.id}`;
+          chitItem.innerHTML = `
+            <div class="item-main">
+              <div class="item-name">${chit.name}</div>
+              <div class="item-details">₹${chit.amount.toLocaleString()} monthly • Started: ${formattedStartDate}</div>
+            </div>
+            <div class="item-amount">₹${currentValue.toLocaleString()}</div>
+            <div class="item-actions">
+              <button class="edit-button" onclick="editChit(${chit.id})">Edit</button>
+              <button class="delete-button" onclick="deleteChit(${chit.id})">Delete</button>
+            </div>
+          `;
+          
+          chitsList.appendChild(chitItem);
+          
+          // Add to maturity timeline
+          const monthsRemaining = getRemainingMonths(maturityDate);
+          const progress = (chit.duration - monthsRemaining) / chit.duration * 100;
+          const finalAmount = chit.amount * chit.duration;
+          
+          const maturityItem = document.createElement('div');
+          maturityItem.className = 'maturity-item';
+          maturityItem.innerHTML = `
+            <div class="maturity-info">
+              <span class="maturity-name">${chit.name}</span>
+              <span class="maturity-date">${formatDateMMYYYY(maturityDate)}</span>
+            </div>
+            <div class="maturity-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: ${progress}%"></div>
+              </div>
+              <div class="maturity-details">
+                <span class="months-remaining">${monthsRemaining} months remaining</span>
+                <span class="final-amount">Final: ₹${finalAmount.toLocaleString()}</span>
+              </div>
+            </div>
+          `;
+          
+          maturityList.appendChild(maturityItem);
+        });
+      } catch (err) {
+        console.error('Error loading chits:', err);
+      }
+    }
+    
     // Initialize financial data
     function initializeFinancialData() {
-      // Sample data (would normally be loaded from localStorage)
-      document.getElementById('netWorth').textContent = '₹190,254';
-      document.getElementById('totalReceivables').textContent = '₹22,500';
-      document.getElementById('totalPayables').textContent = '₹3,050';
-      document.getElementById('totalInvestments').textContent = '₹107,500';
-      document.getElementById('totalBankBalance').textContent = '₹63,304';
+      // Load all data from localStorage
+      loadAllData();
+      
+      // Update financial summary
+      updateFinancialSummary();
     }
     
     // Switch between pages
@@ -1072,48 +1579,216 @@
       document.getElementById(modalId).classList.remove('active');
     }
     
-    // Form actions - These would normally save to localStorage
+    // Form actions to load data from localStorage for editing
     function editReceivable(id) {
-      showModal('receivableModal');
-      document.getElementById('receivableModalTitle').textContent = 'Edit Receivable';
-      // This would normally load data from localStorage
+      try {
+        // Get all receivables
+        const receivables = JSON.parse(localStorage.getItem(STORAGE_KEYS.RECEIVABLES) || '[]');
+        
+        // Find the specified receivable
+        const receivable = receivables.find(r => r.id == id);
+        if (!receivable) {
+          alert('Could not find the receivable to edit.');
+          return;
+        }
+        
+        // Set modal title
+        document.getElementById('receivableModalTitle').textContent = 'Edit Receivable';
+        
+        // Populate form fields
+        document.getElementById('receivableId').value = receivable.id;
+        document.getElementById('receivableFrom').value = receivable.from;
+        document.getElementById('receivableAmount').value = receivable.amount;
+        
+        // Format date for input field (YYYY-MM-DD)
+        const dueDate = new Date(receivable.dueDate);
+        const formattedDate = dueDate.toISOString().split('T')[0];
+        document.getElementById('receivableDueDate').value = formattedDate;
+        
+        document.getElementById('receivableDescription').value = receivable.description || '';
+        
+        // Show modal
+        showModal('receivableModal');
+      } catch (err) {
+        console.error('Error editing receivable:', err);
+        alert('An error occurred while trying to edit the receivable.');
+      }
     }
     
     function editPayable(id) {
-      alert('This would open the payable edit form');
+      try {
+        // Get all payables
+        const payables = JSON.parse(localStorage.getItem(STORAGE_KEYS.PAYABLES) || '[]');
+        
+        // Find the specified payable
+        const payable = payables.find(p => p.id == id);
+        if (!payable) {
+          alert('Could not find the payable to edit.');
+          return;
+        }
+        
+        // Set modal title
+        document.getElementById('payableModalTitle').textContent = 'Edit Payable';
+        
+        // Populate form fields
+        document.getElementById('payableId').value = payable.id;
+        document.getElementById('payableTo').value = payable.to;
+        document.getElementById('payableAmount').value = payable.amount;
+        
+        // Format date for input field (YYYY-MM-DD)
+        const dueDate = new Date(payable.dueDate);
+        const formattedDate = dueDate.toISOString().split('T')[0];
+        document.getElementById('payableDueDate').value = formattedDate;
+        
+        document.getElementById('payableDescription').value = payable.description || '';
+        
+        // Show modal
+        showModal('payableModal');
+      } catch (err) {
+        console.error('Error editing payable:', err);
+        alert('An error occurred while trying to edit the payable.');
+      }
     }
     
     function editInvestment(id) {
-      alert('This would open the investment edit form');
+      try {
+        // Get all investments
+        const investments = JSON.parse(localStorage.getItem(STORAGE_KEYS.INVESTMENTS) || '[]');
+        
+        // Find the specified investment
+        const investment = investments.find(i => i.id == id);
+        if (!investment) {
+          alert('Could not find the investment to edit.');
+          return;
+        }
+        
+        // Set modal title
+        document.getElementById('investmentModalTitle').textContent = 'Edit Investment';
+        
+        // Populate form fields
+        document.getElementById('investmentId').value = investment.id;
+        document.getElementById('investmentName').value = investment.name;
+        document.getElementById('investmentAmount').value = investment.amount;
+        document.getElementById('investmentType').value = investment.type || '';
+        document.getElementById('investmentDescription').value = investment.description || '';
+        
+        // Show modal
+        showModal('investmentModal');
+      } catch (err) {
+        console.error('Error editing investment:', err);
+        alert('An error occurred while trying to edit the investment.');
+      }
     }
     
-    // Edit chit details
+    function editBudget(id) {
+      try {
+        // Get all budgets
+        const budgets = JSON.parse(localStorage.getItem(STORAGE_KEYS.BUDGETS) || '[]');
+        
+        // Find the specified budget
+        const budget = budgets.find(b => b.id == id);
+        if (!budget) {
+          alert('Could not find the budget to edit.');
+          return;
+        }
+        
+        // Set modal title
+        document.getElementById('budgetModalTitle').textContent = 'Edit Budget';
+        
+        // Populate form fields
+        document.getElementById('budgetId').value = budget.id;
+        document.getElementById('budgetName').value = budget.name;
+        document.getElementById('budgetTargetAmount').value = budget.targetAmount;
+        document.getElementById('budgetCategory').value = budget.category || '';
+        
+        // Format date for input field (YYYY-MM-DD)
+        const deadline = new Date(budget.deadline);
+        const formattedDate = deadline.toISOString().split('T')[0];
+        document.getElementById('budgetDeadline').value = formattedDate;
+        
+        // Show modal
+        showModal('budgetModal');
+      } catch (err) {
+        console.error('Error editing budget:', err);
+        alert('An error occurred while trying to edit the budget.');
+      }
+    }
+    
+    function editAccount(id) {
+      try {
+        // Get all accounts
+        const accounts = JSON.parse(localStorage.getItem(STORAGE_KEYS.ACCOUNTS) || '[]');
+        
+        // Find the specified account
+        const account = accounts.find(a => a.id == id);
+        if (!account) {
+          alert('Could not find the account to edit.');
+          return;
+        }
+        
+        // Set modal title
+        document.getElementById('accountModalTitle').textContent = 'Edit Account';
+        
+        // Populate form fields
+        document.getElementById('accountId').value = account.id;
+        document.getElementById('accountName').value = account.name;
+        document.getElementById('accountNumber').value = account.accountNumber;
+        document.getElementById('accountBalance').value = account.balance;
+        
+        // Show modal
+        showModal('accountModal');
+      } catch (err) {
+        console.error('Error editing account:', err);
+        alert('An error occurred while trying to edit the account.');
+      }
+    }
+    
     function editChit(id) {
-      // In a real app, this would load data from localStorage
-      document.getElementById('chitModalTitle').textContent = 'Edit Chit';
-      
-      // Dummy data for demonstration
-      document.getElementById('chitId').value = id;
-      document.getElementById('chitName').value = 'Family Chit';
-      document.getElementById('chitAmount').value = '5000';
-      document.getElementById('chitStartMonth').value = '5'; // June
-      document.getElementById('chitStartYear').value = '2024';
-      document.getElementById('chitDuration').value = '24';
-      document.getElementById('chitDescription').value = 'Monthly family chit';
-      
-      showModal('chitModal');
+      try {
+        // Get all chits
+        const chits = JSON.parse(localStorage.getItem(STORAGE_KEYS.CHITS) || '[]');
+        
+        // Find the specified chit
+        const chit = chits.find(c => c.id == id);
+        if (!chit) {
+          alert('Could not find the chit to edit.');
+          return;
+        }
+        
+        // Set modal title
+        document.getElementById('chitModalTitle').textContent = 'Edit Chit';
+        
+        // Populate form fields
+        document.getElementById('chitId').value = chit.id;
+        document.getElementById('chitName').value = chit.name;
+        document.getElementById('chitAmount').value = chit.amount;
+        
+        // Get start date values
+        const startDate = new Date(chit.startDate);
+        document.getElementById('chitStartMonth').value = startDate.getMonth().toString();
+        document.getElementById('chitStartYear').value = startDate.getFullYear().toString();
+        
+        document.getElementById('chitDuration').value = chit.duration;
+        document.getElementById('chitDescription').value = chit.description || '';
+        
+        // Show modal
+        showModal('chitModal');
+      } catch (err) {
+        console.error('Error editing chit:', err);
+        alert('An error occurred while trying to edit the chit.');
+      }
     }
     
     // Generic delete function for all entity types
     function deleteItem(type, id) {
       // Map of entity types to their storage keys and friendly names
       const entityMap = {
-        'receivable': { key: STORAGE_KEYS.RECEIVABLES, name: 'Receivable' },
-        'payable': { key: STORAGE_KEYS.PAYABLES, name: 'Payable' },
-        'investment': { key: STORAGE_KEYS.INVESTMENTS, name: 'Investment' },
-        'budget': { key: STORAGE_KEYS.BUDGETS, name: 'Budget' },
-        'account': { key: STORAGE_KEYS.ACCOUNTS, name: 'Account' },
-        'chit': { key: STORAGE_KEYS.CHITS, name: 'Chit' }
+        'receivable': { key: STORAGE_KEYS.RECEIVABLES, name: 'Receivable', endpoint: 'receivables' },
+        'payable': { key: STORAGE_KEYS.PAYABLES, name: 'Payable', endpoint: 'payables' },
+        'investment': { key: STORAGE_KEYS.INVESTMENTS, name: 'Investment', endpoint: 'investments' },
+        'budget': { key: STORAGE_KEYS.BUDGETS, name: 'Budget', endpoint: 'budget-plans' },
+        'account': { key: STORAGE_KEYS.ACCOUNTS, name: 'Account', endpoint: 'bank-accounts' },
+        'chit': { key: STORAGE_KEYS.CHITS, name: 'Chit', endpoint: 'chits' }
       };
       
       const entity = entityMap[type];
@@ -1121,19 +1796,61 @@
       
       if (confirm(`Are you sure you want to delete this ${entity.name.toLowerCase()}?`)) {
         try {
-          // Get current items from localStorage
-          let items = JSON.parse(localStorage.getItem(entity.key) || '[]');
+          // For the GitHub Pages standalone version (localStorage)
+          if (typeof localStorage !== 'undefined') {
+            // Get current items from localStorage
+            let items = JSON.parse(localStorage.getItem(entity.key) || '[]');
+            
+            // Filter out the item to delete
+            items = items.filter(item => item.id != id);
+            
+            // Save back to localStorage
+            localStorage.setItem(entity.key, JSON.stringify(items));
+          }
           
-          // Filter out the item to delete
-          items = items.filter(item => item.id != id);
+          // Try to directly remove the table row for better compatibility
+          // First, try to find the row in a table
+          let removed = false;
           
-          // Save back to localStorage
-          localStorage.setItem(entity.key, JSON.stringify(items));
+          // Try various selector patterns
+          const selectors = [
+            `#${type}-${id}`,                          // Modern ID format
+            `tr:has(button[onclick*="delete${entity.name}(${id})"])`, // Table rows with delete button
+            `div.list-item:has(button[onclick*="delete${entity.name}(${id})"])` // List items with delete button
+          ];
           
-          // Remove the item from the DOM
-          const item = document.getElementById(`${type}-${id}`);
-          if (item) {
-            item.remove();
+          for (const selector of selectors) {
+            try {
+              const elements = document.querySelectorAll(selector);
+              if (elements && elements.length > 0) {
+                for (const element of elements) {
+                  element.remove();
+                  removed = true;
+                }
+                break;
+              }
+            } catch (selectorErr) {
+              console.log('Selector failed:', selector, selectorErr);
+              // Continue to next selector
+            }
+          }
+          
+          // If we couldn't find/remove with selectors, try a more basic approach
+          if (!removed) {
+            // Handle simple table rows - find the row containing the delete button
+            const tables = document.querySelectorAll('table');
+            for (const table of tables) {
+              const rows = table.querySelectorAll('tr');
+              for (const row of rows) {
+                const deleteButtons = row.querySelectorAll(`button[onclick*="delete${entity.name}(${id})"]`);
+                if (deleteButtons.length > 0) {
+                  row.remove();
+                  removed = true;
+                  break;
+                }
+              }
+              if (removed) break;
+            }
           }
           
           alert(`${entity.name} deleted successfully!`);
