@@ -32,12 +32,62 @@ function loadAllData() {
     console.log('Loading upcoming expenses...');
     loadUpcomingExpenses();
     
+    console.log('Loading loans...');
+    loadLoans();
+    
     console.log('Updating financial summary...');
     updateFinancialSummary();
     
     console.log('All data loaded successfully!');
   } catch (error) {
     console.error('Error loading all data:', error);
+  }
+}
+
+function loadLoans() {
+  try {
+    const loans = JSON.parse(localStorage.getItem(STORAGE_KEYS.LOANS) || '[]');
+    const tbody = document.querySelector('#loansTable tbody');
+    
+    if (!tbody) {
+      console.error('Loans table body not found');
+      return;
+    }
+    
+    // Clear existing rows
+    tbody.innerHTML = '';
+    
+    if (loans.length === 0) {
+      // Show empty state
+      tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No loans yet. Click "+ Add Loan" to create one.</td></tr>`;
+      return;
+    }
+    
+    // Sort by name (alphabetically)
+    loans.sort((a, b) => a.name.localeCompare(b.name));
+    
+    // Add rows
+    loans.forEach((loan) => {
+      // Calculate remaining EMIs
+      const remainingEMIs = calculateRemainingEMIs(loan.startDate, loan.totalEMIs);
+      
+      const row = document.createElement('tr');
+      row.id = `loan-${loan.id}`;
+      row.innerHTML = `
+        <td>${loan.name}</td>
+        <td>${loan.type}</td>
+        <td>₹${parseFloat(loan.emi).toLocaleString()}</td>
+        <td>${remainingEMIs} of ${loan.totalEMIs}</td>
+        <td>
+          <button onclick="editLoan(${loan.id})">Edit</button>
+          <button onclick="deleteLoan(${loan.id})">Delete</button>
+        </td>
+      `;
+      
+      tbody.appendChild(row);
+    });
+  } catch (err) {
+    console.error('Error loading loans:', err);
   }
 }
 
@@ -617,6 +667,8 @@ function updateFinancialSummary() {
     const accounts = JSON.parse(localStorage.getItem(STORAGE_KEYS.ACCOUNTS) || '[]');
     const chits = JSON.parse(localStorage.getItem(STORAGE_KEYS.CHITS) || '[]');
     const moneyLent = JSON.parse(localStorage.getItem(STORAGE_KEYS.MONEY_LENT) || '[]');
+    const loans = JSON.parse(localStorage.getItem(STORAGE_KEYS.LOANS) || '[]');
+    const goldItems = JSON.parse(localStorage.getItem(STORAGE_KEYS.GOLD_ITEMS) || '[]');
     
     // Calculate totals
     const totalReceivables = receivables.reduce((sum, r) => sum + Number(r.amount), 0);
@@ -625,6 +677,9 @@ function updateFinancialSummary() {
     const totalInvestments = investments.reduce((sum, i) => sum + Number(i.amount), 0);
     const totalBankBalance = accounts.reduce((sum, a) => sum + Number(a.balance), 0);
     
+    // Calculate total gold weight
+    const totalGoldWeight = goldItems.reduce((sum, g) => sum + Number(g.weight), 0);
+    
     // Calculate total chit value
     let totalChits = 0;
     chits.forEach(chit => {
@@ -632,8 +687,18 @@ function updateFinancialSummary() {
       totalChits += calculateChitValue(startDate, Number(chit.amount), Number(chit.duration));
     });
     
+    // Calculate loan totals
+    let totalLoanOutstanding = 0;
+    let totalMonthlyEMIs = 0;
+    
+    loans.forEach(loan => {
+      const remainingEMIs = calculateRemainingEMIs(loan.startDate, loan.totalEMIs);
+      totalLoanOutstanding += Number(loan.emi) * remainingEMIs;
+      totalMonthlyEMIs += Number(loan.emi);
+    });
+    
     // Calculate net worth
-    const netWorth = totalBankBalance + totalReceivables + totalMoneyLent + totalInvestments + totalChits - totalPayables;
+    const netWorth = totalBankBalance + totalReceivables + totalMoneyLent + totalInvestments + totalChits - totalPayables - totalLoanOutstanding;
     
     // Update UI
     document.getElementById('totalReceivables').textContent = '₹' + totalReceivables.toLocaleString();
@@ -642,12 +707,16 @@ function updateFinancialSummary() {
     document.getElementById('totalInvestments').textContent = '₹' + totalInvestments.toLocaleString();
     document.getElementById('totalChits').textContent = '₹' + totalChits.toLocaleString();
     document.getElementById('totalBankBalance').textContent = '₹' + totalBankBalance.toLocaleString();
+    document.getElementById('totalLoans').textContent = '₹' + totalLoanOutstanding.toLocaleString();
+    document.getElementById('totalEMIs').textContent = '₹' + totalMonthlyEMIs.toLocaleString();
+    document.getElementById('totalGoldWeight').textContent = totalGoldWeight.toFixed(2) + 'g';
     document.getElementById('netWorth').textContent = '₹' + netWorth.toLocaleString();
     
     // Update dashboard tables
     updateDashboardReceivables(receivables);
     updateDashboardMoneyLent(moneyLent);
     updateDashboardPayables(payables);
+    updateDashboardLoans(loans);
   } catch (err) {
     console.error('Error updating financial summary:', err);
   }
@@ -732,6 +801,51 @@ function updateDashboardPayables(payables) {
     const dateCell = row.insertCell(2);
     const dueDate = new Date(payable.dueDate);
     dateCell.textContent = formatDateMMDD(dueDate);
+  });
+}
+
+function updateDashboardLoans(loans) {
+  const table = document.getElementById('dashboardLoansTable').getElementsByTagName('tbody')[0];
+  if (!table) {
+    console.error('Dashboard loans table body not found');
+    return;
+  }
+  
+  table.innerHTML = '';
+  
+  // Sort by remaining EMIs (ascending - show most urgent first)
+  loans.sort((a, b) => {
+    const aRemaining = calculateRemainingEMIs(a.startDate, a.totalEMIs);
+    const bRemaining = calculateRemainingEMIs(b.startDate, b.totalEMIs);
+    return aRemaining - bRemaining;
+  });
+  
+  // Take only the first 3 items for dashboard
+  const topLoans = loans.slice(0, 3);
+  
+  if (topLoans.length === 0) {
+    const row = table.insertRow();
+    const cell = row.insertCell(0);
+    cell.colSpan = 3;
+    cell.textContent = 'No loans found';
+    cell.style.textAlign = 'center';
+    cell.style.padding = '10px';
+    return;
+  }
+  
+  topLoans.forEach(loan => {
+    const remainingEMIs = calculateRemainingEMIs(loan.startDate, loan.totalEMIs);
+    
+    const row = table.insertRow();
+    
+    const nameCell = row.insertCell(0);
+    nameCell.textContent = loan.name;
+    
+    const emiCell = row.insertCell(1);
+    emiCell.textContent = '₹' + parseFloat(loan.emi).toLocaleString();
+    
+    const emisCell = row.insertCell(2);
+    emisCell.textContent = `${remainingEMIs} of ${loan.totalEMIs}`;
   });
 }
 

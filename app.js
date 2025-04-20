@@ -93,7 +93,8 @@ function setupAddButtons() {
     'addChitBtn': 'chitModal',
     'addMoneyLentBtn': 'moneyLentModal',
     'addPastExpenseBtn': 'pastExpenseModal',
-    'addUpcomingExpenseBtn': 'upcomingExpenseModal'
+    'addUpcomingExpenseBtn': 'upcomingExpenseModal',
+    'addLoanBtn': 'loanModal'
   };
   
   // Add click listeners to each button
@@ -280,6 +281,56 @@ function setupFormListeners() {
     });
   } else {
     console.error('Gold item form not found');
+  }
+
+  const loanForm = document.getElementById('loanForm');
+  if (loanForm) {
+    loanForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      console.log("Loan submit handler");
+      
+      
+      // Get form data
+      const id = document.getElementById('loanId').value;
+      const name = document.getElementById('loanName').value;
+      const type = document.getElementById('loanType').value;
+      const amount = document.getElementById('loanAmount').value;
+      const emi = document.getElementById('loanEMI').value;
+      const startDate = document.getElementById('loanStartDate').value;
+      const totalEMIs = document.getElementById('loanTotalEMIs').value;
+      const interestRate = document.getElementById('loanInterestRate').value;
+      const lender = document.getElementById('loanLender').value;
+      const description = document.getElementById('loanDescription').value;
+      
+      // Create or update loan
+      const loan = {
+        id: id ? parseInt(id) : Date.now(),
+        name,
+        type,
+        amount: parseFloat(amount),
+        emi: parseFloat(emi),
+        startDate: new Date(startDate).toISOString(),
+        totalEMIs: parseInt(totalEMIs),
+        interestRate: interestRate ? parseFloat(interestRate) : null,
+        lender,
+        description
+      };
+      
+      // Save to localStorage
+      saveToLocalStorage('loan', loan);
+      
+      // Refresh loans list
+      loadLoans();
+      
+      // Update dashboard
+      updateFinancialSummary();
+      
+      // Close modal
+      hideModal('loanModal');
+    });
+  } else {
+    console.error('Loan form not found');
   }
   
   // Setup budget form

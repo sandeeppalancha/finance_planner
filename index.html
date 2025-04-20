@@ -67,12 +67,24 @@
             <span id="totalPayables">₹0</span>
           </div>
           <div class="summary-item">
+            <span>Total Loans</span>
+            <span id="totalLoans">₹0</span>
+          </div>
+          <div class="summary-item">
+            <span>Monthly EMIs</span>
+            <span id="totalEMIs">₹0</span>
+          </div>
+          <div class="summary-item">
             <span>Total Investments</span>
             <span id="totalInvestments">₹0</span>
           </div>
           <div class="summary-item">
             <span>Total Chits</span>
             <span id="totalChits">₹0</span>
+          </div>
+          <div class="summary-item">
+            <span>Gold (grams)</span>
+            <span id="totalGoldWeight">0g</span>
           </div>
           <div class="summary-item">
             <span>Bank Balance</span>
@@ -135,6 +147,27 @@
                 <th>To</th>
                 <th>Amount</th>
                 <th>Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Loans</h3>
+          <a href="#" onclick="switchSubPage('loansPage')">View All</a>
+        </div>
+        <div class="card-body">
+          <table class="table" id="dashboardLoansTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>EMI</th>
+                <th>Remaining EMIs</th>
               </tr>
             </thead>
             <tbody>
@@ -413,6 +446,36 @@
         </div>
       </div>
       <div class="add-button" id="addUpcomingExpenseBtn">+</div>
+    </div>
+
+    <!-- Loans Page -->
+    <div class="page" id="loansPage">
+      <div class="page-header">
+        <h2>Loans</h2>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3>All Loans</h3>
+        </div>
+        <div class="card-body">
+          <table class="table" id="loansTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>EMI (₹)</th>
+                <th>Remaining EMIs</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Data will be loaded dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="add-button" id="addLoanBtn">+</div>
     </div>
   </main>
   
@@ -819,52 +882,113 @@
   </div>
 </div>
 
-<!-- Gold Item Modal -->
-<div class="modal" id="goldItemModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 id="goldItemModalTitle">Add Gold Item</h3>
-      <button class="close-modal" onclick="hideModal('goldItemModal')">&times;</button>
+  <!-- Gold Item Modal -->
+  <div class="modal" id="goldItemModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="goldItemModalTitle">Add Gold Item</h3>
+        <button class="close-modal" onclick="hideModal('goldItemModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="goldItemForm">
+          <input type="hidden" id="goldItemId">
+          <div class="form-group">
+            <label class="form-label" for="goldItemName">Item Name</label>
+            <input type="text" id="goldItemName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="goldItemType">Type</label>
+            <select id="goldItemType" class="form-input" required>
+              <option value="">Select Type</option>
+              <option value="Necklace">Necklace</option>
+              <option value="Earrings">Earrings</option>
+              <option value="Bangles">Bangles</option>
+              <option value="Ring">Ring</option>
+              <option value="Coin">Coin</option>
+              <option value="Bar">Bar</option>
+              <option value="Chain">Chain</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="goldItemWeight">Weight (grams)</label>
+            <input type="number" id="goldItemWeight" class="form-input" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="goldItemUser">Used By</label>
+            <input type="text" id="goldItemUser" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="goldItemDescription">Description (Optional)</label>
+            <input type="text" id="goldItemDescription" class="form-input">
+          </div>
+          <button type="submit" class="button">Save Gold Item</button>
+        </form>
+      </div>
     </div>
-    <div class="modal-body">
-      <form id="goldItemForm">
-        <input type="hidden" id="goldItemId">
-        <div class="form-group">
-          <label class="form-label" for="goldItemName">Item Name</label>
-          <input type="text" id="goldItemName" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="goldItemType">Type</label>
-          <select id="goldItemType" class="form-input" required>
-            <option value="">Select Type</option>
-            <option value="Necklace">Necklace</option>
-            <option value="Earrings">Earrings</option>
-            <option value="Bangles">Bangles</option>
-            <option value="Ring">Ring</option>
-            <option value="Coin">Coin</option>
-            <option value="Bar">Bar</option>
-            <option value="Chain">Chain</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="goldItemWeight">Weight (grams)</label>
-          <input type="number" id="goldItemWeight" class="form-input" step="0.01" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="goldItemUser">Used By</label>
-          <input type="text" id="goldItemUser" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="goldItemDescription">Description (Optional)</label>
-          <input type="text" id="goldItemDescription" class="form-input">
-        </div>
-        <button type="submit" class="button">Save Gold Item</button>
-      </form>
+  </div>
+
+  <!-- Loan Modal -->
+  <div class="modal" id="loanModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="loanModalTitle">Add Loan</h3>
+        <button class="close-modal" onclick="hideModal('loanModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="loanForm">
+          <input type="hidden" id="loanId">
+          <div class="form-group">
+            <label class="form-label" for="loanName">Loan Name</label>
+            <input type="text" id="loanName" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loanType">Type</label>
+            <select id="loanType" class="form-input" required>
+              <option value="">Select Type</option>
+              <option value="Personal">Personal</option>
+              <option value="Home">Home</option>
+              <option value="Car">Car</option>
+              <option value="Education">Education</option>
+              <option value="Business">Business</option>
+              <option value="Gold">Gold</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loanAmount">Total Loan Amount (₹)</label>
+            <input type="number" id="loanAmount" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loanEMI">Monthly EMI (₹)</label>
+            <input type="number" id="loanEMI" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loanStartDate">Start Date</label>
+            <input type="date" id="loanStartDate" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loanTotalEMIs">Total Number of EMIs</label>
+            <input type="number" id="loanTotalEMIs" class="form-input" required min="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loanInterestRate">Interest Rate (% p.a.)</label>
+            <input type="number" id="loanInterestRate" class="form-input" step="0.01">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loanLender">Lender</label>
+            <input type="text" id="loanLender" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loanDescription">Description (Optional)</label>
+            <input type="text" id="loanDescription" class="form-input">
+          </div>
+          <button type="submit" class="button">Save Loan</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
-  </div>
   
   <!-- JavaScript -->
   <script src="constants.js"></script>

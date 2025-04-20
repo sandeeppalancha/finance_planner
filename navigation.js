@@ -80,6 +80,23 @@ function switchPage(pageId) {
   }
 }
 
+function highlightMainTab(mainTabId) {
+  // Remove active class from all tabs
+  tabs.forEach(tab => {
+    tab.classList.remove('active');
+  });
+  
+  // Find and activate the correct tab
+  const activeTab = Array.from(tabs).find(tab => {
+    const onclickAttr = tab.getAttribute('onclick') || '';
+    return onclickAttr.includes(mainTabId);
+  });
+  
+  if (activeTab) {
+    activeTab.classList.add('active');
+  }
+}
+
 // Handle submenu for grouped pages
 function loadSubMenu(group) {
   console.log(`Loading submenu for group: ${group}`);
@@ -111,6 +128,7 @@ function loadSubMenu(group) {
       <a href="#" class="submenu-item" onclick="switchSubPage('payablesPage')">Payables</a>
       <a href="#" class="submenu-item" onclick="switchSubPage('accountsPage')">Accounts</a>
       <a href="#" class="submenu-item" onclick="switchSubPage('moneyLentPage')">Money Lent</a>
+      <a href="#" class="submenu-item" onclick="switchSubPage('loansPage')">Loans</a>
     `;
   } else if (group === 'planning') {
     submenu.innerHTML = `
@@ -163,8 +181,27 @@ function switchSubPage(pageId) {
     activeItem.classList.add('active');
   }
   
-  // Load appropriate data based on which subpage is shown
+  // Also ensure the correct main tab is highlighted
   setTimeout(() => {
+    switch (pageId) {
+      case 'receivablesPage':
+      case 'payablesPage':
+      case 'accountsPage':
+      case 'moneyLentPage':
+      case 'loansPage':
+        // Highlight money tab
+        highlightMainTab('moneyPage');
+        break;
+      case 'budgetsPage':
+      case 'chitsPage':
+      case 'pastExpensesPage':
+      case 'upcomingExpensesPage':
+        // Highlight planning tab
+        highlightMainTab('planningPage');
+        break;
+    }
+    
+    // Load appropriate data
     switch (pageId) {
       case 'receivablesPage':
         loadReceivables();
@@ -177,6 +214,9 @@ function switchSubPage(pageId) {
         break;
       case 'moneyLentPage':
         loadMoneyLent();
+        break;
+      case 'loansPage':
+        loadLoans();
         break;
       case 'budgetsPage':
         loadBudgets();

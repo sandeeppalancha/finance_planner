@@ -10,5 +10,6 @@ const STORAGE_KEYS = {
   PAST_EXPENSES: 'finance_past_expenses',
   UPCOMING_EXPENSES: 'finance_upcoming_expenses',
   GOLD_ITEMS: 'finance_gold_items',
+  LOANS: 'finance_loans',
   LAST_SYNC: 'finance_last_sync'
 };

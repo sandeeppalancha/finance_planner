@@ -4,43 +4,58 @@ function saveToLocalStorage(type, item) {
   const entityMap = {
     'receivable': { 
       key: STORAGE_KEYS.RECEIVABLES, 
-      name: 'Receivable'
+      name: 'Receivable', 
+      loader: loadReceivables 
     },
     'payable': { 
       key: STORAGE_KEYS.PAYABLES, 
-      name: 'Payable'
+      name: 'Payable', 
+      loader: loadPayables 
     },
     'investment': { 
       key: STORAGE_KEYS.INVESTMENTS, 
-      name: 'Investment'
+      name: 'Investment', 
+      loader: loadInvestments 
     },
     'budget': { 
       key: STORAGE_KEYS.BUDGETS, 
-      name: 'Budget'
+      name: 'Budget', 
+      loader: loadBudgets
     },
     'account': { 
       key: STORAGE_KEYS.ACCOUNTS, 
-      name: 'Account'
+      name: 'Account', 
+      loader: loadAccounts 
     },
     'chit': { 
       key: STORAGE_KEYS.CHITS, 
-      name: 'Chit'
+      name: 'Chit', 
+      loader: loadChits 
     },
     'moneyLent': { 
       key: STORAGE_KEYS.MONEY_LENT, 
-      name: 'Money Lent'
+      name: 'Money Lent', 
+      loader: loadMoneyLent 
     },
     'goldItem': { 
       key: STORAGE_KEYS.GOLD_ITEMS, 
-      name: 'Gold Item'
+      name: 'Gold Item', 
+      loader: loadGoldItems 
     },
     'pastExpense': {
       key: STORAGE_KEYS.PAST_EXPENSES,
-      name: 'Past Expense'
+      name: 'Past Expense',
+      loader: loadPastExpenses
     },
     'upcomingExpense': {
       key: STORAGE_KEYS.UPCOMING_EXPENSES,
-      name: 'Upcoming Expense'
+      name: 'Upcoming Expense',
+      loader: loadUpcomingExpenses
+    },
+    'loan': {
+      key: STORAGE_KEYS.LOANS,
+      name: 'Loan',
+      loader: loadLoans
     }
   };
   
@@ -186,6 +201,11 @@ function deleteChit(id) {
   deleteItem('chit', id);
 }
 
+// Function to delete a loan
+function deleteLoan(id) {
+  deleteItem('loan', id);
+}
+
 function deleteMoneyLent(id) {
   deleteItem('moneyLent', id);
 }
@@ -248,6 +268,41 @@ function getRemainingMonths(maturityDate) {
   return (maturityDate.getFullYear() - today.getFullYear()) * 12 + 
        (maturityDate.getMonth() - today.getMonth());
 }
+
+
+function calculateRemainingEMIs(startDate, totalEMIs) {
+  // Convert string dates to Date objects
+  startDate = new Date(startDate);
+  
+  // Current date
+  const today = new Date();
+  
+  // Calculate months elapsed - start counting from the month after start date
+  // since the first EMI would be due the next month
+  let monthsElapsed = (today.getFullYear() - startDate.getFullYear()) * 12 + 
+                     (today.getMonth() - startDate.getMonth());
+  
+  // If we haven't reached the 5th of the current month, don't count this month's EMI as paid
+  if (today.getDate() < 5) {
+    monthsElapsed -= 1;
+  }
+  
+  // If start date is in the future, no EMIs have been paid yet
+  if (monthsElapsed < 0) {
+    return totalEMIs;
+  }
+  
+  // Calculate remaining EMIs
+  const remainingEMIs = Math.max(0, totalEMIs - monthsElapsed);
+  
+  return remainingEMIs;
+}
+
+// Helper function to calculate total outstanding loan amount
+function calculateOutstandingLoanAmount(emi, remainingEMIs) {
+  return emi * remainingEMIs;
+}
+
 
 // Show modal
 function showModal(modalId, skipReset = false) {
@@ -350,6 +405,15 @@ function showModal(modalId, skipReset = false) {
       document.getElementById('goldItemModalTitle').textContent = 'Add Gold Item';
       document.getElementById('goldItemForm').reset();
       document.getElementById('goldItemId').value = '';
+    } else if (modalId === 'loanModal') {
+      document.getElementById('loanModalTitle').textContent = 'Add Loan';
+      document.getElementById('loanForm').reset();
+      document.getElementById('loanId').value = '';
+      
+      // Set today's date by default for start date
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0];
+      document.getElementById('loanStartDate').value = formattedDate;
     }
   }
 }

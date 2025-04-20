@@ -370,3 +370,42 @@ function editGoldItem(id) {
     alert('Failed to load gold item data. Please try again.');
   }
 }
+
+function editLoan(id) {
+  try {
+    // Get all loans
+    const loans = JSON.parse(localStorage.getItem(STORAGE_KEYS.LOANS) || '[]');
+    
+    // Find the specified loan
+    const loan = loans.find(l => l.id == id);
+    if (!loan) {
+      alert('Could not find the loan to edit.');
+      return;
+    }
+    
+    // Set modal title
+    document.getElementById('loanModalTitle').textContent = 'Edit Loan';
+    
+    // Populate form fields
+    document.getElementById('loanId').value = loan.id;
+    document.getElementById('loanName').value = loan.name;
+    document.getElementById('loanType').value = loan.type;
+    document.getElementById('loanAmount').value = loan.amount;
+    document.getElementById('loanEMI').value = loan.emi;
+    document.getElementById('loanTotalEMIs').value = loan.totalEMIs;
+    document.getElementById('loanInterestRate').value = loan.interestRate || '';
+    document.getElementById('loanLender').value = loan.lender;
+    document.getElementById('loanDescription').value = loan.description || '';
+    
+    // Format date for input field (YYYY-MM-DD)
+    const startDate = new Date(loan.startDate);
+    const formattedDate = startDate.toISOString().split('T')[0];
+    document.getElementById('loanStartDate').value = formattedDate;
+    
+    // Show modal with skipReset=true to prevent form reset
+    showModal('loanModal', true);
+  } catch (err) {
+    console.error('Error editing loan:', err);
+    alert('An error occurred while trying to edit the loan.');
+  }
+}
